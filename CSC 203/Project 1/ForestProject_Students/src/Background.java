@@ -15,6 +15,7 @@ public final class Background
         this.id = id;
         this.images = images;
     }
+    //set bg
     private void setBackground(WorldModel world, Point pos) {
         if (world.withinBounds(pos)) {
             this.setBackgroundCell(world, pos);
