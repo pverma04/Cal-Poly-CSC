@@ -11,7 +11,7 @@ public final class Entity
 {
     public EntityKind kind;
     public String id;
-    public Point position;
+    private Point position;
     public List<PImage> images;
     public int imageIndex;
     public int resourceLimit;
@@ -44,5 +44,11 @@ public final class Entity
         this.animationPeriod = animationPeriod;
         this.health = health;
         this.healthLimit = healthLimit;
+    }
+    public Point getPos() {
+        return this.position;
+    }
+    public void setPos(Point p) {
+        this.position = p;
     }
 }

@@ -15,13 +15,10 @@ public final class Background
         this.id = id;
         this.images = images;
     }
-    //set bg
     private void setBackground(WorldModel world, Point pos) {
         if (world.withinBounds(pos)) {
-            this.setBackgroundCell(world, pos);
+            world.setBackgroundCell(pos, this);
         }
     }
-    private void setBackgroundCell(WorldModel world, Point pos) {
-        world.background[pos.y][pos.x] = this;
-    }
+
 }

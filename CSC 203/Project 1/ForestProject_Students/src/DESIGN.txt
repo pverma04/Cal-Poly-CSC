@@ -1,0 +1,6 @@
+moveEntity(WorldModel world, Entity entity, Point pos)
+- I elected to move this to the WorldModel class instead of Entity, because it uses private instance methods of WorldModel
+
+setBackgroundCell(WorldModel world, Point pos, Background background),
+
+- I moved these methods to WorldModel instead of Background, because
