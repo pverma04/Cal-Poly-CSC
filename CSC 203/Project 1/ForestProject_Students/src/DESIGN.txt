@@ -4,3 +4,6 @@ moveEntity(WorldModel world, Entity entity, Point pos)
 setBackgroundCell(WorldModel world, Point pos, Background background),
 
 - I moved these methods to WorldModel instead of Background, because
+
+getCurrentImage
+- not sure what to do about this one

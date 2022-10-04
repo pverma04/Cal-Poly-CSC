@@ -9,17 +9,17 @@ import processing.core.PImage;
  */
 public final class Entity
 {
-    public EntityKind kind;
-    public String id;
+    private EntityKind kind;
+    private String id;
     private Point position;
-    public List<PImage> images;
-    public int imageIndex;
-    public int resourceLimit;
-    public int resourceCount;
-    public int actionPeriod;
-    public int animationPeriod;
-    public int health;
-    public int healthLimit;
+    private List<PImage> images;
+    private int imageIndex;
+    private int resourceLimit;
+    private int resourceCount;
+    private int actionPeriod;
+    private int animationPeriod;
+    private int health;
+    private int healthLimit;
 
     public Entity(
             EntityKind kind,
@@ -50,5 +50,47 @@ public final class Entity
     }
     public void setPos(Point p) {
         this.position = p;
+    }
+    public EntityKind getEntityKind() {
+        return this.kind;
+    }
+    public String getID() {
+        return this.id;
+    }
+    public int getImageIndex() {
+        return this.imageIndex;
+    }
+    public void setImageIndex(int imageIndex) {
+        this.imageIndex = imageIndex;
+    }
+    public List<PImage> getImages() {
+        return this.images;
+    }
+    public int getResourceLimit() {
+        return this.resourceLimit;
+    }
+    public int getResourceCount() {
+        return this.resourceCount;
+    }
+    public void incrementResourceCount() {
+        this.resourceCount++;
+    }
+    public int getActionPeriod() {
+        return this.actionPeriod;
+    }
+    public int getAnimationPeriod() {
+        return this.animationPeriod;
+    }
+    public int getHealth() {
+        return this.health;
+    }
+    public void incrementHealth() {
+        this.health++;
+    }
+    public void decrementHealth() {
+        this.health--;
+    }
+    public int getHealthLimit() {
+        return this.healthLimit;
     }
 }
