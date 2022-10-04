@@ -568,12 +568,12 @@ public final class Functions
     public static Point nextPositionDude(
             Entity entity, WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - entity.getPos().x);
-        Point newPos = new Point(entity.getPos().x + horiz, entity.getPos().y);
+        int horiz = Integer.signum(destPos.getX() - entity.getPos().getX());
+        Point newPos = new Point(entity.getPos().getX() + horiz, entity.getPos().getY());
 
         if (horiz == 0 || isOccupied(world, newPos) && world.getOccupancyCell(newPos).getEntityKind() != EntityKind.STUMP) {
-            int vert = Integer.signum(destPos.y - entity.getPos().y);
-            newPos = new Point(entity.getPos().x, entity.getPos().y + vert);
+            int vert = Integer.signum(destPos.getY() - entity.getPos().getY());
+            newPos = new Point(entity.getPos().getX(), entity.getPos().getY() + vert);
 
             if (vert == 0 || isOccupied(world, newPos) &&  world.getOccupancyCell(newPos).getEntityKind() != EntityKind.STUMP) {
                 newPos = entity.getPos();
@@ -585,16 +585,14 @@ public final class Functions
 
 
     public static boolean adjacent(Point p1, Point p2) {
-        return (p1.x == p2.x && Math.abs(p1.y - p2.y) == 1) || (p1.y == p2.y
-                && Math.abs(p1.x - p2.x) == 1);
+        return (p1.getX() == p2.getX() && Math.abs(p1.getY() - p2.getY()) == 1) || (p1.getY() == p2.getY()
+                && Math.abs(p1.getX() - p2.getX()) == 1);
     }
 
-    public static int getNumFromRange(int max, int min)
-    {
+    public static int getNumFromRange(int max, int min) {
         Random rand = new Random();
         return min + rand.nextInt(
-                max
-                        - min);
+                max - min);
     }
 
     public static void scheduleEvent(
@@ -725,8 +723,8 @@ public final class Functions
     }
 
     public static boolean contains(Viewport viewport, Point p) {
-        return p.y >= viewport.row && p.y < viewport.row + viewport.numRows
-                && p.x >= viewport.col && p.x < viewport.col + viewport.numCols;
+        return p.getY() >= viewport.row && p.getY() < viewport.row + viewport.numRows
+                && p.getX() >= viewport.col && p.getX() < viewport.col + viewport.numCols;
     }
 
     public static void load(
@@ -937,8 +935,8 @@ public final class Functions
     }
 
     public static int distanceSquared(Point p1, Point p2) {
-        int deltaX = p1.x - p2.x;
-        int deltaY = p1.y - p2.y;
+        int deltaX = p1.getX() - p2.getX();
+        int deltaY = p1.getY() - p2.getY();
 
         return deltaX * deltaX + deltaY * deltaY;
     }
