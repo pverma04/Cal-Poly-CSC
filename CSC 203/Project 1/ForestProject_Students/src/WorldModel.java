@@ -103,5 +103,22 @@ public final class WorldModel
     public void setEntities(Set<Entity> entities) {
         this.entities = entities;
     }
+    public void addEntity(Entity entity) {
+        if (this.withinBounds(entity.getPos())) {
+            this.setOccupancyCell(entity.getPos(), entity);
+            Set<Entity> entities = this.getEntities();
+            entities.add(entity);
+            this.setEntities(entities);
+        }
+    }
+
+    public void tryAddEntity(Entity entity) {
+        if (this.isOccupied(entity.getPos())) {
+            // arguably the wrong type of exception, but we are not
+            // defining our own exceptions yet
+            throw new IllegalArgumentException("position occupied");
+        }
+        this.addEntity(entity);
+    }
 
 }

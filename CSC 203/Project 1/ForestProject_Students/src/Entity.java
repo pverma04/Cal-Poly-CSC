@@ -108,4 +108,7 @@ public final class Entity
                                 this.getEntityKind()));
         }
     }
+    public void nextImage() {
+        this.setImageIndex((this.getImageIndex() + 1) % this.getImages().size());
+    }
 }

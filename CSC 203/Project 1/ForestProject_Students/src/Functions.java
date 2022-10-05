@@ -120,10 +120,11 @@ public final class Functions
         }
     }
     */
+    /*
     public static void nextImage(Entity entity) {
         entity.setImageIndex((entity.getImageIndex() + 1) % entity.getImages().size());
     }
-
+    */
     public static void executeAction(Action action, EventScheduler scheduler) {
         switch (action.getActionKind()) {
             case ACTIVITY:
@@ -139,7 +140,7 @@ public final class Functions
     public static void executeAnimationAction(
             Action action, EventScheduler scheduler)
     {
-        nextImage(action.getEntity());
+        action.getEntity().nextImage();
 
         if (action.getRepeatCount() != 1) {
             scheduleEvent(scheduler, action.getEntity(),
@@ -232,7 +233,7 @@ public final class Functions
                 Entity sapling = createSapling("sapling_" + entity.getID(), tgtPos,
                         getImageList(imageStore, SAPLING_KEY));
 
-                addEntity(world, sapling);
+                world.addEntity(sapling);
                 scheduleActions(sapling, scheduler, world, imageStore);
             }
         }
@@ -362,7 +363,7 @@ public final class Functions
             world.removeEntity(entity);
             unscheduleAllEvents(scheduler, entity);
 
-            addEntity(world, miner);
+            world.addEntity(miner);
             scheduleActions(miner, scheduler, world, imageStore);
 
             return true;
@@ -386,7 +387,7 @@ public final class Functions
         world.removeEntity(entity);
         unscheduleAllEvents(scheduler, entity);
 
-        addEntity(world, miner);
+        world.addEntity(miner);
         scheduleActions(miner, scheduler, world, imageStore);
     }
 
@@ -425,7 +426,7 @@ public final class Functions
             world.removeEntity(entity);
             unscheduleAllEvents(scheduler, entity);
 
-            addEntity(world, stump);
+            world.addEntity(stump);
 
             return true;
         }
@@ -447,7 +448,7 @@ public final class Functions
             world.removeEntity(entity);
             unscheduleAllEvents(scheduler, entity);
 
-            addEntity(world, stump);
+            world.addEntity(stump);
 
             return true;
         }
@@ -463,7 +464,7 @@ public final class Functions
             world.removeEntity(entity);
             unscheduleAllEvents(scheduler, entity);
 
-            addEntity(world, tree);
+            world.addEntity(tree);
             scheduleActions(tree, scheduler, world, imageStore);
 
             return true;
@@ -802,7 +803,7 @@ public final class Functions
             int health = Integer.parseInt(properties[SAPLING_HEALTH]);
             Entity entity = new Entity(EntityKind.SAPLING, id, pt, getImageList(imageStore, SAPLING_KEY), 0, 0,
                     SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, health, SAPLING_HEALTH_LIMIT);
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == SAPLING_NUM_PROPERTIES;
@@ -820,7 +821,7 @@ public final class Functions
                     Integer.parseInt(properties[DUDE_ANIMATION_PERIOD]),
                     Integer.parseInt(properties[DUDE_LIMIT]),
                     getImageList(imageStore, DUDE_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == DUDE_NUM_PROPERTIES;
@@ -837,7 +838,7 @@ public final class Functions
                     Integer.parseInt(properties[FAIRY_ACTION_PERIOD]),
                     Integer.parseInt(properties[FAIRY_ANIMATION_PERIOD]),
                     getImageList(imageStore, FAIRY_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == FAIRY_NUM_PROPERTIES;
@@ -855,7 +856,7 @@ public final class Functions
                     Integer.parseInt(properties[TREE_ANIMATION_PERIOD]),
                     Integer.parseInt(properties[TREE_HEALTH]),
                     getImageList(imageStore, TREE_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == TREE_NUM_PROPERTIES;
@@ -871,7 +872,7 @@ public final class Functions
                     Integer.parseInt(properties[OBSTACLE_ANIMATION_PERIOD]),
                     getImageList(imageStore,
                             OBSTACLE_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == OBSTACLE_NUM_PROPERTIES;
@@ -886,12 +887,13 @@ public final class Functions
             Entity entity = createHouse(properties[HOUSE_ID], pt,
                     getImageList(imageStore,
                             HOUSE_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == HOUSE_NUM_PROPERTIES;
     }
 
+    /*
     public static void tryAddEntity(WorldModel world, Entity entity) {
         if (world.isOccupied(entity.getPos())) {
             // arguably the wrong type of exception, but we are not
@@ -899,8 +901,9 @@ public final class Functions
             throw new IllegalArgumentException("position occupied");
         }
 
-        addEntity(world, entity);
+        world.addEntity(entity);
     }
+    */
 
     /*
     public static boolean withinBounds(WorldModel world, Point pos) {
@@ -964,12 +967,16 @@ public final class Functions
        Assumes that there is no entity currently occupying the
        intended destination cell.
     */
+    /*
     public static void addEntity(WorldModel world, Entity entity) {
         if (world.withinBounds(entity.getPos())) {
             world.setOccupancyCell(entity.getPos(), entity);
-            world.setEntities((Set<Entity>) world.getEntities().add(entity));
+            Set<Entity> entities = world.getEntities();
+            entities.add(entity);
+            world.setEntities(entities);
         }
     }
+    */
 
     /*
     public static void moveEntity(WorldModel world, Entity entity, Point pos) {
@@ -1072,37 +1079,37 @@ public final class Functions
     }
 
     public static void shiftView(WorldView view, int colDelta, int rowDelta) {
-        int newCol = clamp(view.viewport.getCol() + colDelta, 0,
-                view.getWorld().getNumCols() - view.viewport.getNumCols());
-        int newRow = clamp(view.viewport.getRow() + rowDelta, 0,
-                view.getWorld().getNumRows() - view.viewport.getNumRows());
+        int newCol = clamp(view.getViewport().getCol() + colDelta, 0,
+                view.getWorld().getNumCols() - view.getViewport().getNumCols());
+        int newRow = clamp(view.getViewport().getRow() + rowDelta, 0,
+                view.getWorld().getNumRows() - view.getViewport().getNumRows());
 
-        shift(view.viewport, newCol, newRow);
+        shift(view.getViewport(), newCol, newRow);
     }
 
     public static void drawBackground(WorldView view) {
-        for (int row = 0; row < view.viewport.getNumRows(); row++) {
-            for (int col = 0; col < view.viewport.getNumCols(); col++) {
-                Point worldPoint = viewportToWorld(view.viewport, col, row);
+        for (int row = 0; row < view.getViewport().getNumRows(); row++) {
+            for (int col = 0; col < view.getViewport().getNumCols(); col++) {
+                Point worldPoint = viewportToWorld(view.getViewport(), col, row);
                 Optional<PImage> image =
-                        getBackgroundImage(view.world, worldPoint);
+                        getBackgroundImage(view.getWorld(), worldPoint);
                 if (image.isPresent()) {
-                    view.getScreen().image(image.get(), col * view.tileWidth,
-                            row * view.tileHeight);
+                    view.getScreen().image(image.get(), col * view.getTileWidth(),
+                            row * view.getTileHeight());
                 }
             }
         }
     }
 
     public static void drawEntities(WorldView view) {
-        for (Entity entity : view.world.getEntities()) {
+        for (Entity entity : view.getWorld().getEntities()) {
             Point pos = entity.getPos();
 
-            if (contains(view.viewport, pos)) {
-                Point viewPoint = worldToViewport(view.viewport, pos.getX(), pos.getY());
+            if (contains(view.getViewport(), pos)) {
+                Point viewPoint = worldToViewport(view.getViewport(), pos.getX(), pos.getY());
                 view.getScreen().image(getCurrentImage(entity),
-                        viewPoint.getX() * view.tileWidth,
-                        viewPoint.getY() * view.tileHeight);
+                        viewPoint.getX() * view.getTileWidth(),
+                        viewPoint.getY() * view.getTileHeight());
             }
         }
     }

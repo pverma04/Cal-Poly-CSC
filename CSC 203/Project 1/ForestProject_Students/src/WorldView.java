@@ -4,9 +4,9 @@ public final class WorldView
 {
     private PApplet screen;
     private WorldModel world;
-    public int tileWidth;
-    public int tileHeight;
-    public Viewport viewport;
+    private int tileWidth;
+    private int tileHeight;
+    private Viewport viewport;
 
     public WorldView(
             int numRows,
@@ -27,5 +27,14 @@ public final class WorldView
     }
     public WorldModel getWorld() {
         return this.world;
+    }
+    public int getTileWidth() {
+        return this.tileWidth;
+    }
+    public int getTileHeight() {
+        return this.tileHeight;
+    }
+    public Viewport getViewport() {
+        return this.viewport;
     }
 }

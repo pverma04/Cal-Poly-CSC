@@ -11,3 +11,7 @@ getCurrentImage
 setBackground(WorldModel world, Point pos, Background background)
 - I moved this to WorldModel instead of Background, because the background is apart of the WorldModel. Since it must be
 changed after the compiler goes inside the current world, it should be a method within WorldModel
+
+addEntity(Entity entity)
+- I added this to WorldModel instead of the Entity class because the method will check the bounds and occupancy of
+certain cells in the world, instead of just a singular entity
