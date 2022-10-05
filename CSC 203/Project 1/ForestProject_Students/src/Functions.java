@@ -193,6 +193,7 @@ public final class Functions
     }
      */
 
+    /*
     public static void executeSaplingActivity(
             Entity entity,
             WorldModel world,
@@ -207,7 +208,9 @@ public final class Functions
                     entity.getActionPeriod());
         }
     }
+     */
 
+    /*
     public static void executeTreeActivity(
             Entity entity,
             WorldModel world,
@@ -222,7 +225,8 @@ public final class Functions
                     entity.getActionPeriod());
         }
     }
-
+     */
+    /*
     public static void executeFairyActivity(
             Entity entity,
             WorldModel world,
@@ -248,7 +252,9 @@ public final class Functions
                 entity.createActivityAction(world, imageStore),
                 entity.getActionPeriod());
     }
+     */
 
+    /*
     public static void executeDudeNotFullActivity(
             Entity entity,
             WorldModel world,
@@ -268,7 +274,9 @@ public final class Functions
                     entity.getActionPeriod());
         }
     }
+     */
 
+    /*
     public static void executeDudeFullActivity(
             Entity entity,
             WorldModel world,
@@ -289,8 +297,9 @@ public final class Functions
                     entity.getActionPeriod());
         }
     }
+     */
 
-
+    /*
     public static void scheduleActions(
             Entity entity,
             EventScheduler scheduler,
@@ -352,6 +361,8 @@ public final class Functions
             default:
         }
     }
+    */
+
 
     public static boolean transformNotFull(
             Entity entity,
@@ -370,13 +381,15 @@ public final class Functions
             scheduler.unscheduleAllEvents(entity);
 
             world.addEntity(miner);
-            scheduleActions(miner, scheduler, world, imageStore);
+            scheduler.scheduleActions(miner, world, imageStore);
 
             return true;
         }
 
         return false;
     }
+
+
 
     public static void transformFull(
             Entity entity,
@@ -394,7 +407,7 @@ public final class Functions
         scheduler.unscheduleAllEvents(entity);
 
         world.addEntity(miner);
-        scheduleActions(miner, scheduler, world, imageStore);
+        scheduler.scheduleActions(miner, world, imageStore);
     }
 
 
@@ -427,7 +440,7 @@ public final class Functions
         if (entity.getHealth() <= 0) {
             Entity stump = createStump(entity.getID(),
                     entity.getPos(),
-                    getImageList(imageStore, STUMP_KEY));
+                    imageStore.getImageList(STUMP_KEY));
 
             world.removeEntity(entity);
             scheduler.unscheduleAllEvents(entity);
@@ -440,6 +453,7 @@ public final class Functions
         return false;
     }
 
+
     public static boolean transformSapling(
             Entity entity,
             WorldModel world,
@@ -449,7 +463,7 @@ public final class Functions
         if (entity.getHealth() <= 0) {
             Entity stump = createStump(entity.getID(),
                     entity.getPos(),
-                    getImageList(imageStore, STUMP_KEY));
+                    imageStore.getImageList(STUMP_KEY));
 
             world.removeEntity(entity);
             scheduler.unscheduleAllEvents(entity);
@@ -465,13 +479,13 @@ public final class Functions
                     getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN),
                     getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN),
                     getNumFromRange(TREE_HEALTH_MAX, TREE_HEALTH_MIN),
-                    getImageList(imageStore, TREE_KEY));
+                    imageStore.getImageList(TREE_KEY));
 
             world.removeEntity(entity);
             scheduler.unscheduleAllEvents(entity);
 
             world.addEntity(tree);
-            scheduleActions(tree, scheduler, world, imageStore);
+            scheduler.scheduleActions(tree, world, imageStore);
 
             return true;
         }
@@ -479,6 +493,7 @@ public final class Functions
         return false;
     }
 
+    /*
     public static boolean moveToFairy(
             Entity fairy,
             WorldModel world,
@@ -504,6 +519,7 @@ public final class Functions
             return false;
         }
     }
+     */
 
     public static boolean moveToNotFull(
             Entity dude,
@@ -520,7 +536,7 @@ public final class Functions
             Point nextPos = nextPositionDude(dude, world, target.getPos());
 
             if (!dude.getPos().equals(nextPos)) {
-                Optional<Entity> occupant = getOccupant(world, nextPos);
+                Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
@@ -544,7 +560,7 @@ public final class Functions
             Point nextPos = nextPositionDude(dude, world, target.getPos());
 
             if (!dude.getPos().equals(nextPos)) {
-                Optional<Entity> occupant = getOccupant(world, nextPos);
+                Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
@@ -555,6 +571,7 @@ public final class Functions
         }
     }
 
+    /*
     public static Point nextPositionFairy(
             Entity entity, WorldModel world, Point destPos)
     {
@@ -572,6 +589,7 @@ public final class Functions
 
         return newPos;
     }
+     */
 
     public static Point nextPositionDude(
             Entity entity, WorldModel world, Point destPos)
@@ -661,17 +679,20 @@ public final class Functions
         }
     }
      */
+    /*
     public static List<PImage> getImageList(ImageStore imageStore, String key) {
-        return imageStore.images.getOrDefault(key, imageStore.defaultImages);
+        return imageStore.getImages().getOrDefault(key, imageStore.getDefaultImages());
     }
+    */
 
+    /*
     public static void loadImages(
             Scanner in, ImageStore imageStore, PApplet screen)
     {
         int lineNumber = 0;
         while (in.hasNextLine()) {
             try {
-                processImageLine(imageStore.images, in.nextLine(), screen);
+                processImageLine(imageStore.getImages(), in.nextLine(), screen);
             }
             catch (NumberFormatException e) {
                 System.out.println(
@@ -681,7 +702,9 @@ public final class Functions
             lineNumber++;
         }
     }
+     */
 
+    /*
     public static void processImageLine(
             Map<String, List<PImage>> images, String line, PApplet screen)
     {
@@ -702,6 +725,7 @@ public final class Functions
             }
         }
     }
+     */
 
     public static List<PImage> getImages(
             Map<String, List<PImage>> images, String key)
@@ -799,7 +823,7 @@ public final class Functions
                     Integer.parseInt(properties[BGND_ROW]));
             String id = properties[BGND_ID];
             world.setBackground(pt,
-                    new Background(id, getImageList(imageStore, id)));
+                    new Background(id, imageStore.getImageList(id)));
         }
 
         return properties.length == BGND_NUM_PROPERTIES;
@@ -813,7 +837,7 @@ public final class Functions
                     Integer.parseInt(properties[SAPLING_ROW]));
             String id = properties[SAPLING_ID];
             int health = Integer.parseInt(properties[SAPLING_HEALTH]);
-            Entity entity = new Entity(EntityKind.SAPLING, id, pt, getImageList(imageStore, SAPLING_KEY), 0, 0,
+            Entity entity = new Entity(EntityKind.SAPLING, id, pt, imageStore.getImageList(SAPLING_KEY), 0, 0,
                     SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, health, SAPLING_HEALTH_LIMIT);
             world.tryAddEntity(entity);
         }
@@ -832,7 +856,7 @@ public final class Functions
                     Integer.parseInt(properties[DUDE_ACTION_PERIOD]),
                     Integer.parseInt(properties[DUDE_ANIMATION_PERIOD]),
                     Integer.parseInt(properties[DUDE_LIMIT]),
-                    getImageList(imageStore, DUDE_KEY));
+                    imageStore.getImageList(DUDE_KEY));
             world.tryAddEntity(entity);
         }
 
@@ -849,7 +873,7 @@ public final class Functions
                     pt,
                     Integer.parseInt(properties[FAIRY_ACTION_PERIOD]),
                     Integer.parseInt(properties[FAIRY_ANIMATION_PERIOD]),
-                    getImageList(imageStore, FAIRY_KEY));
+                    imageStore.getImageList(FAIRY_KEY));
             world.tryAddEntity(entity);
         }
 
@@ -867,7 +891,7 @@ public final class Functions
                     Integer.parseInt(properties[TREE_ACTION_PERIOD]),
                     Integer.parseInt(properties[TREE_ANIMATION_PERIOD]),
                     Integer.parseInt(properties[TREE_HEALTH]),
-                    getImageList(imageStore, TREE_KEY));
+                    imageStore.getImageList(TREE_KEY));
             world.tryAddEntity(entity);
         }
 
@@ -882,8 +906,7 @@ public final class Functions
                     Integer.parseInt(properties[OBSTACLE_ROW]));
             Entity entity = createObstacle(properties[OBSTACLE_ID], pt,
                     Integer.parseInt(properties[OBSTACLE_ANIMATION_PERIOD]),
-                    getImageList(imageStore,
-                            OBSTACLE_KEY));
+                    imageStore.getImageList(OBSTACLE_KEY));
             world.tryAddEntity(entity);
         }
 
@@ -897,8 +920,7 @@ public final class Functions
             Point pt = new Point(Integer.parseInt(properties[HOUSE_COL]),
                     Integer.parseInt(properties[HOUSE_ROW]));
             Entity entity = createHouse(properties[HOUSE_ID], pt,
-                    getImageList(imageStore,
-                            HOUSE_KEY));
+                    imageStore.getImageList(HOUSE_KEY));
             world.tryAddEntity(entity);
         }
 
@@ -1045,6 +1067,7 @@ public final class Functions
         }
     }
     */
+    /*
     public static Optional<Entity> getOccupant(WorldModel world, Point pos) {
         if (world.isOccupied(pos)) {
             return Optional.of(world.getOccupancyCell(pos));
@@ -1053,7 +1076,7 @@ public final class Functions
             return Optional.empty();
         }
     }
-
+     */
     /*
     public static Entity getOccupancyCell(WorldModel world, Point pos) {
         return world.occupancy[pos.y][pos.x];
@@ -1144,20 +1167,15 @@ public final class Functions
     }
     */
 
-    /*
+
     public static Action createAnimationAction(Entity entity, int repeatCount) {
         return new Action(ActionKind.ANIMATION, entity, null, null,
                 repeatCount);
     }
-     */
-
-    /*
-    public static Action createActivityAction(
-            Entity entity, WorldModel world, ImageStore imageStore)
-    {
+    public static Action createActivityAction(Entity entity, WorldModel world, ImageStore imageStore) {
         return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
     }
-     */
+
 
     public static Entity createHouse(
             String id, Point position, List<PImage> images)

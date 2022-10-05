@@ -120,5 +120,77 @@ public final class WorldModel
         }
         this.addEntity(entity);
     }
+    public Optional<Entity> getOccupant(Point pos) {
+        if (this.isOccupied(pos)) {
+            return Optional.of(this.getOccupancyCell(pos));
+        }
+        else {
+            return Optional.empty();
+        }
+    }
+    /*
+    public boolean transformNotFull( Entity entity, EventScheduler scheduler, ImageStore imageStore) {
+        if (entity.getResourceCount() >= entity.getResourceLimit()) {
+            Entity miner = Functions.createDudeFull(entity.getID(),
+                    entity.getPos(), entity.getActionPeriod(),
+                    entity.getAnimationPeriod(),
+                    entity.getResourceLimit(),
+                    entity.getImages());
 
+            this.removeEntity(entity);
+            scheduler.unscheduleAllEvents(entity);
+
+            this.addEntity(miner);
+            scheduler.scheduleActions(miner, this, imageStore);
+
+            return true;
+        }
+
+        return false;
+    }
+    public void transformFull(Entity entity, EventScheduler scheduler, ImageStore imageStore) {
+        Entity miner = Functions.createDudeNotFull(entity.getID(),
+                entity.getPos(), entity.getActionPeriod(),
+                entity.getAnimationPeriod(),
+                entity.getResourceLimit(),
+                entity.getImages());
+
+        this.removeEntity(entity);
+        scheduler.unscheduleAllEvents(entity);
+
+        this.addEntity(miner);
+        scheduler.scheduleActions(miner, this, imageStore);
+    }
+    public boolean transformPlant( Entity entity, EventScheduler scheduler, ImageStore imageStore) {
+        if (entity.getEntityKind() == EntityKind.TREE)
+        {
+            return transformTree(entity, this, scheduler, imageStore);
+        }
+        else if (entity.getEntityKind() == EntityKind.SAPLING)
+        {
+            return transformSapling(entity, this, scheduler, imageStore);
+        }
+        else
+        {
+            throw new UnsupportedOperationException(
+                    String.format("transformPlant not supported for %s", entity));
+        }
+    }
+    public static boolean transformTree(Entity entity, EventScheduler scheduler, ImageStore imageStore) {
+        if (entity.getHealth() <= 0) {
+            Entity stump = createStump(entity.getID(),
+                    entity.getPos(),
+                    getImageList(imageStore, STUMP_KEY));
+
+            world.removeEntity(entity);
+            scheduler.unscheduleAllEvents(entity);
+
+            world.addEntity(stump);
+
+            return true;
+        }
+
+        return false;
+    }
+     */
 }

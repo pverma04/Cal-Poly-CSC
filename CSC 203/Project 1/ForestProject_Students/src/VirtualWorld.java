@@ -85,7 +85,7 @@ public final class VirtualWorld extends PApplet
         Point pressed = mouseToPoint(mouseX, mouseY);
         System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
 
-        Optional<Entity> entityOptional = Functions.getOccupant(world, pressed);
+        Optional<Entity> entityOptional = world.getOccupant(pressed);
         if (entityOptional.isPresent())
         {
             Entity entity = entityOptional.get();
@@ -123,8 +123,7 @@ public final class VirtualWorld extends PApplet
 
     public static Background createDefaultBackground(ImageStore imageStore) {
         return new Background(DEFAULT_IMAGE_NAME,
-                              Functions.getImageList(imageStore,
-                                                     DEFAULT_IMAGE_NAME));
+                imageStore.getImageList(DEFAULT_IMAGE_NAME));
     }
 
     public static PImage createImageColored(int width, int height, int color) {
@@ -142,7 +141,7 @@ public final class VirtualWorld extends PApplet
     {
         try {
             Scanner in = new Scanner(new File(filename));
-            Functions.loadImages(in, imageStore, screen);
+            imageStore.loadImages(in, screen);
         }
         catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
@@ -165,7 +164,7 @@ public final class VirtualWorld extends PApplet
             WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
         for (Entity entity : world.getEntities()) {
-            Functions.scheduleActions(entity, scheduler, world, imageStore);
+            scheduler.scheduleActions(entity, world, imageStore);
         }
     }
 
