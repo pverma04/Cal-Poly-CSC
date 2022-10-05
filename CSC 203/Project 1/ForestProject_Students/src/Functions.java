@@ -125,6 +125,7 @@ public final class Functions
         entity.setImageIndex((entity.getImageIndex() + 1) % entity.getImages().size());
     }
     */
+    /*
     public static void executeAction(Action action, EventScheduler scheduler) {
         switch (action.getActionKind()) {
             case ACTIVITY:
@@ -136,21 +137,25 @@ public final class Functions
                 break;
         }
     }
+     */
 
+    /*
     public static void executeAnimationAction(
             Action action, EventScheduler scheduler)
     {
         action.getEntity().nextImage();
 
         if (action.getRepeatCount() != 1) {
-            scheduleEvent(scheduler, action.getEntity(),
+            scheduler.scheduleEvent(action.getEntity(),
                     createAnimationAction(action.getEntity(),
                             Math.max(action.getRepeatCount() - 1,
                                     0)),
                     action.getEntity().getAnimationPeriod());
         }
     }
+     */
 
+    /*
     public static void executeActivityAction(
             Action action, EventScheduler scheduler)
     {
@@ -186,6 +191,7 @@ public final class Functions
                         action.getEntity().getEntityKind()));
         }
     }
+     */
 
     public static void executeSaplingActivity(
             Entity entity,
@@ -196,8 +202,8 @@ public final class Functions
         entity.incrementHealth();
         if (!transformPlant(entity, world, scheduler, imageStore))
         {
-            scheduleEvent(scheduler, entity,
-                    createActivityAction(entity, world, imageStore),
+            scheduler.scheduleEvent(entity,
+                    entity.createActivityAction(world, imageStore),
                     entity.getActionPeriod());
         }
     }
@@ -211,8 +217,8 @@ public final class Functions
 
         if (!transformPlant(entity, world, scheduler, imageStore)) {
 
-            scheduleEvent(scheduler, entity,
-                    createActivityAction(entity, world, imageStore),
+            scheduler.scheduleEvent(entity,
+                    entity.createActivityAction(world, imageStore),
                     entity.getActionPeriod());
         }
     }
@@ -238,8 +244,8 @@ public final class Functions
             }
         }
 
-        scheduleEvent(scheduler, entity,
-                createActivityAction(entity, world, imageStore),
+        scheduler.scheduleEvent(entity,
+                entity.createActivityAction(world, imageStore),
                 entity.getActionPeriod());
     }
 
@@ -257,8 +263,8 @@ public final class Functions
                 scheduler)
                 || !transformNotFull(entity, world, scheduler, imageStore))
         {
-            scheduleEvent(scheduler, entity,
-                    createActivityAction(entity, world, imageStore),
+            scheduler.scheduleEvent(entity,
+                    entity.createActivityAction(world, imageStore),
                     entity.getActionPeriod());
         }
     }
@@ -278,8 +284,8 @@ public final class Functions
             transformFull(entity, world, scheduler, imageStore);
         }
         else {
-            scheduleEvent(scheduler, entity,
-                    createActivityAction(entity, world, imageStore),
+            scheduler.scheduleEvent(entity,
+                    entity.createActivityAction(world, imageStore),
                     entity.getActionPeriod());
         }
     }
@@ -293,53 +299,53 @@ public final class Functions
     {
         switch (entity.getEntityKind()) {
             case DUDE_FULL:
-                scheduleEvent(scheduler, entity,
-                        createActivityAction(entity, world, imageStore),
+                scheduler.scheduleEvent(entity,
+                        entity.createActivityAction(world, imageStore),
                         entity.getActionPeriod());
-                scheduleEvent(scheduler, entity,
-                        createAnimationAction(entity, 0),
+                scheduler.scheduleEvent(entity,
+                        entity.createAnimationAction(0),
                         entity.getAnimationPeriod());
                 break;
 
             case DUDE_NOT_FULL:
-                scheduleEvent(scheduler, entity,
-                        createActivityAction(entity, world, imageStore),
+                scheduler.scheduleEvent(entity,
+                        entity.createActivityAction(world, imageStore),
                         entity.getActionPeriod());
-                scheduleEvent(scheduler, entity,
-                        createAnimationAction(entity, 0),
+                scheduler.scheduleEvent(entity,
+                        entity.createAnimationAction(0),
                         entity.getAnimationPeriod());
                 break;
 
             case OBSTACLE:
-                scheduleEvent(scheduler, entity,
-                        createAnimationAction(entity, 0),
+                scheduler.scheduleEvent(entity,
+                        entity.createAnimationAction(0),
                         entity.getAnimationPeriod());
                 break;
 
             case FAIRY:
-                scheduleEvent(scheduler, entity,
-                        createActivityAction(entity, world, imageStore),
+                scheduler.scheduleEvent(entity,
+                        entity.createActivityAction(world, imageStore),
                         entity.getActionPeriod());
-                scheduleEvent(scheduler, entity,
-                        createAnimationAction(entity, 0),
+                scheduler.scheduleEvent(entity,
+                        entity.createAnimationAction(0),
                         entity.getAnimationPeriod());
                 break;
 
             case SAPLING:
-                scheduleEvent(scheduler, entity,
-                        createActivityAction(entity, world, imageStore),
+                scheduler.scheduleEvent(entity,
+                        entity.createActivityAction(world, imageStore),
                         entity.getActionPeriod());
-                scheduleEvent(scheduler, entity,
-                        createAnimationAction(entity, 0),
+                scheduler.scheduleEvent(entity,
+                        entity.createAnimationAction(0),
                         entity.getAnimationPeriod());
                 break;
 
             case TREE:
-                scheduleEvent(scheduler, entity,
-                        createActivityAction(entity, world, imageStore),
+                scheduler.scheduleEvent(entity,
+                        entity.createActivityAction(world, imageStore),
                         entity.getActionPeriod());
-                scheduleEvent(scheduler, entity,
-                        createAnimationAction(entity, 0),
+                scheduler.scheduleEvent(entity,
+                        entity.createAnimationAction(0),
                         entity.getAnimationPeriod());
                 break;
 
@@ -361,7 +367,7 @@ public final class Functions
                     entity.getImages());
 
             world.removeEntity(entity);
-            unscheduleAllEvents(scheduler, entity);
+            scheduler.unscheduleAllEvents(entity);
 
             world.addEntity(miner);
             scheduleActions(miner, scheduler, world, imageStore);
@@ -385,7 +391,7 @@ public final class Functions
                 entity.getImages());
 
         world.removeEntity(entity);
-        unscheduleAllEvents(scheduler, entity);
+        scheduler.unscheduleAllEvents(entity);
 
         world.addEntity(miner);
         scheduleActions(miner, scheduler, world, imageStore);
@@ -424,7 +430,7 @@ public final class Functions
                     getImageList(imageStore, STUMP_KEY));
 
             world.removeEntity(entity);
-            unscheduleAllEvents(scheduler, entity);
+            scheduler.unscheduleAllEvents(entity);
 
             world.addEntity(stump);
 
@@ -446,7 +452,7 @@ public final class Functions
                     getImageList(imageStore, STUMP_KEY));
 
             world.removeEntity(entity);
-            unscheduleAllEvents(scheduler, entity);
+            scheduler.unscheduleAllEvents(entity);
 
             world.addEntity(stump);
 
@@ -462,7 +468,7 @@ public final class Functions
                     getImageList(imageStore, TREE_KEY));
 
             world.removeEntity(entity);
-            unscheduleAllEvents(scheduler, entity);
+            scheduler.unscheduleAllEvents(entity);
 
             world.addEntity(tree);
             scheduleActions(tree, scheduler, world, imageStore);
@@ -481,7 +487,7 @@ public final class Functions
     {
         if (adjacent(fairy.getPos(), target.getPos())) {
             world.removeEntity(target);
-            unscheduleAllEvents(scheduler, target);
+            scheduler.unscheduleAllEvents(target);
             return true;
         }
         else {
@@ -490,7 +496,7 @@ public final class Functions
             if (!fairy.getPos().equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
                 world.moveEntity(fairy, nextPos);
@@ -516,7 +522,7 @@ public final class Functions
             if (!dude.getPos().equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
                 world.moveEntity(dude, nextPos);
@@ -540,7 +546,7 @@ public final class Functions
             if (!dude.getPos().equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
                 world.moveEntity(dude, nextPos);
@@ -597,6 +603,7 @@ public final class Functions
                 max - min);
     }
 
+    /*
     public static void scheduleEvent(
             EventScheduler scheduler,
             Entity entity,
@@ -615,7 +622,8 @@ public final class Functions
         pending.add(event);
         scheduler.pendingEvents.put(entity, pending);
     }
-
+     */
+    /*
     public static void unscheduleAllEvents(
             EventScheduler scheduler, Entity entity)
     {
@@ -627,28 +635,32 @@ public final class Functions
             }
         }
     }
+     */
 
+    /*
     public static void removePendingEvent(
             EventScheduler scheduler, Event event)
     {
-        List<Event> pending = scheduler.pendingEvents.get(event.entity);
+        List<Event> pending = scheduler.pendingEvents.get(event.getEntity());
 
         if (pending != null) {
             pending.remove(event);
         }
     }
+     */
 
+    /*
     public static void updateOnTime(EventScheduler scheduler, long time) {
         while (!scheduler.eventQueue.isEmpty()
-                && scheduler.eventQueue.peek().time < time) {
+                && scheduler.eventQueue.peek().getTime() < time) {
             Event next = scheduler.eventQueue.poll();
 
-            removePendingEvent(scheduler, next);
+            scheduler.removePendingEvent(next);
 
-            executeAction(next.action, scheduler);
+            executeAction(next.getAction(), scheduler);
         }
     }
-
+     */
     public static List<PImage> getImageList(ImageStore imageStore, String key) {
         return imageStore.images.getOrDefault(key, imageStore.defaultImages);
     }
@@ -1010,6 +1022,7 @@ public final class Functions
     */
 
 
+
     public static Optional<PImage> getBackgroundImage(
             WorldModel world, Point pos)
     {
@@ -1020,6 +1033,7 @@ public final class Functions
             return Optional.empty();
         }
     }
+
 
 
     /*
@@ -1066,18 +1080,22 @@ public final class Functions
     }
     */
 
+    /*
     public static Point viewportToWorld(Viewport viewport, int col, int row) {
         return new Point(col + viewport.getCol(), row + viewport.getRow());
     }
+     */
 
+    /*
     public static Point worldToViewport(Viewport viewport, int col, int row) {
         return new Point(col - viewport.getCol(), row - viewport.getRow());
     }
-
+     */
     public static int clamp(int value, int low, int high) {
         return Math.min(high, Math.max(value, low));
     }
 
+    /*
     public static void shiftView(WorldView view, int colDelta, int rowDelta) {
         int newCol = clamp(view.getViewport().getCol() + colDelta, 0,
                 view.getWorld().getNumCols() - view.getViewport().getNumCols());
@@ -1086,7 +1104,9 @@ public final class Functions
 
         shift(view.getViewport(), newCol, newRow);
     }
+     */
 
+    /*
     public static void drawBackground(WorldView view) {
         for (int row = 0; row < view.getViewport().getNumRows(); row++) {
             for (int col = 0; col < view.getViewport().getNumCols(); col++) {
@@ -1100,7 +1120,9 @@ public final class Functions
             }
         }
     }
+     */
 
+    /*
     public static void drawEntities(WorldView view) {
         for (Entity entity : view.getWorld().getEntities()) {
             Point pos = entity.getPos();
@@ -1113,22 +1135,29 @@ public final class Functions
             }
         }
     }
+     */
 
+    /*
     public static void drawViewport(WorldView view) {
-        drawBackground(view);
-        drawEntities(view);
+        view.drawBackground();
+        view.drawEntities();
     }
+    */
 
+    /*
     public static Action createAnimationAction(Entity entity, int repeatCount) {
         return new Action(ActionKind.ANIMATION, entity, null, null,
                 repeatCount);
     }
+     */
 
+    /*
     public static Action createActivityAction(
             Entity entity, WorldModel world, ImageStore imageStore)
     {
         return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
     }
+     */
 
     public static Entity createHouse(
             String id, Point position, List<PImage> images)

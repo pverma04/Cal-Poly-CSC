@@ -108,6 +108,13 @@ public final class Entity
                                 this.getEntityKind()));
         }
     }
+    public Action createAnimationAction(int repeatCount) {
+        return new Action(ActionKind.ANIMATION, this, null, null,
+                repeatCount);
+    }
+    public Action createActivityAction(WorldModel world, ImageStore imageStore) {
+        return new Action(ActionKind.ACTIVITY, this, world, imageStore, 0);
+    }
     public void nextImage() {
         this.setImageIndex((this.getImageIndex() + 1) % this.getImages().size());
     }
