@@ -2,8 +2,8 @@ import processing.core.PApplet;
 
 public final class WorldView
 {
-    public PApplet screen;
-    public WorldModel world;
+    private PApplet screen;
+    private WorldModel world;
     public int tileWidth;
     public int tileHeight;
     public Viewport viewport;
@@ -21,5 +21,11 @@ public final class WorldView
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.viewport = new Viewport(numRows, numCols);
+    }
+    public PApplet getScreen() {
+        return this.screen;
+    }
+    public WorldModel getWorld() {
+        return this.world;
     }
 }

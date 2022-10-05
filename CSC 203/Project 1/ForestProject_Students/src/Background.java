@@ -7,18 +7,29 @@ import processing.core.PImage;
  */
 public final class Background
 {
-    public String id;
-    public List<PImage> images;
-    public int imageIndex;
+    private String id;
+    private List<PImage> images;
+    private int imageIndex;
 
     public Background(String id, List<PImage> images) {
         this.id = id;
         this.images = images;
     }
+    public String getID() {
+        return this.id;
+    }
+    public List<PImage> getImages() {
+        return this.images;
+    }
+    public int getImageIndex() {
+        return this.imageIndex;
+    }
+    /*
     private void setBackground(WorldModel world, Point pos) {
         if (world.withinBounds(pos)) {
             world.setBackgroundCell(pos, this);
         }
     }
+     */
 
 }

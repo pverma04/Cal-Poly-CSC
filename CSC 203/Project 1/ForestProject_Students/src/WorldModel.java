@@ -16,7 +16,7 @@ public final class WorldModel
     private int numCols;
     private Background background[][];
     private Entity occupancy[][];
-    public Set<Entity> entities;
+    private Set<Entity> entities;
 
     public int getNumRows() {
         return this.numRows;
@@ -54,6 +54,17 @@ public final class WorldModel
     public void removeEntity(Entity entity) {
         removeEntityAt(entity.getPos());
     }
+
+    public void setBackground( Point pos, Background background) {
+        if (this.withinBounds(pos)) {
+            this.setBackgroundCell(pos, background);
+        }
+    }
+
+    public boolean isOccupied(Point pos) {
+        return this.withinBounds(pos) && this.getOccupancyCell(pos) != null;
+    }
+    /*
     public Optional<PImage> getBackgroundImage(Point pos) {
         if (this.withinBounds(pos)) {
             return Optional.of(getCurrentImage(this.getBackgroundCell(pos)));
@@ -62,6 +73,7 @@ public final class WorldModel
             return Optional.empty();
         }
     }
+    */
 
     public void moveEntity(Entity entity, Point pos) {
         Point oldPos = entity.getPos();
@@ -82,8 +94,14 @@ public final class WorldModel
     public void setBackgroundCell(Point pos, Background background) {
         this.background[pos.getY()][pos.getX()] = background;
     }
-    private Background getBackgroundCell(Point pos) {
+    public Background getBackgroundCell(Point pos) {
         return this.background[pos.getY()][pos.getX()];
+    }
+    public Set<Entity> getEntities() {
+        return this.entities;
+    }
+    public void setEntities(Set<Entity> entities) {
+        this.entities = entities;
     }
 
 }

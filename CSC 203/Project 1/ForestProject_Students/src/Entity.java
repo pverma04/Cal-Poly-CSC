@@ -31,8 +31,7 @@ public final class Entity
             int actionPeriod,
             int animationPeriod,
             int health,
-            int healthLimit)
-    {
+            int healthLimit) {
         this.kind = kind;
         this.id = id;
         this.position = position;
@@ -78,9 +77,9 @@ public final class Entity
     public int getActionPeriod() {
         return this.actionPeriod;
     }
-    public int getAnimationPeriod() {
-        return this.animationPeriod;
-    }
+    //public int getAnimationPeriod() {
+    //return this.animationPeriod;
+    //}
     public int getHealth() {
         return this.health;
     }
@@ -92,5 +91,21 @@ public final class Entity
     }
     public int getHealthLimit() {
         return this.healthLimit;
+    }
+
+    public int getAnimationPeriod() {
+        switch (this.getEntityKind()) {
+            case DUDE_FULL:
+            case DUDE_NOT_FULL:
+            case OBSTACLE:
+            case FAIRY:
+            case SAPLING:
+            case TREE:
+                return this.getAnimationPeriod();
+            default:
+                throw new UnsupportedOperationException(
+                        String.format("getAnimationPeriod not supported for %s",
+                                this.getEntityKind()));
+        }
     }
 }
