@@ -44,7 +44,7 @@ public final class WorldView {
 
             if (viewport.contains(pos)) {
                 Point viewPoint = viewport.worldToViewport(pos.getX(), pos.getY());
-                screen.image(Entity.getCurrentImage(entity),
+                screen.image(Functions.getCurrentImage(entity),
                         viewPoint.getX() * tileWidth,
                         viewPoint.getY() * tileHeight);
             }
@@ -76,7 +76,7 @@ public final class WorldView {
                 this.viewport.shift( newCol, newRow);
     }
 
-    private  int clamp(int value, int low, int high) {
+    private int clamp(int value, int low, int high) {
         return Math.min(high, Math.max(value, low));
     }
 

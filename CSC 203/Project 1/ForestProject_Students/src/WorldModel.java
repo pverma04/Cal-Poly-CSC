@@ -95,7 +95,7 @@ public final class WorldModel
 
     public  Optional<PImage> getBackgroundImage(Point pos) {
         if (withinBounds(pos)) {
-            return Optional.of(Entity.getCurrentImage(getBackgroundCell(pos)));
+            return Optional.of(Functions.getCurrentImage(getBackgroundCell(pos)));
         }
         else {
             return Optional.empty();
@@ -248,7 +248,8 @@ public final class WorldModel
         return properties.length == Entity.FAIRY_NUM_PROPERTIES;
     }
 
-    public  boolean parseTree(String[] properties, ImageStore imageStore) {
+    public  boolean parseTree(String[] properties, ImageStore imageStore)
+    {
         if (properties.length == Entity.TREE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[Entity.TREE_COL]),Integer.parseInt(properties[Entity.TREE_ROW]));
             Entity entity = Entity.createTree(properties[Entity.TREE_ID],
@@ -262,7 +263,8 @@ public final class WorldModel
         return properties.length == Entity.TREE_NUM_PROPERTIES;
     }
 
-    public  boolean parseObstacle(String[] properties, ImageStore imageStore) {
+    public  boolean parseObstacle(String[] properties, ImageStore imageStore)
+    {
         if (properties.length == Entity.OBSTACLE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[Entity.OBSTACLE_COL]),Integer.parseInt(properties[Entity.OBSTACLE_ROW]));
             Entity entity = Entity.createObstacle(properties[Entity.OBSTACLE_ID], 

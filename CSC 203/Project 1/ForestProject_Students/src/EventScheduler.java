@@ -77,12 +77,12 @@ public final class EventScheduler
     public  void scheduleActions(Entity entity, WorldModel world, ImageStore imageStore) {
         switch (entity.getEntityKind()) {
             case DUDE_FULL:
-                this.scheduleEvent(entity,Action.createActivityAction(entity, world, imageStore),entity.getActionPeriod());
+                this.scheduleEvent(entity,entity.createActivityAction(world, imageStore),entity.getActionPeriod());
                 this.scheduleEvent(entity,entity.createAnimationAction(0),entity.getAnimationPeriod());
                 break;
 
             case DUDE_NOT_FULL:
-                this.scheduleEvent(entity,Action.createActivityAction(entity, world, imageStore),entity.getActionPeriod());
+                this.scheduleEvent(entity,entity.createActivityAction(world, imageStore),entity.getActionPeriod());
                 this.scheduleEvent(entity,entity.createAnimationAction(0),entity.getAnimationPeriod());
                 break;
 
@@ -91,17 +91,17 @@ public final class EventScheduler
                 break;
 
             case FAIRY:
-                this.scheduleEvent(entity,Action.createActivityAction(entity, world, imageStore),entity.getActionPeriod());
+                this.scheduleEvent(entity,entity.createActivityAction(world, imageStore),entity.getActionPeriod());
                 this.scheduleEvent(entity,entity.createAnimationAction(0),entity.getAnimationPeriod());
                 break;
 
             case SAPLING:
-                this.scheduleEvent(entity,Action.createActivityAction(entity, world, imageStore),entity.getActionPeriod());
+                this.scheduleEvent(entity,entity.createActivityAction(world, imageStore),entity.getActionPeriod());
                 this.scheduleEvent(entity,entity.createAnimationAction(0),entity.getAnimationPeriod());
                 break;
 
             case TREE:
-                this.scheduleEvent(entity,Action.createActivityAction(entity, world, imageStore),entity.getActionPeriod());
+                this.scheduleEvent(entity,entity.createActivityAction(world, imageStore),entity.getActionPeriod());
                 this.scheduleEvent(entity,entity.createAnimationAction(0),entity.getAnimationPeriod());
                 break;
             default:

@@ -104,6 +104,7 @@ public final class Entity {
         this.health = health;
         this.healthLimit = healthLimit;
     }
+
     public String getId() {
         return this.id;
     }
@@ -115,12 +116,10 @@ public final class Entity {
     {
         return this.resourceLimit;
     }
-
     public int getActionPeriod()
     {
         return this.actionPeriod;
     }
-
     public Point getPosition() {
         return this.position;
     }
@@ -133,7 +132,6 @@ public final class Entity {
     public int getHealthLimit() {
         return this.healthLimit;
     }
-
     public int getImageIndex() {
         return this.imageIndex;
     }
@@ -143,8 +141,9 @@ public final class Entity {
     public List<PImage> getImages() {
         return this.images;
     }
-
     public EntityKind getEntityKind() { return this.kind; }
+
+
 
     public  int getAnimationPeriod() {
         switch (this.getEntityKind()) {
@@ -166,8 +165,7 @@ public final class Entity {
         imageIndex = (imageIndex + 1) % images.size();
     }
 
-    public  Point nextPositionDude(WorldModel world, Point destPos)
-    {
+    public Point nextPositionDude(WorldModel world, Point destPos) {
         int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
         Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
@@ -182,10 +180,7 @@ public final class Entity {
 
         return newPos;
     }
-
-
-    public  Point nextPositionFairy(WorldModel world, Point destPos)
-    {
+    public Point nextPositionFairy(WorldModel world, Point destPos) {
         int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
         Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
@@ -201,89 +196,31 @@ public final class Entity {
         return newPos;
     }
 
+
+
     // don't technically need resource count ... full
-    public static Entity createDudeFull(
-            String id,
-            Point position,
-            int actionPeriod,
-            int animationPeriod,
-            int resourceLimit,
-            List<PImage> images) {
-        return new Entity(EntityKind.DUDE_FULL, id, position, images, resourceLimit, 0,
-                actionPeriod, animationPeriod, 0, 0);
-    }
-    
-    public static Entity createFairy(
-        String id,
-        Point position,
-        int actionPeriod,
-        int animationPeriod,
-        List<PImage> images)
-    {
-        return new Entity(EntityKind.FAIRY, id, position, images, 0, 0,
-            actionPeriod, animationPeriod, 0, 0);
-    }
-
-    private boolean adjacent(Point p1, Point p2) {
-        return (p1.getX() == p2.getX() && Math.abs(p1.getY() - p2.getY()) == 1) || (p1.getY() == p2.getY()
-                && Math.abs(p1.getX() - p2.getX()) == 1);
-    }
 
 
-    public  boolean moveToFull(WorldModel world,Entity target,EventScheduler scheduler)
-{
-    if (this.adjacent(this.getPosition(), target.position)) {
-        return true;
-    }
-    else {
-        Point nextPos = this.nextPositionDude(world, target.position);
 
-        if (!this.getPosition().equals(nextPos)) {
-            Optional<Entity> occupant = world.getOccupant( nextPos);
-            if (occupant.isPresent()) {
-                scheduler.unscheduleAllEvents(occupant.get());
-            }
-            world.moveEntity(this, nextPos);
-        }
-        return false;
-    }
-}
-    public  boolean transformNotFull(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        if (this.getResourceCount() >= this.getResourceLimit()) {
-            Entity miner = Entity.createDudeFull(this.getId(),
-                                                this.getPosition(),
-                                                this.getActionPeriod(),
-                                                this.getAnimationPeriod(),
-                                                this.getResourceLimit(),
-                                                this.getImages());
 
-            world.removeEntity(this);
-            scheduler.unscheduleAllEvents(this);
-
-            world.addEntity(miner);
-            scheduler.scheduleActions(miner, world, imageStore);
-
+    public  boolean moveToFull(WorldModel world,Entity target,EventScheduler scheduler) {
+        if (this.adjacent(this.getPosition(), target.position)) {
             return true;
         }
-        return false;
+        else {
+            Point nextPos = this.nextPositionDude(world, target.position);
+
+            if (!this.getPosition().equals(nextPos)) {
+                Optional<Entity> occupant = world.getOccupant( nextPos);
+                if (occupant.isPresent()) {
+                    scheduler.unscheduleAllEvents(occupant.get());
+                }
+                world.moveEntity(this, nextPos);
+            }
+            return false;
+        }
     }
 
-
-    public void transformFull(WorldModel world,EventScheduler scheduler,ImageStore imageStore) {
-        Entity miner = Entity.createDudeNotFull(this.getId(),
-                                                this.getPosition(),
-                                                this.getActionPeriod(),
-                                                this.getAnimationPeriod(),
-                                                this.getResourceLimit(),
-                                                this.getImages());
-
-        world.removeEntity(this);
-        scheduler.unscheduleAllEvents(this);
-        world.addEntity(miner);
-        scheduler.scheduleActions(miner, world, imageStore);
-    }
-
-    
     public  boolean moveToFairy(WorldModel world,Entity target,EventScheduler scheduler) {
         if (this.adjacent(this.getPosition(), target.getPosition())) {
             world.removeEntity(target);
@@ -305,29 +242,48 @@ public final class Entity {
         }
     }
 
-    public boolean moveToNotFull(WorldModel world,Entity target,EventScheduler scheduler)
-{
-    if (this.adjacent(this.getPosition(), target.getPosition())) {
-        this.resourceCount += 1;
-        target.health--;
-        return true;
-    }
-    else {
-        Point nextPos = this.nextPositionDude(world, target.position);
-
-        if (!this.getPosition().equals(nextPos)) {
-            Optional<Entity> occupant = world.getOccupant( nextPos);
-            if (occupant.isPresent()) {
-                scheduler.unscheduleAllEvents( occupant.get());
-            }
-
-           world.moveEntity(this, nextPos);
+    public boolean moveToNotFull(WorldModel world,Entity target,EventScheduler scheduler)  {
+        if (this.adjacent(this.getPosition(), target.getPosition())) {
+            this.resourceCount += 1;
+            target.health--;
+            return true;
         }
-        return false;
+        else {
+            Point nextPos = this.nextPositionDude(world, target.position);
+
+            if (!this.getPosition().equals(nextPos)) {
+                Optional<Entity> occupant = world.getOccupant( nextPos);
+                if (occupant.isPresent()) {
+                    scheduler.unscheduleAllEvents( occupant.get());
+                }
+
+               world.moveEntity(this, nextPos);
+            }
+            return false;
+        }
     }
-}
 
 
+    public static Entity createDudeFull(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            int resourceLimit,
+            List<PImage> images) {
+        return new Entity(EntityKind.DUDE_FULL, id, position, images, resourceLimit, 0,
+                actionPeriod, animationPeriod, 0, 0);
+    }
+    public static Entity createFairy(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            List<PImage> images) {
+
+        return new Entity(EntityKind.FAIRY, id, position, images, 0, 0,
+                actionPeriod, animationPeriod, 0, 0);
+    }
     // need resource count, though it always starts at 0
      public static Entity createDudeNotFull(
         String id,
@@ -335,12 +291,10 @@ public final class Entity {
         int actionPeriod,
         int animationPeriod,
         int resourceLimit,
-        List<PImage> images)
-{
-    return new Entity(EntityKind.DUDE_NOT_FULL, id, position, images, resourceLimit, 0,
-            actionPeriod, animationPeriod, 0, 0);
-}
-
+        List<PImage> images) {
+        return new Entity(EntityKind.DUDE_NOT_FULL, id, position, images, resourceLimit, 0,
+                actionPeriod, animationPeriod, 0, 0);
+    }
 
     public static Entity createHouse(String id, Point position, List<PImage> images) {
         return new Entity(EntityKind.HOUSE, id, position, images, 0, 0, 0,
@@ -368,12 +322,19 @@ public final class Entity {
                 SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, 0, SAPLING_HEALTH_LIMIT);
     }
 
-    public  Action createAnimationAction(int repeatCount) {
+
+
+    public Action createAnimationAction(int repeatCount) {
         return new Action(ActionKind.ANIMATION, this, null, null,
             repeatCount);
     }
+    public Action createActivityAction(WorldModel world, ImageStore imageStore){
+        return new Action(ActionKind.ACTIVITY, this, world, imageStore, 0);
+    }
 
-    public  boolean transformPlant(WorldModel world,EventScheduler scheduler,ImageStore imageStore)  {
+
+
+    public  boolean transformPlant(WorldModel world, EventScheduler scheduler, ImageStore imageStore)  {
         if (this.getEntityKind() == EntityKind.TREE){
             return transformTree(world, scheduler, imageStore);
         }
@@ -414,12 +375,6 @@ public final class Entity {
         }
         return false;
     }
-
-    private int getNumFromRange(int max, int min) {
-        Random rand = new Random();
-        return min + rand.nextInt(max - min);
-    }
-
     public  boolean transformTree(WorldModel world,EventScheduler scheduler,ImageStore imageStore) {
         if (this.health <= 0) {
             Entity stump = createStump(this.id,this.position,imageStore.getImageList(STUMP_KEY));
@@ -430,19 +385,53 @@ public final class Entity {
         }
         return false;
     }
+    public  boolean transformNotFull(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+        if (this.getResourceCount() >= this.getResourceLimit()) {
+            Entity miner = Entity.createDudeFull(this.getId(),
+                    this.getPosition(),
+                    this.getActionPeriod(),
+                    this.getAnimationPeriod(),
+                    this.getResourceLimit(),
+                    this.getImages());
+
+            world.removeEntity(this);
+            scheduler.unscheduleAllEvents(this);
+
+            world.addEntity(miner);
+            scheduler.scheduleActions(miner, world, imageStore);
+
+            return true;
+        }
+        return false;
+    }
+
+    public void transformFull(WorldModel world,EventScheduler scheduler,ImageStore imageStore) {
+        Entity miner = Entity.createDudeNotFull(this.getId(),
+                this.getPosition(),
+                this.getActionPeriod(),
+                this.getAnimationPeriod(),
+                this.getResourceLimit(),
+                this.getImages());
+
+        world.removeEntity(this);
+        scheduler.unscheduleAllEvents(this);
+        world.addEntity(miner);
+        scheduler.scheduleActions(miner, world, imageStore);
+    }
+
+
 
     public  void executeSaplingActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
         this.health++;
         if (!this.transformPlant(world, scheduler, imageStore)) {
-            scheduler.scheduleEvent(this,Action.createActivityAction(this, world, imageStore),
+            scheduler.scheduleEvent(this, this.createActivityAction(world, imageStore),
                     this.getActionPeriod());
         }
     }
 
     public  void executeTreeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
         if (!this.transformPlant(world, scheduler, imageStore)) {
-            scheduler.scheduleEvent(this,Action.createActivityAction(this,
-                    world, imageStore),this.getActionPeriod());
+            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
         }
     }
 
@@ -461,31 +450,15 @@ public final class Entity {
             }
         }
 
-        scheduler.scheduleEvent(this,Action.createActivityAction(this, world, imageStore),this.getActionPeriod());
+        scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
     }
-
-    public static PImage getCurrentImage(Object entity) {
-        if (entity instanceof Background) {
-            return ((Background)entity).getImages().get(
-                    ((Background)entity).getImageIndex());
-        }
-        else if (entity instanceof Entity) {
-            return ((Entity)entity).images.get(((Entity)entity).imageIndex);
-        }
-        else {
-            throw new UnsupportedOperationException(
-                    String.format("getCurrentImage not supported for %s",
-                            entity));
-        }
-    }
-
     
     public  void executeDudeNotFullActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
         Optional<Entity> target =
                 world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(EntityKind.TREE, EntityKind.SAPLING)));
 
         if (!target.isPresent() || !this.moveToNotFull( world, target.get(), scheduler) || !this.transformNotFull( world, scheduler, imageStore))  {
-            scheduler.scheduleEvent(this,Action.createActivityAction(this, world, imageStore),this.getActionPeriod());
+            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
         }
     }
 
@@ -497,8 +470,19 @@ public final class Entity {
             this.transformFull(world, scheduler, imageStore);
         }
         else {
-            scheduler.scheduleEvent(this,Action.createActivityAction(this, world, imageStore),this.getActionPeriod());
+            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
         }
+    }
+
+
+    private int getNumFromRange(int max, int min) {
+        Random rand = new Random();
+        return min + rand.nextInt(max - min);
+    }
+
+    private boolean adjacent(Point p1, Point p2) {
+        return (p1.getX() == p2.getX() && Math.abs(p1.getY() - p2.getY()) == 1) || (p1.getY() == p2.getY()
+                && Math.abs(p1.getX() - p2.getX()) == 1);
     }
 
 }

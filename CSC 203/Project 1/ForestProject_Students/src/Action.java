@@ -59,10 +59,7 @@ public final class Action
         }
     }
 
-    public static Action createActivityAction(Entity entity, WorldModel world, ImageStore imageStore)
-    {
-        return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
-    }
+
 
 
     private void executeActivityAction(EventScheduler scheduler) {
