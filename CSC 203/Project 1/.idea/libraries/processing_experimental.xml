@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="processing-experimental">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/ForestProject_Students/lib/processing-experimental.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
