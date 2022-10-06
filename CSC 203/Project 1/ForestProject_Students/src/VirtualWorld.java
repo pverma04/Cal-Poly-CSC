@@ -141,6 +141,7 @@ public final class VirtualWorld extends PApplet
     {
         try {
             Scanner in = new Scanner(new File(filename));
+            //Scanner in = new Scanner(new File(System.getProperty("user.dir") + "/"+filename));
             imageStore.loadImages(in, screen);
         }
         catch (FileNotFoundException e) {
@@ -153,6 +154,7 @@ public final class VirtualWorld extends PApplet
     {
         try {
             Scanner in = new Scanner(new File(filename));
+            //Scanner in = new Scanner(new File(System.getProperty("user.dir") + "/"+filename));
             world.load(in, imageStore);
         }
         catch (FileNotFoundException e) {
