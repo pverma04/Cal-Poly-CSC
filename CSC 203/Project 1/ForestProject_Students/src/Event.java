@@ -12,8 +12,11 @@ public final class Event
         this.action = action;
         this.time = time;
         this.entity = entity;
+ 
     }
     public Action getAction() { return this.action; }
     public long getTime() { return this.time; }
     public Entity getEntity() { return this.entity; }
+
+
 }

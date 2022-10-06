@@ -34,6 +34,8 @@ public final class VirtualWorld extends PApplet
     public static final double FAST_SCALE = 0.5;
     public static final double FASTER_SCALE = 0.25;
     public static final double FASTEST_SCALE = 0.10;
+    public static final int PROPERTY_KEY = 0;
+
 
     public static double timeScale = 1.0;
 
@@ -85,11 +87,11 @@ public final class VirtualWorld extends PApplet
         Point pressed = mouseToPoint(mouseX, mouseY);
         System.out.println("CLICK! " + pressed.getX() + ", " + pressed.getY());
 
-        Optional<Entity> entityOptional = world.getOccupant(pressed);
+        Optional<Entity> entityOptional = world.getOccupant( pressed);
         if (entityOptional.isPresent())
         {
             Entity entity = entityOptional.get();
-            System.out.println(entity.getID() + ": " + entity.getEntityKind() + " : " + entity.getHealth());
+            System.out.println(entity.getId() + ": " + entity.getEntityKind() + " : " + entity.getHealth());
         }
 
     }
@@ -123,7 +125,7 @@ public final class VirtualWorld extends PApplet
 
     public static Background createDefaultBackground(ImageStore imageStore) {
         return new Background(DEFAULT_IMAGE_NAME,
-                imageStore.getImageList(DEFAULT_IMAGE_NAME));
+        imageStore.getImageList(DEFAULT_IMAGE_NAME));
     }
 
     public static PImage createImageColored(int width, int height, int color) {
@@ -141,7 +143,6 @@ public final class VirtualWorld extends PApplet
     {
         try {
             Scanner in = new Scanner(new File(filename));
-            //Scanner in = new Scanner(new File(System.getProperty("user.dir") + "/"+filename));
             imageStore.loadImages(in, screen);
         }
         catch (FileNotFoundException e) {
@@ -149,24 +150,81 @@ public final class VirtualWorld extends PApplet
         }
     }
 
-    public static void loadWorld(
+    public  void loadWorld(
             WorldModel world, String filename, ImageStore imageStore)
     {
         try {
             Scanner in = new Scanner(new File(filename));
-            //Scanner in = new Scanner(new File(System.getProperty("user.dir") + "/"+filename));
-            world.load(in, imageStore);
+            load(in, world, imageStore);
         }
         catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         }
     }
 
+
+    private  void load(
+        Scanner in, WorldModel world, ImageStore imageStore)
+{
+    int lineNumber = 0;
+    while (in.hasNextLine()) {
+        try {
+            if (!processLine(in.nextLine(), world, imageStore)) {
+                System.err.println(String.format("invalid entry on line %d",
+                        lineNumber));
+            }
+        }
+        catch (NumberFormatException e) {
+            System.err.println(
+                    String.format("invalid entry on line %d", lineNumber));
+        }
+        catch (IllegalArgumentException e) {
+            System.err.println(
+                    String.format("issue on line %d: %s", lineNumber,
+                            e.getMessage()));
+        }
+        lineNumber++;
+    }
+}
+
+private  boolean processLine(
+    String line, WorldModel world, ImageStore imageStore)
+{
+String[] properties = line.split("\\s");
+if (properties.length > 0) {
+    switch (properties[PROPERTY_KEY]) {
+        case Background.BGND_KEY:
+            return world.parseBackground(properties, imageStore);
+        case Entity.DUDE_KEY:
+        return world.parseDude(properties, imageStore);
+        //return parseDude(properties, world, imageStore);
+        case Entity.OBSTACLE_KEY:
+            return world.parseObstacle(properties, imageStore);
+            //return parseObstacle(properties, world, imageStore);
+
+        case Entity.FAIRY_KEY:
+            return world.parseFairy(properties, imageStore);
+            //return parseFairy(properties, world, imageStore);
+        case Entity.HOUSE_KEY:
+            return world.parseHouse(properties, imageStore);
+        case Entity.TREE_KEY:
+            return world.parseTree(properties, imageStore);
+            //return parseTree(properties, world, imageStore);
+        case Entity.SAPLING_KEY:
+            return world.parseSapling(properties,  imageStore);
+            //return parseSapling(properties, world, imageStore);
+    }
+}
+
+return false;
+}
+
+
     public static void scheduleActions(
             WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
         for (Entity entity : world.getEntities()) {
-            scheduler.scheduleActions(entity, world, imageStore);
+            scheduler.scheduleActions(entity,  world, imageStore);
         }
     }
 

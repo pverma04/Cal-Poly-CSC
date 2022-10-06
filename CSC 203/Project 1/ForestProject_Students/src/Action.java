@@ -21,6 +21,7 @@ public final class Action
         this.imageStore = imageStore;
         this.repeatCount = repeatCount;
     }
+
     public ActionKind getActionKind() {
         return this.kind;
     }
@@ -36,7 +37,8 @@ public final class Action
     public int getRepeatCount() {
         return this.repeatCount;
     }
-    public void executeAction(EventScheduler scheduler) {
+
+    public  void executeAction(EventScheduler scheduler) {
         switch (this.getActionKind()) {
             case ACTIVITY:
                 this.executeActivityAction(scheduler);
@@ -47,20 +49,26 @@ public final class Action
                 break;
         }
     }
-    public void executeAnimationAction(EventScheduler scheduler) {
+    private  void executeAnimationAction(EventScheduler scheduler) {
         this.getEntity().nextImage();
 
         if (this.getRepeatCount() != 1) {
             scheduler.scheduleEvent(this.getEntity(),
                     this.getEntity().createAnimationAction(Math.max(this.getRepeatCount() - 1, 0)),
-                    this.getEntity().getAnimationPeriod());
+                         this.getEntity().getAnimationPeriod());
         }
     }
-    public void executeActivityAction(EventScheduler scheduler) {
+
+    public static Action createActivityAction(Entity entity, WorldModel world, ImageStore imageStore)
+    {
+        return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
+    }
+
+
+    private void executeActivityAction(EventScheduler scheduler) {
         switch (this.getEntity().getEntityKind()) {
             case SAPLING:
-                this.getEntity().executeSaplingActivity(this.getWorldModel(),
-                        this.getImageStore(), scheduler);
+                this.getEntity().executeSaplingActivity(this.getWorldModel(), this.getImageStore(), scheduler);
                 break;
 
             case TREE:
@@ -89,4 +97,5 @@ public final class Action
                         this.getEntity().getEntityKind()));
         }
     }
+
 }
