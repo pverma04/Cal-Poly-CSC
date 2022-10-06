@@ -74,6 +74,4 @@ public final class WorldView
         this.drawEntities();
     }
 
-
-
 }

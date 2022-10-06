@@ -132,7 +132,7 @@ public final class Entity
     }
     public void executeFairyActivity( WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> fairyTarget =
-                world.findNearest(this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.STUMP)));
+                Functions.findNearest(world, this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.STUMP)));
 
         if (fairyTarget.isPresent()) {
             Point tgtPos = fairyTarget.get().getPos();
@@ -151,7 +151,7 @@ public final class Entity
 
     public void executeDudeNotFullActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> target =
-                world.findNearest(this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.TREE, EntityKind.SAPLING)));
+                Functions.findNearest(world, this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.TREE, EntityKind.SAPLING)));
 
         if (!target.isPresent() || !Functions.moveToNotFull(this, world,
                 target.get(),
@@ -164,7 +164,7 @@ public final class Entity
     public void executeDudeFullActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler)
     {
         Optional<Entity> fullTarget =
-                world.findNearest(this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.HOUSE)));
+                Functions.findNearest(world, this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.HOUSE)));
 
         if (fullTarget.isPresent() && Functions.moveToFull(this, world,
                 fullTarget.get(), scheduler))

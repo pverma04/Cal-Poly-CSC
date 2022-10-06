@@ -22,8 +22,10 @@ the world at the given point, and adds there, wich makes it a WorldModel method
 
 createAnimationAction, createActivityAction
 - Not sure
+
 transformPlant, transformTree, transformSapling
 - I put these in WorldModel instead of Entity or Action, because transformPlants calls trasnformTree, which calls the
 removeEntity method that is in WorldModel
+
 createActivityAction
 - Although this doesn't take an EventSchedule, it is only used in or with calling the EventSchedule

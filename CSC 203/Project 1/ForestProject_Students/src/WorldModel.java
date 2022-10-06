@@ -436,15 +436,4 @@ public final class WorldModel
             return Optional.empty();
         }
     }
-    public Optional<Entity> findNearest(Point pos, List<EntityKind> kinds) {
-        List<Entity> ofType = new LinkedList<>();
-        for (EntityKind kind: kinds) {
-            for (Entity entity : this.getEntities()) {
-                if (entity.getEntityKind() == kind) {
-                    ofType.add(entity);
-                }
-            }
-        }
-        return Functions.nearestEntity(ofType, pos);
-    }
 }
