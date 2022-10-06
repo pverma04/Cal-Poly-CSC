@@ -53,9 +53,7 @@ public final class Entity
     public void setPos(Point p) {
         this.position = p;
     }
-    public EntityKind getEntityKind() {
-        return this.kind;
-    }
+    public EntityKind getEntityKind() { return this.kind; }
     public String getID() {
         return this.id;
     }
@@ -80,9 +78,7 @@ public final class Entity
     public int getActionPeriod() {
         return this.actionPeriod;
     }
-    //public int getAnimationPeriod() {
-    //return this.animationPeriod;
-    //}
+
     public int getHealth() {
         return this.health;
     }
@@ -111,70 +107,75 @@ public final class Entity
                                 this.getEntityKind()));
         }
     }
-    /*
-    public Action createAnimationAction(int repeatCount) {
-        return new Action(ActionKind.ANIMATION, this, null, null,
-                repeatCount);
-    }
 
-    public Action createActivityAction(WorldModel world, ImageStore imageStore) {
-        return new Action(ActionKind.ACTIVITY, this, world, imageStore, 0);
-    }
-    */
     public void nextImage() {
         this.setImageIndex((this.getImageIndex() + 1) % this.getImages().size());
     }
+
+    public Action createAnimationAction(int repeatCount) {
+        return new Action(ActionKind.ANIMATION, this, null, null, repeatCount);
+    }
+
+
+
     public void executeSaplingActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         this.incrementHealth();
-        if (!Functions.transformPlant(this, world, scheduler, imageStore)) {
-            scheduler.scheduleEvent(this, Functions.createActivityAction(this, world, imageStore), this.getActionPeriod());
+        if (!world.transformPlant(this, scheduler, imageStore)) {
+            scheduler.scheduleEvent(this, scheduler.createActivityAction(this, world, imageStore), this.getActionPeriod());
         }
     }
     public void executeTreeActivity( WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
 
-        if (!Functions.transformPlant(this, world, scheduler, imageStore)) {
-            scheduler.scheduleEvent(this, Functions.createActivityAction(this, world, imageStore), this.getActionPeriod());
+        if (!world.transformPlant(this, scheduler, imageStore)) {
+            scheduler.scheduleEvent(this, scheduler.createActivityAction(this, world, imageStore), this.getActionPeriod());
         }
     }
-    public void executeFairyActivity( WorldModel world, ImageStore imageStore, EventScheduler scheduler)
-    {
+    public void executeFairyActivity( WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> fairyTarget =
-                Functions.findNearest(world, this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.STUMP)));
+                world.findNearest(this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.STUMP)));
 
         if (fairyTarget.isPresent()) {
             Point tgtPos = fairyTarget.get().getPos();
 
-            if (this.moveToFairy(world, fairyTarget.get(), scheduler)) {
-                Entity sapling = Functions.createSapling("sapling_" + this.getID(), tgtPos, imageStore.getImageList(Functions.SAPLING_KEY));
+            if (world.moveToFairy(this, fairyTarget.get(), scheduler)) {
+                Entity sapling = Functions.createSapling("sapling_" + this.getID(), tgtPos, imageStore.getImageList(world.SAPLING_KEY));
 
                 world.addEntity(sapling);
                 scheduler.scheduleActions(sapling, world, imageStore);
             }
         }
 
-        scheduler.scheduleEvent(this, Functions.createActivityAction(this, world, imageStore), this.getActionPeriod());
+        scheduler.scheduleEvent(this, scheduler.createActivityAction(this, world, imageStore), this.getActionPeriod());
     }
-    public boolean moveToFairy(WorldModel world, Entity target, EventScheduler scheduler) {
-        if (Functions.adjacent(this.getPos(), target.getPos())) {
-            world.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
-            return true;
+
+
+    public void executeDudeNotFullActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
+        Optional<Entity> target =
+                world.findNearest(this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.TREE, EntityKind.SAPLING)));
+
+        if (!target.isPresent() || !Functions.moveToNotFull(this, world,
+                target.get(),
+                scheduler)
+                || !world.transformNotFull(this, scheduler, imageStore))
+        {
+            scheduler.scheduleEvent(this, scheduler.createActivityAction(this, world, imageStore), this.getActionPeriod());
+        }
+    }
+    public void executeDudeFullActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler)
+    {
+        Optional<Entity> fullTarget =
+                world.findNearest(this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.HOUSE)));
+
+        if (fullTarget.isPresent() && Functions.moveToFull(this, world,
+                fullTarget.get(), scheduler))
+        {
+            world.transformFull(this, scheduler, imageStore);
         }
         else {
-            Point nextPos = this.nextPositionFairy(world, target.getPos());
-
-            if (!this.getPos().equals(nextPos)) {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent()) {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
-            return false;
+            scheduler.scheduleEvent(this, scheduler.createActivityAction(this, world, imageStore), this.getActionPeriod());
         }
     }
-    public Point nextPositionFairy( WorldModel world, Point destPos) {
+    public Point nextPositionFairy(WorldModel world, Point destPos) {
         int horiz = Integer.signum(destPos.getX() - this.getPos().getX());
         Point newPos = new Point(this.getPos().getX() + horiz, this.getPos().getY());
 
@@ -188,31 +189,20 @@ public final class Entity
         }
         return newPos;
     }
+    public Point nextPositionDude(WorldModel world, Point destPos) {
+        int horiz = Integer.signum(destPos.getX() - this.getPos().getX());
+        Point newPos = new Point(this.getPos().getX() + horiz, this.getPos().getY());
 
-    public void executeDudeNotFullActivity( WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        Optional<Entity> target =
-                Functions.findNearest(world, this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.TREE, EntityKind.SAPLING)));
+        if (horiz == 0 || world.isOccupied(newPos) && world.getOccupancyCell(newPos).getEntityKind() != EntityKind.STUMP) {
+            int vert = Integer.signum(destPos.getY() - this.getPos().getY());
+            newPos = new Point(this.getPos().getX(), this.getPos().getY() + vert);
 
-        if (!target.isPresent() || !Functions.moveToNotFull(this, world,
-                target.get(),
-                scheduler)
-                || !Functions.transformNotFull(this, world, scheduler, imageStore))
-        {
-            scheduler.scheduleEvent(this, Functions.createActivityAction(this, world, imageStore), this.getActionPeriod());
+            if (vert == 0 || world.isOccupied(newPos) &&  world.getOccupancyCell(newPos).getEntityKind() != EntityKind.STUMP) {
+                newPos = this.getPos();
+            }
         }
+        return newPos;
     }
-    public void executeDudeFullActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler)
-    {
-        Optional<Entity> fullTarget =
-                Functions.findNearest(world, this.getPos(), new ArrayList<>(Arrays.asList(EntityKind.HOUSE)));
 
-        if (fullTarget.isPresent() && Functions.moveToFull(this, world,
-                fullTarget.get(), scheduler))
-        {
-            Functions.transformFull(this, world, scheduler, imageStore);
-        }
-        else {
-            scheduler.scheduleEvent(this, Functions.createActivityAction(this, world, imageStore), this.getActionPeriod());
-        }
-    }
+
 }

@@ -41,7 +41,7 @@ public final class WorldView
             for (int col = 0; col < this.getViewport().getNumCols(); col++) {
                 Point worldPoint = this.getViewport().viewportToWorld(col, row);
                 Optional<PImage> image =
-                        Functions.getBackgroundImage(this.getWorld(), worldPoint);
+                        this.getWorld().getBackgroundImage(worldPoint);
                 if (image.isPresent()) {
                     this.getScreen().image(image.get(), col * this.getTileWidth(),
                             row * this.getTileHeight());
@@ -55,13 +55,13 @@ public final class WorldView
         int newRow = Functions.clamp(this.getViewport().getRow() + rowDelta, 0,
                 this.getWorld().getNumRows() - this.getViewport().getNumRows());
 
-        Functions.shift(this.getViewport(), newCol, newRow);
+        this.getViewport().shift(newCol, newRow);
     }
     public void drawEntities() {
         for (Entity entity : this.getWorld().getEntities()) {
             Point pos = entity.getPos();
 
-            if (Functions.contains(this.getViewport(), pos)) {
+            if (this.getViewport().contains(pos)) {
                 Point viewPoint = this.getViewport().worldToViewport(pos.getX(), pos.getY());
                 this.getScreen().image(Functions.getCurrentImage(entity),
                         viewPoint.getX() * this.getTileWidth(),
@@ -73,6 +73,7 @@ public final class WorldView
         this.drawBackground();
         this.drawEntities();
     }
+
 
 
 }

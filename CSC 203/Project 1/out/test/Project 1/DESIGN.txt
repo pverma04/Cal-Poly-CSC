@@ -1,17 +1,27 @@
-moveEntity(WorldModel world, Entity entity, Point pos)
+moveEntity
 - I elected to move this to the WorldModel class instead of Entity, because it uses private instance methods of WorldModel
 
-setBackgroundCell(WorldModel world, Point pos, Background background),
+setBackgroundCell
 
 - I moved these methods to WorldModel instead of Background, because
 
 getCurrentImage
 - not sure what to do about this one
 
-setBackground(WorldModel world, Point pos, Background background)
+setBackground
 - I moved this to WorldModel instead of Background, because the background is apart of the WorldModel. Since it must be
 changed after the compiler goes inside the current world, it should be a method within WorldModel
 
-addEntity(Entity entity)
+addEntity
 - I added this to WorldModel instead of the Entity class because the method will check the bounds and occupancy of
 certain cells in the world, instead of just a singular entity
+
+transformNotFull, transfromFull, transformPlant, transformTree
+- I added these methods to WorldModel instead of Entity, because while it uses and creates Entity instances, it checkes
+the world at the given point, and adds there, wich makes it a WorldModel method
+
+createAnimationAction, createActivityAction
+- Not sure
+transformPlant, transformTree, transformSapling
+- I put these in WorldModel instead of Entity or Action, because transformPlants calls trasnformTree, which calls the
+removeEntity method that is in WorldModel
