@@ -100,7 +100,7 @@ public final class Entity
             case FAIRY:
             case SAPLING:
             case TREE:
-                return this.getAnimationPeriod();
+                return this.animationPeriod;
             default:
                 throw new UnsupportedOperationException(
                         String.format("getAnimationPeriod not supported for %s",
