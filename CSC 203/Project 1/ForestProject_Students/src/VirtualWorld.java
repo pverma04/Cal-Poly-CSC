@@ -26,7 +26,7 @@ public final class VirtualWorld extends PApplet
     public static final String DEFAULT_IMAGE_NAME = "background_default";
     public static final int DEFAULT_IMAGE_COLOR = 0x808080;
 
-    public static String LOAD_FILE_NAME = "world.sav";
+    private static String LOAD_FILE_NAME = "world.sav";
 
     public static final String FAST_FLAG = "-fast";
     public static final String FASTER_FLAG = "-faster";
@@ -37,14 +37,14 @@ public final class VirtualWorld extends PApplet
     public static final int PROPERTY_KEY = 0;
 
 
-    public static double timeScale = 1.0;
+    private static double timeScale = 1.0;
 
-    public ImageStore imageStore;
-    public WorldModel world;
-    public WorldView view;
-    public EventScheduler scheduler;
+    private ImageStore imageStore;
+    private WorldModel world;
+    private WorldView view;
+    private EventScheduler scheduler;
 
-    public long nextTime;
+    private long nextTime;
 
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
