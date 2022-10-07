@@ -88,6 +88,7 @@ public final class Functions
     public static final int TREE_HEALTH_MAX = 3;
     public static final int TREE_HEALTH_MIN = 1;
 */
+    /*
     public static PImage getCurrentImage(Object entity) {
         if (entity instanceof Background) {
             return ((Background)entity).getImages().get(
@@ -102,6 +103,7 @@ public final class Functions
                             entity));
         }
     }
+     */
 /*
 
     public static PImage getCurrentImage(Object entity) {

@@ -44,7 +44,7 @@ public final class WorldView {
 
             if (viewport.contains(pos)) {
                 Point viewPoint = viewport.worldToViewport(pos.getX(), pos.getY());
-                screen.image(Functions.getCurrentImage(entity),
+                screen.image(entity.getCurrentImage(),
                         viewPoint.getX() * tileWidth,
                         viewPoint.getY() * tileHeight);
             }

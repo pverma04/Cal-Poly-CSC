@@ -33,14 +33,22 @@ public final class Background
         return this.imageIndex;
     }
 
-    /*
-    private void setBackground(WorldModel world, Point pos) {
-        if (world.withinBounds(pos)) {
-            this.setBackgroundCell(world, pos);
+    public PImage getCurrentImage() {
+        //if (entity instanceof Background) {
+            return this.getImages().get(this.getImageIndex());
+        //}
+        /*
+        if (entity instanceof Entity) {
+            return this.getImages().get(this.getImageIndex());
         }
+         */
+        /*
+        else {
+            throw new UnsupportedOperationException(
+                    String.format("getCurrentImage not supported for %s",
+                            entity));
+        }
+         */
     }
-    private void setBackgroundCell(WorldModel world, Point pos) {
-        world.background[pos.y][pos.x] = this;
-    }
-    */
+
 }

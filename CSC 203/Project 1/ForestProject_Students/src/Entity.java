@@ -369,7 +369,7 @@ public final class Entity {
             scheduler.unscheduleAllEvents(this);
 
             world.addEntity(tree);
-            scheduler.scheduleActions(tree,  world, imageStore);
+            tree.scheduleActions(scheduler, world, imageStore);
 
             return true;
         }
@@ -398,7 +398,7 @@ public final class Entity {
             scheduler.unscheduleAllEvents(this);
 
             world.addEntity(miner);
-            scheduler.scheduleActions(miner, world, imageStore);
+            miner.scheduleActions(scheduler, world, imageStore);
 
             return true;
         }
@@ -416,7 +416,7 @@ public final class Entity {
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
         world.addEntity(miner);
-        scheduler.scheduleActions(miner, world, imageStore);
+        miner.scheduleActions(scheduler, world, imageStore);
     }
 
 
@@ -446,7 +446,7 @@ public final class Entity {
                 imageStore.getImageList(Entity.SAPLING_KEY));
 
                 world.addEntity(sapling);
-                scheduler.scheduleActions(sapling,  world, imageStore);
+                sapling.scheduleActions(scheduler, world, imageStore);
             }
         }
 
@@ -484,5 +484,59 @@ public final class Entity {
         return (p1.getX() == p2.getX() && Math.abs(p1.getY() - p2.getY()) == 1) || (p1.getY() == p2.getY()
                 && Math.abs(p1.getX() - p2.getX()) == 1);
     }
+
+    public PImage getCurrentImage() {
+        /*
+        if (entity instanceof Background) {
+            return ((Background)entity).getImages().get(
+                    ((Background)entity).getImageIndex());
+        }
+        */
+
+        //if (entity instanceof Entity) {
+            return this.getImages().get(this.getImageIndex());
+        //}
+        /*
+        else {
+            throw new UnsupportedOperationException(
+                    String.format("getCurrentImage not supported for %s",
+                            entity));
+        }
+         */
+    }
+    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
+        switch (this.getEntityKind()) {
+            case DUDE_FULL:
+                scheduler.scheduleEvent(this, this.createActivityAction(world, imageStore), this.getActionPeriod());
+                scheduler.scheduleEvent(this, this.createAnimationAction(0),this.getAnimationPeriod());
+                break;
+
+            case DUDE_NOT_FULL:
+                scheduler.scheduleEvent(this, this.createActivityAction(world, imageStore), this.getActionPeriod());
+                scheduler.scheduleEvent(this, this.createAnimationAction(0),this.getAnimationPeriod());
+                break;
+
+            case OBSTACLE:
+                scheduler.scheduleEvent(this, this.createAnimationAction(0), this.getAnimationPeriod());
+                break;
+
+            case FAIRY:
+                scheduler.scheduleEvent(this, this.createActivityAction(world, imageStore), this.getActionPeriod());
+                scheduler.scheduleEvent(this, this.createAnimationAction(0), this.getAnimationPeriod());
+                break;
+
+            case SAPLING:
+                scheduler.scheduleEvent(this, this.createActivityAction(world, imageStore), this.getActionPeriod());
+                scheduler.scheduleEvent(this, this.createAnimationAction(0), this.getAnimationPeriod());
+                break;
+
+            case TREE:
+                scheduler.scheduleEvent(this, this.createActivityAction(world, imageStore), this.getActionPeriod());
+                scheduler.scheduleEvent(this, this.createAnimationAction(0), this.getAnimationPeriod());
+                break;
+            default:
+        }
+    }
+
 
 }

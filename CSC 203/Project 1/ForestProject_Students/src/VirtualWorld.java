@@ -187,44 +187,42 @@ public final class VirtualWorld extends PApplet
     }
 }
 
-private  boolean processLine(
-    String line, WorldModel world, ImageStore imageStore)
-{
-String[] properties = line.split("\\s");
-if (properties.length > 0) {
-    switch (properties[PROPERTY_KEY]) {
-        case Background.BGND_KEY:
-            return world.parseBackground(properties, imageStore);
-        case Entity.DUDE_KEY:
-        return world.parseDude(properties, imageStore);
-        //return parseDude(properties, world, imageStore);
-        case Entity.OBSTACLE_KEY:
-            return world.parseObstacle(properties, imageStore);
-            //return parseObstacle(properties, world, imageStore);
+    private  boolean processLine(String line, WorldModel world, ImageStore imageStore) {
+        String[] properties = line.split("\\s");
+        if (properties.length > 0) {
+            switch (properties[PROPERTY_KEY]) {
+                case Background.BGND_KEY:
+                    return world.parseBackground(properties, imageStore);
+                case Entity.DUDE_KEY:
+                    return world.parseDude(properties, imageStore);
+                //return parseDude(properties, world, imageStore);
+                case Entity.OBSTACLE_KEY:
+                    return world.parseObstacle(properties, imageStore);
+                //return parseObstacle(properties, world, imageStore);
 
-        case Entity.FAIRY_KEY:
-            return world.parseFairy(properties, imageStore);
-            //return parseFairy(properties, world, imageStore);
-        case Entity.HOUSE_KEY:
-            return world.parseHouse(properties, imageStore);
-        case Entity.TREE_KEY:
-            return world.parseTree(properties, imageStore);
-            //return parseTree(properties, world, imageStore);
-        case Entity.SAPLING_KEY:
-            return world.parseSapling(properties,  imageStore);
-            //return parseSapling(properties, world, imageStore);
+                case Entity.FAIRY_KEY:
+                    return world.parseFairy(properties, imageStore);
+                //return parseFairy(properties, world, imageStore);
+                case Entity.HOUSE_KEY:
+                    return world.parseHouse(properties, imageStore);
+                case Entity.TREE_KEY:
+                    return world.parseTree(properties, imageStore);
+                //return parseTree(properties, world, imageStore);
+                case Entity.SAPLING_KEY:
+                    return world.parseSapling(properties,  imageStore);
+                //return parseSapling(properties, world, imageStore);
+            }
+        }
+
+        return false;
     }
-}
-
-return false;
-}
 
 
     public static void scheduleActions(
             WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
         for (Entity entity : world.getEntities()) {
-            scheduler.scheduleActions(entity,  world, imageStore);
+            entity.scheduleActions(scheduler, world, imageStore);
         }
     }
 

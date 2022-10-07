@@ -1,11 +1,21 @@
+getCurrentImage
+- I left this method in Functions. I was debating moving it to WorldModel or WorldView, but because it is used in both
+of those classes I deicded to keep it in Functions. IT also only takes an object 'Object' as the parameter, meaning it
+is a more general use type of method.
+
+execute*Activity
+- I moved all of these to the Entity class. Although it could also go inside WorldModel, this method is something that
+does not use the other entities in the world model. It only impacts the one entity that has been passed in. That entity
+will be passed back into the given WorldModel, but again, it won't disturb anything else in the WorldModel, making it
+an Entity-focused method.
+
 moveEntity
 - I elected to move this to the WorldModel class instead of Entity, because it uses private instance methods of WorldModel
 
 setBackgroundCell
 - I moved these methods to WorldModel instead of Background, because it will take a background that must be passed back into the WorldModel
 
-getCurrentImage
-- I left this method in Functions, because
+
 
 setBackground
 - I moved this to WorldModel instead of Background, because the background is apart of the WorldModel. Since it must be

@@ -74,6 +74,7 @@ public final class EventScheduler
     }
 
 
+    /*
     public  void scheduleActions(Entity entity, WorldModel world, ImageStore imageStore) {
         switch (entity.getEntityKind()) {
             case DUDE_FULL:
@@ -107,4 +108,5 @@ public final class EventScheduler
             default:
         }
     }
+     */
 }
