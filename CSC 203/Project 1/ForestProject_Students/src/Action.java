@@ -38,7 +38,7 @@ public final class Action
         return this.repeatCount;
     }
 
-    public  void executeAction(EventScheduler scheduler) {
+    public void executeAction(EventScheduler scheduler) {
         switch (this.getActionKind()) {
             case ACTIVITY:
                 this.executeActivityAction(scheduler);

@@ -25,14 +25,42 @@ addEntity
 - I added this to WorldModel instead of the Entity class because the method will check the bounds and occupancy of
 certain cells in the world, instead of just a singular entity
 
-transformNotFull, transfromFull, transformPlant, transformTree
-- I added these methods to WorldModel instead of Entity, because while it uses and creates Entity instances, it checkes
-the world at the given point, and adds there, wich makes it a WorldModel method
+transformNotFull, transfromFull
+- I added these methods to Entity instead of WorldModel, because they will create a new entity based off of the current one.
+They will use local methods from Entity, and then just pass them into the WorldModel
+
+addEntity
+- I added this into the WorldModel Class. This is because the method takes an Entity object that has already been created.
+It checks its position on the WorldModel map, and then chooses to add it in if it fits, which makes this a WorldModel focused method
+
+nextPosition*
+- I added all of these methods to the entity class. This is because the only time WorldModel is refferenced, is because
+the method is checking the occupancy of a given 'pos'.
+
+withinBounds
+- I kept this inside teh WorldModel class, because it will check if a given 'pos' is within the bounds of the 'numRows'
+and 'numCols' of the WorldModel
+
+shift
+- I kept this method within ViewPort, because it takes a new row and col to set the data fields of the given Viewport
+
+shiftView
+- I put this method inside WorldView instead of ViewPort, because although it will shift the Viewport, it will end up
+using that to shift the WorldView in the end.
+
+executeAction
+- I put this method in Action, because althoguh it will use an EventScheduler, it will use local methods within the
+Action class that will also take the same scheduler as a parameter. This means it will not change the scheduler,
+but only use it. Making this an Action focused method
+
+scheduleActions
+- After deciding between EventScheduler and Entity, I decided to put this method in Entity, because it makes most sense
+for an entity to be in charge of controlling its actions and events. The EventShceduler will take information based on
+the Entity, and then creat the event for it.
 
 createAnimationAction, createActivityAction
 - I moved these to Entity, because it will create an animationAction or activityAction on an entity that the entity will
  use when passed back into the World
-
 
 transformPlant, transformTree, transformSapling
 - I put these in WorldModel instead of Entity or Action, because transformPlants calls trasnformTree, which calls the
@@ -50,4 +78,4 @@ findNearest
 inside it. Inside the world we can find the entity and the entity "nearest", as the method calls requires
 
 clamp
-- I moved this methdo to WorldView because it is only used twice and within that class. It is now a private method
+- I moved this method to WorldView because it is only used twice and within that class. It is now a private method

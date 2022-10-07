@@ -29,7 +29,7 @@ public final class Viewport
         return this.numCols;
     }
 
-    public  void shift( int col, int row) {
+    public  void shift(int col, int row) {
         this.col = col;
         this.row = row;
     }
