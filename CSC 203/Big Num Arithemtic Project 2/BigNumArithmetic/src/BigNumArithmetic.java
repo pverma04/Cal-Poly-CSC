@@ -15,9 +15,9 @@ public class BigNumArithmetic {
         String filePath = args[0];
         FileProcessor.processFile(filePath);
          */
-        Number first = new Number("123456789.533456789");
-        Number second = new Number("1423.39874200932");
-        Number answer = first.subtract(second);
+        Number first = new Number("3");
+        Number second = new Number("10");
+        Number answer = first.multiply(second);
         System.out.println(answer.toString());
     }
 }

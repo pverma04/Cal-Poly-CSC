@@ -136,14 +136,22 @@ public class Number {
     public Number multiply(Number n) throws NumberException {
         Number bigger = this.numList.size() > n.getNumList().size() ? this : n;
         Number smaller = this.numList.size() < n.getNumList().size() ? this : n;
-        int carry;
+        int carry = 0;
+        int current = 0;
         Number product = new Number();
-        Number intermediate;
-        int current;
-        for(int i = 0; i < smaller.getNumList().size(); i++) {
-            for (int j = 0; j < i; j++) {
-                
+        Number intermediate = new Number();
+        String biggerString = bigger.toString();
+        String smallerString = smaller.toString();
+        for(int i = smallerString.length() - 1; i >= 0; i--) {
+            for (int j = biggerString.length() - 1; j >= 0; j--) {
+                if(smallerString.charAt(i) != '.' && biggerString.charAt(j) != '.') {
+                    current = carry + ((int) (smallerString.charAt(i)) * (int) (biggerString.charAt(j)));
+                    intermediate.numList.addToFront(new Node((char) (current % 10)));
+                    carry = current / 10;
+                }
             }
+            intermediate.numList.addToEnd(new Node('0'));
+            product = product.add(intermediate);
         }
         return product;
     }
