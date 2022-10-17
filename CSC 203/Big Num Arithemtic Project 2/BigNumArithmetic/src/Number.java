@@ -67,7 +67,7 @@ public class Number {
 
     public Number add(Number n){
         int carry = 0;
-        int addOn = 0;
+        int addOn;
         String rv = "";
         String smallLeftStr; //before decimal
         String smallRightStr; //after decimal
@@ -133,6 +133,21 @@ public class Number {
         }
         return sum;
     }
+    public Number multiply(Number n) throws NumberException {
+        Number bigger = this.numList.size() > n.getNumList().size() ? this : n;
+        Number smaller = this.numList.size() < n.getNumList().size() ? this : n;
+        int carry;
+        Number product = new Number();
+        Number intermediate;
+        int current;
+        for(int i = 0; i < smaller.getNumList().size(); i++) {
+            for (int j = 0; j < i; j++) {
+                
+            }
+        }
+        return product;
+    }
+
     public Number ninesComplement(){
         String rv = "";
         Number nComp = null;

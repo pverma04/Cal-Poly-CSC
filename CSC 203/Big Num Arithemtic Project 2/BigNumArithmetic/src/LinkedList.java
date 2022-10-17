@@ -25,6 +25,19 @@ public class LinkedList {
             this.tail = add;
         }
     }
+    public void addToFront(Node add) {
+        if(this.head == null) {
+            this.head = add;
+            this.head = add;
+            this.head.setPrev(null);
+            this.tail = add;
+            this.tail.setNext(null);
+        } else {
+            add.setNext(this.head);
+            this.head.setPrev(add);
+            this.head = add;
+        }
+    }
 
     public void printList(){
         Node p = this.head; //to traverse
