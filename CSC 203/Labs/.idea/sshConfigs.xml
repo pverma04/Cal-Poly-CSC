@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="unix1.csc.calpoly.edu" id="118c3a7b-ccbe-4d05-8cf0-68a9f676c378" port="22" nameFormat="DESCRIPTIVE" username="pverma02" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>

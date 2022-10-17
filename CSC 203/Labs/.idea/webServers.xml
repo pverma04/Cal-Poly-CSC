@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e60fd347-ba6b-410b-b1ee-4ac5e94278d4" name="unix1.csc.calpoly.edu">
+        <fileTransfer rootFolder="/home/pverma02" accessType="SFTP" host="unix1.csc.calpoly.edu" port="22" sshConfigId="118c3a7b-ccbe-4d05-8cf0-68a9f676c378" sshConfig="pverma02@unix1.csc.calpoly.edu:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
