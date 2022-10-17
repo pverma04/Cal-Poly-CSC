@@ -41,7 +41,7 @@ public class SampleTest {
     }
 
     @Test
-    public void testSampleFile() {
+    public void testSampleFile() throws NumberException {
         BigNumArithmetic.main(new String[] { "SampleInput.txt" });
         String output = this.baos.toString();
         assertEquals("1 + 2 = 3\n" +

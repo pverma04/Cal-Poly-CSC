@@ -72,35 +72,39 @@ public class Number {
         String smallLeftStr; //before decimal
         String smallRightStr; //after decimal
         int indexDecThis = this.toString().indexOf(".");
-        int indexDecBd = n.toString().indexOf(".");
+        int indexDecN = n.toString().indexOf(".");
         Number sum = null;
 
         //padding left side of decimal
-        smallLeftStr = (indexDecThis > indexDecBd) ? this.toString() : n.toString(); //smallLeftStr is set to the smaller left side
-        int differenceInLengthLeft = (indexDecThis > indexDecBd) ? indexDecBd - indexDecThis : indexDecThis - indexDecBd;
+        smallLeftStr = (indexDecThis >= indexDecN) ? n.toString() : this.toString(); //smallLeftStr is set to the smaller left side
+        int differenceInLengthLeft = (indexDecThis >= indexDecN) ? indexDecThis - indexDecN : indexDecN - indexDecThis;
         smallLeftStr = this.paddingZeros(smallLeftStr, differenceInLengthLeft, true); //pad the number with the smaller left side with leading zeros
 
         try {
-            if (indexDecThis > indexDecBd){
-                setValue(smallLeftStr);
+            if (indexDecThis >= indexDecN){
+                n.setValue(smallLeftStr);
+                indexDecN = n.toString().indexOf('.'); //after the zeros are padded, check for new decimal position
             }
             else{
-                n.setValue(smallLeftStr);
+                this.setValue(smallLeftStr);
+                indexDecThis = this.toString().indexOf('.'); //after the zeros are padded, check for new decimal position
             }
         } catch (NumberException nE) {
             System.out.println(nE.getMessage());
         }
-
+        String thisRightSide = this.toString().substring(indexDecThis + 1); //substring starting after the decimal point
+        String nRightSide = n.toString().substring(indexDecN + 1); //substring starting after the decimal point
         //padding right side of decimal
-        smallRightStr = (this.toString().length() - this.toString().indexOf(".")) < (n.toString().length() - n.toString().indexOf(".")) ? this.toString() : n.toString(); //smallRightStr is set to the smaller right side
-        int differenceInLengthRight = (indexDecThis > indexDecBd) ? indexDecBd - indexDecThis : indexDecThis - indexDecBd;
+        smallRightStr = thisRightSide.length() < nRightSide.length() ? this.toString() : n.toString(); //smallRightStr is set to the smaller right side
+        int differenceInLengthRight = (thisRightSide.length() < nRightSide.length()) ? nRightSide.length() - thisRightSide.length() : thisRightSide.length() - nRightSide.length();
         smallRightStr = paddingZeros(smallRightStr, differenceInLengthRight, false); //pad the number with the smaller right side with leading zeros
 
         try {
-            if ((this.toString().length() - this.toString().indexOf(".")) < (n.toString().length() - n.toString().indexOf("."))) {
-                setValue(smallRightStr);
-            } else {
+            //if ((this.toString().length() - this.toString().indexOf(".")) < (n.toString().length() - n.toString().indexOf("."))) {
+            if (thisRightSide.length() >= nRightSide.length()) {
                 n.setValue(smallRightStr);
+            } else {
+                this.setValue(smallRightStr);
             }
         } catch (NumberException nE) {
             System.out.println(nE.getMessage());
@@ -129,34 +133,154 @@ public class Number {
         }
         return sum;
     }
+    public Number ninesComplement(){
+        String rv = "";
+        Number nComp = null;
+        for(int i = this.toString().length() - 1; i >= 0; i--){ //starting from the one's place of the number (BigDecimal)
+            if(this.toString().charAt(i) == '.'){
+                rv = "." + rv;
+            }
+            else{
+                rv = (9 - Character.getNumericValue(this.toString().charAt(i))) + rv; //creating the nine's complement
+            }
+        }
+        if(rv.length() > this.toString().length()){
+            String rv1 = "";
+            for (int i = rv.length() - 1; i >= 0; i--) {
+                if (this.toString().charAt(i) == '.') {
+                    rv1 = "." + rv1;
+                } else { //repeating the process if needed (following the nine's complement rules)
+                    rv1 = (9 - Character.getNumericValue(rv.charAt(i))) + rv1;
+                }
+            }
+            rv = rv1;
+        }
+        try{
+            nComp = new Number(rv);
+        }
+        catch (NumberException nE){
+            System.out.println(nE.getMessage());
+        }
+        return nComp;
+    }
+    public Number subtract(Number n){
+        Number answer;
+        String rv = "";
+        String smallLeftStr; //before decimal
+        String smallRightStr; //after decimal
+        int indexDecThis = this.toString().indexOf(".");
+        int indexDecN = n.toString().indexOf(".");
+
+        //padding left side of decimal
+        smallLeftStr = (indexDecThis >= indexDecN) ? n.toString() : this.toString(); //smallLeftStr is set to the smaller left side
+        int differenceInLengthLeft = (indexDecThis >= indexDecN) ? indexDecThis - indexDecN : indexDecN - indexDecThis;
+        smallLeftStr = paddingZeros(smallLeftStr, differenceInLengthLeft, true); //pad the number with the smaller left side with leading zeros
+
+        try {
+            if (indexDecThis >= indexDecN) {
+                n.setValue(smallLeftStr);
+            } else {
+                this.setValue(smallLeftStr);
+            }
+        } catch (NumberException nE) {
+            System.out.println(nE.getMessage());
+        }
+        String thisRightSide = this.toString().substring(indexDecThis + 1); //substring starting after the decimal point
+        String nRightSide = n.toString().substring(indexDecN + 1); //substring starting after the decimal point
+
+        //padding right side of decimal
+        smallRightStr = thisRightSide.length() >= nRightSide.length() ? n.toString() : this.toString(); //smallRightStr is set to the smaller right side
+        int differenceInLengthRight = (thisRightSide.length() >= nRightSide.length()) ? indexDecThis - indexDecN : indexDecN - indexDecThis;
+        smallRightStr = paddingZeros(smallRightStr, differenceInLengthRight, false); //pad the number with the smaller right side with trailing zeros
+
+        try {
+            if (thisRightSide.length() >= nRightSide.length()) {
+                n.setValue(smallRightStr);
+            } else {
+                this.setValue(smallRightStr);
+            }
+        } catch (NumberException nE) {
+            System.out.println(nE.getMessage());
+        }
+
+        answer = this.add(n.ninesComplement());
+
+        if(answer.toString().length() > this.toString().length()){
+            String carry = "";
+            for(int i = 0; i < (answer.toString().length() - answer.toString().indexOf(".") - 2); i++){
+                carry = "0" + carry;
+            }
+            carry = "." + carry + 1;
+            try{
+                answer.setValue(answer.toString().substring(1)); //cut off the first digt from the answer (following the complement rules)
+            }
+            catch(NumberException nE){
+                System.out.println(nE.getMessage());
+            }
+            try{
+                answer = answer.add(new Number(carry));
+            }
+            catch(NumberException nE){
+                System.out.println(nE.getMessage());
+            }
+        }
+        else{
+            try{
+                answer.setValue(answer.ninesComplement().toString());
+            }
+            catch(NumberException nE){
+                System.out.println(nE.getMessage());
+            }
+            if (answer.toDouble() != 0.0){
+                try {
+                    answer.setValue("-" + answer.toString());
+                }
+                catch (NumberException nE) {
+                    System.out.println(nE.getMessage());
+                }
+            }
+            else{
+                try{
+                    answer.setValue("0.0");
+                }
+                catch (NumberException nE) {
+                    System.out.println(nE.getMessage());
+                }
+            }
+        }
+        return answer;
+    }
+
+
     public Number exponent(Number n) throws NumberException{
-        Node p = n.getNumList().getHead();
+        //Node p = n.getNumList().getHead();
         int expNum = (int) n.toDouble();
         double baseNum = this.toDouble();
-        double answer;
-        while(p.getNext().getData() != '.') {
-            p = p.getNext();
-        }
+        //double answer;
+        //Number rv = new Number();
+        String answer;
         if(expNum % 2 ==0) {
-            answer = Math.pow(Math.pow(baseNum, 2), expNum/2);
+            answer = Double.toString(Math.pow(Math.pow(baseNum, 2), expNum/2));
         } else {
-            answer = baseNum * Math.pow(Math.pow(baseNum, 2), (expNum - 1) / 2);
+            answer = Double.toString(baseNum * Math.pow(Math.pow(baseNum, 2), (expNum - 1) / 2));
         }
-        return new Number(answer + "");
+        //String temp = Double.toString(answer);
+        return new Number(answer);
     }
+
     public double toDouble() {
-        Node p = this.numList.getTail();
+        Node p = this.numList.getHead();
         String stringOfNum = "";
-        while (p.getPrev() != null) {
-            stringOfNum = p.getData() + stringOfNum;
-            p = p.getPrev();
+        while (p.getNext() != null) {
+            stringOfNum += p.getData();
+            p = p.getNext();
         }
         return Double.parseDouble(stringOfNum);
     }
     public String toString(){
         String rv = "";
         for(int i = 0; i < this.numList.size(); i++){
-            rv += "" + this.numList.getNodeAt(i);
+            rv += "" + this.numList.getNodeAt(i).getData();
         }
         return rv;
     }
