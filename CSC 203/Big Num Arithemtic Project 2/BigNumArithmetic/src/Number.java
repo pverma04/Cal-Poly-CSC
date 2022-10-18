@@ -145,8 +145,12 @@ public class Number {
         for(int i = smallerString.length() - 1; i >= 0; i--) {
             for (int j = biggerString.length() - 1; j >= 0; j--) {
                 if(smallerString.charAt(i) != '.' && biggerString.charAt(j) != '.') {
-                    current = carry + ((int) (smallerString.charAt(i)) * (int) (biggerString.charAt(j)));
-                    intermediate.numList.addToFront(new Node((char) (current % 10)));
+                    current = carry + (Character.getNumericValue(smallerString.charAt(i)) * Character.getNumericValue(biggerString.charAt(j)));
+                    if (i == smallerString.length()) {
+                        intermediate.setValue(current % 10 + "");
+                    } else {
+                        intermediate.numList.addToFront(new Node((char) (current % 10)));
+                    }
                     carry = current / 10;
                 }
             }
