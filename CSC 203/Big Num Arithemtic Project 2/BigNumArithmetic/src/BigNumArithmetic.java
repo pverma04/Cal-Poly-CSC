@@ -12,10 +12,9 @@ public class BigNumArithmetic {
      * @param args Command line arguments. Should have exactly one argument: a file name.
      */
     public static void main(String[] args) throws NumberException{
-        /*
         try {
             Scanner input = new Scanner(new File(""));
-            File output = new File("pathName");
+            File output = new File("SampleOutPut.txt");
 
             String currentProblem;
             Number firstNum;
@@ -66,7 +65,7 @@ public class BigNumArithmetic {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-         */
+
         /*
         if (args.length != 1) {
             throw new IllegalArgumentException(
@@ -79,13 +78,14 @@ public class BigNumArithmetic {
         System.out.println(currentProblem);
         currentProblem = currentProblem.replaceAll("\\s", "");
         System.out.println(currentProblem);
-         */
+
 
 
         Number first = new Number("12");
         Number second = new Number("20");
         Number answer = first.exponent(second);
         System.out.println(answer.toString());
+         */
 
     }
 }

@@ -29,7 +29,7 @@ public class Number {
         Number sum = new Number();
         //pad left side of shorter Number with Zeros
         Number smallerNum = this.numList.size() >= n.numList.size() ? n : this;
-        Number biggerNum = this.numList.size() >= n.numList.size() ? this : n;
+        Number biggerNum = this.numList.size() > n.numList.size() ? this : n;
         smallerNum = this.addZeros(smallerNum, biggerNum.numList.size() - smallerNum.numList.size(), true);
 
         //addition of the two BigDecimals
