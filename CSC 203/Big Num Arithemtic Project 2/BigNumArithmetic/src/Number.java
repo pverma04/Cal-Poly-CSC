@@ -52,7 +52,7 @@ public class Number {
 
 
     public Number multiply(Number n) throws NumberException {
-        Number bigger = this.numList.size() > n.getNumList().size() ? this : n;
+        Number bigger = this.numList.size() >= n.getNumList().size() ? this : n;
         Number smaller = this.numList.size() < n.getNumList().size() ? this : n;
         Number finalProduct = new Number();
         Number intermediateProduct = new Number();
@@ -111,144 +111,39 @@ public class Number {
         }
         return intermediateProduct;
     }
-    /*
-    public Number ninesComplement(){
-        String rv = "";
-        Number nComp = null;
-        for(int i = this.toString().length() - 1; i >= 0; i--){ //starting from the one's place of the number (BigDecimal)
-            if(this.toString().charAt(i) == '.'){
-                rv = "." + rv;
-            }
-            else{
-                rv = (9 - Character.getNumericValue(this.toString().charAt(i))) + rv; //creating the nine's complement
-            }
+
+
+    private Number exponentBySquaring(Number baseNumber, int expN) throws NumberException {
+        if (expN == 0) { //anything to the power of 0 is 1
+            return new Number("1");
+        } else if (expN % 2 == 0) { //even exponent formula
+            return exponentBySquaring(baseNumber.multiply(baseNumber), expN / 2);
+        } else { //odd exponent formula
+            return baseNumber.multiply(exponentBySquaring(baseNumber.multiply(baseNumber), (expN - 1) / 2));
         }
-        if(rv.length() > this.toString().length()){
-            String rv1 = "";
-            for (int i = rv.length() - 1; i >= 0; i--) {
-                if (this.toString().charAt(i) == '.') {
-                    rv1 = "." + rv1;
-                } else { //repeating the process if needed (following the nine's complement rules)
-                    rv1 = (9 - Character.getNumericValue(rv.charAt(i))) + rv1;
-                }
-            }
-            rv = rv1;
-        }
-        try{
-            nComp = new Number(rv);
-        }
-        catch (NumberException nE){
-            System.out.println(nE.getMessage());
-        }
-        return nComp;
     }
-     */
-    /*
-    public Number subtract(Number n){
-        Number answer;
-        String rv = "";
-        String smallLeftStr; //before decimal
-        String smallRightStr; //after decimal
-        int indexDecThis = this.toString().indexOf(".");
-        int indexDecN = n.toString().indexOf(".");
-
-        //padding left side of decimal
-        smallLeftStr = (indexDecThis >= indexDecN) ? n.toString() : this.toString(); //smallLeftStr is set to the smaller left side
-        int differenceInLengthLeft = (indexDecThis >= indexDecN) ? indexDecThis - indexDecN : indexDecN - indexDecThis;
-        smallLeftStr = paddingZeros(smallLeftStr, differenceInLengthLeft, true); //pad the number with the smaller left side with leading zeros
-
-        try {
-            if (indexDecThis >= indexDecN) {
-                n.setValue(smallLeftStr);
-            } else {
-                this.setValue(smallLeftStr);
-            }
-        } catch (NumberException nE) {
-            System.out.println(nE.getMessage());
-        }
-        String thisRightSide = this.toString().substring(indexDecThis + 1); //substring starting after the decimal point
-        String nRightSide = n.toString().substring(indexDecN + 1); //substring starting after the decimal point
-
-        //padding right side of decimal
-        smallRightStr = thisRightSide.length() >= nRightSide.length() ? n.toString() : this.toString(); //smallRightStr is set to the smaller right side
-        int differenceInLengthRight = (thisRightSide.length() >= nRightSide.length()) ? indexDecThis - indexDecN : indexDecN - indexDecThis;
-        smallRightStr = paddingZeros(smallRightStr, differenceInLengthRight, false); //pad the number with the smaller right side with trailing zeros
-
-        try {
-            if (thisRightSide.length() >= nRightSide.length()) {
-                n.setValue(smallRightStr);
-            } else {
-                this.setValue(smallRightStr);
-            }
-        } catch (NumberException nE) {
-            System.out.println(nE.getMessage());
-        }
-
-        answer = this.add(n.ninesComplement());
-
-        if(answer.toString().length() > this.toString().length()){
-            String carry = "";
-            for(int i = 0; i < (answer.toString().length() - answer.toString().indexOf(".") - 2); i++){
-                carry = "0" + carry;
-            }
-            carry = "." + carry + 1;
-            try{
-                answer.setValue(answer.toString().substring(1)); //cut off the first digt from the answer (following the complement rules)
-            }
-            catch(NumberException nE){
-                System.out.println(nE.getMessage());
-            }
-            try{
-                answer = answer.add(new Number(carry));
-            }
-            catch(NumberException nE){
-                System.out.println(nE.getMessage());
-            }
-        }
-        else{
-            try{
-                answer.setValue(answer.ninesComplement().toString());
-            }
-            catch(NumberException nE){
-                System.out.println(nE.getMessage());
-            }
-            if (answer.toDouble() != 0.0){
-                try {
-                    answer.setValue("-" + answer.toString());
-                }
-                catch (NumberException nE) {
-                    System.out.println(nE.getMessage());
-                }
-            }
-            else{
-                try{
-                    answer.setValue("0.0");
-                }
-                catch (NumberException nE) {
-                    System.out.println(nE.getMessage());
-                }
-            }
-        }
-        return answer;
+    public Number exponent(Number n) throws NumberException {
+        int expN = Integer.parseInt(n.toString());
+        return this.exponentBySquaring(this, expN);
     }
-     */
+//
+//    public Number exponent(Number n) throws NumberException {
+//        int expN = Integer.parseInt(n.toString());
+//        if (expN == 0) { return new Number("1"); }
+//        Number x = new Number("1");
+//        while (expN > 1) {
+//            if (expN % 2 == 0) { //even exponent formula
+//                this.setValue(this.multiply(this).toString());
+//                expN /= 2;
+//            } else { //odd exponent formula
+//                x = this.multiply(x);
+//                this.setValue(this.multiply(this).toString());
+//                expN = (expN - 1) / 2;
+//            }
+//        }
+//        return this.multiply(x);
+//    }
 
-
-    public Number exponent(Number n) throws NumberException{
-        //Node p = n.getNumList().getHead();
-        int expNum = (int) n.toDouble();
-        double baseNum = this.toDouble();
-        //double answer;
-        //Number rv = new Number();
-        String answer;
-        if(expNum % 2 ==0) {
-            answer = Double.toString(Math.pow(Math.pow(baseNum, 2), expNum/2));
-        } else {
-            answer = Double.toString(baseNum * Math.pow(Math.pow(baseNum, 2), (expNum - 1) / 2));
-        }
-        //String temp = Double.toString(answer);
-        return new Number(answer);
-    }
 
     public double toDouble() {
         Node p = this.numList.getHead();
