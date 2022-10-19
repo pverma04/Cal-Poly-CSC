@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b30bbe5e-69f6-4431-9309-e59ffc20ff59" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../Big Num Arithemtic Project 2/BigNumArithmetic/src/BigNumArithmetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Big Num Arithemtic Project 2/BigNumArithmetic/src/BigNumArithmetic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Big Num Arithemtic Project 2/BigNumArithmetic/src/Number.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Big Num Arithemtic Project 2/BigNumArithmetic/src/Number.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +125,7 @@
       <workItem from="1665532720807" duration="14138000" />
       <workItem from="1665646051873" duration="755000" />
       <workItem from="1665777628821" duration="209000" />
-      <workItem from="1666140839738" duration="2730000" />
+      <workItem from="1666140839738" duration="2731000" />
     </task>
     <servers />
   </component>

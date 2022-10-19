@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,8 +15,8 @@ public class BigNumArithmetic {
      */
     public static void main(String[] args) throws NumberException{
         try {
-            Scanner input = new Scanner(new File(""));
-            File output = new File("SampleOutPut.txt");
+            Scanner input = new Scanner(new File());
+            FileWriter output = new FileWriter("Output.txt");
 
             String currentProblem;
             Number firstNum;
@@ -53,17 +55,23 @@ public class BigNumArithmetic {
                     switch (operator) {
                         case '+':
                             answer = firstNum.add(secondNum); //WRITE TO FILE
+                            output.write(firstNum.toString() + " + " + secondNum.toString() + " = " + answer.toString());
                         case '*':
                             answer = firstNum.multiply(secondNum); //WRITE TO FILE
+                            output.write(firstNum.toString() + " * " + secondNum.toString() + " = " + answer.toString());
                         case '^':
                             answer = firstNum.exponent(secondNum); //WRITE TO FILE
+                            output.write(firstNum.toString() + " * " + secondNum.toString() + " = " + answer.toString());
 
                     }
                 }
             }
             input.close();
+            output.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         /*
@@ -78,14 +86,14 @@ public class BigNumArithmetic {
         System.out.println(currentProblem);
         currentProblem = currentProblem.replaceAll("\\s", "");
         System.out.println(currentProblem);
-
-
-
-        Number first = new Number("12");
-        Number second = new Number("20");
-        Number answer = first.exponent(second);
-        System.out.println(answer.toString());
          */
+
+
+//        Number first = new Number("004");
+//        Number second = new Number("005");
+//        Number answer = first.multiply(second);
+//        System.out.println(answer.toString());
+
 
     }
 }
