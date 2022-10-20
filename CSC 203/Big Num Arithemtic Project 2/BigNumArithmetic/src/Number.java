@@ -141,20 +141,6 @@ public class Number {
         }
         return rv;
     }
-    public String paddingZeros(String input, int numZeros, boolean padInFront){
-        String paddedStr = input;
-        if(padInFront){ //add leading zeros
-            for (int i = 0; i < numZeros; i++) {
-                paddedStr = "0" + paddedStr;
-            }
-        }
-        else{ //add trailing zeros
-            for (int i = 0; i < numZeros; i++) {
-                paddedStr += "0";
-            }
-        }
-        return paddedStr;
-    }
 
     public void setValue(char ch) throws NumberException{
         if(!Character.isDigit(ch) && ch != '.'){ //if data section is being set to anything that isn't a digit or "-"

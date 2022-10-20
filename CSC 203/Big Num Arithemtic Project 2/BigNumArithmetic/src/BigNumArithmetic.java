@@ -25,17 +25,9 @@ public class BigNumArithmetic {
             String filePath = args[0];
             FileProcessor.processFile(filePath);
 
-//            Number first = new Number("004");
-//            Number second = new Number("005");
-//            Number answer = first.multiply(second);
-//            System.out.println(answer.toString());
-//            String currentProblem = "13  * 3";
-//            char operator = '*';
-
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            //throw new RuntimeException(e);
         }
     }
 }
