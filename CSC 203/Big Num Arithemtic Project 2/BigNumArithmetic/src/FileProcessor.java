@@ -15,7 +15,6 @@ public class FileProcessor {
         File infile = new File(filePath);
         try (Scanner scan = new Scanner(infile)) {
             FileWriter output = new FileWriter("output.txt");
-
             Number firstNum = null;
             Number secondNum = null;
             Number answer = null;
@@ -51,11 +50,10 @@ public class FileProcessor {
                 }
             }
             output.close();
-            } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch (IOException | NumberException e) {
+        } catch (IOException | NumberException e) {
                 throw new RuntimeException(e);
-            }
-
+        }
     }
 }

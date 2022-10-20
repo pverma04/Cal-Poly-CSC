@@ -35,6 +35,35 @@ public class SpecificTest {
         Node answer = new Node(5);
         assertEquals(answer.getData(), l.getNodeAt(5).getData());
     }
+    @Test
+    public void testClear() {
+        LinkedList l = new LinkedList();
+        l.addToEnd(new Node(0));
+        l.addToEnd(new Node(1));
+        l.addToEnd(new Node(2));
+        l.addToEnd(new Node(3));
+        l.addToEnd(new Node(4));
+        l.addToEnd(new Node(5));
+        l.addToEnd(new Node(6));
+        assertEquals(7, l.size());
+        l.clear();
+        assertEquals(0, l.size());
+    }
+    @Test
+    public void testAddToEnd() {
+        LinkedList l = new LinkedList();
+        l.addToEnd(new Node(0));
+        l.addToEnd(new Node(1));
+        l.addToEnd(new Node(2));
+        l.addToEnd(new Node(3));
+        l.addToEnd(new Node(4));
+        l.addToEnd(new Node(5));
+        l.addToEnd(new Node(6));
+        assertEquals(7, l.size());
+        l.clear();
+        assertEquals(0, l.size());
+    }
+
     //Number class
     @Test
     public void testAdd1() throws NumberException {
