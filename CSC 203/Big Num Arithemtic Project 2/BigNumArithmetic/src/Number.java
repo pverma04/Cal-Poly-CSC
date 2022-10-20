@@ -27,9 +27,16 @@ public class Number {
         int addOn;
         int digit;
         Number sum = new Number();
+        Number smallerNum;
+        Number biggerNum;
         //pad left side of shorter Number with Zeros
-        Number smallerNum = this.numList.size() >= n.numList.size() ? n : this;
-        Number biggerNum = this.numList.size() > n.numList.size() ? this : n;
+        if(this.numList.size() >= n.numList.size()) {
+            smallerNum = n;
+            biggerNum = this;
+        } else {
+            smallerNum = this;
+            biggerNum = n;
+        }
         smallerNum = this.addZeros(smallerNum, biggerNum.numList.size() - smallerNum.numList.size(), true);
 
         //addition of the two BigDecimals

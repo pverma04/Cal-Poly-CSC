@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FileProcessor {
@@ -12,13 +14,48 @@ public class FileProcessor {
     public static void processFile(String filePath) {
         File infile = new File(filePath);
         try (Scanner scan = new Scanner(infile)) {
-            while (scan.hasNext()) {
+            FileWriter output = new FileWriter("output.txt");
+
+            Number firstNum = null;
+            Number secondNum = null;
+            Number answer = null;
+            char operator = ' ';
+            int posOperator;
+            String currentProblem;
+            while (scan.hasNextLine()) {
                 // TODO: Process each line of the input file here.
-                String line = scan.nextLine();
-                System.out.println(line);
+                currentProblem = scan.nextLine().replaceAll("\\s", ""); //problem with NO spaces
+                if(!currentProblem.equals("")){
+                    if(currentProblem.indexOf('+') > 0) {
+                        operator = '+';
+                        posOperator = currentProblem.indexOf('+');
+                        firstNum = new Number(currentProblem.substring(0, posOperator).replaceFirst("^0+(?!$)", ""));
+                        secondNum = new Number(currentProblem.substring(posOperator + 1).replaceFirst("^0+(?!$)", ""));
+                        answer = firstNum.add(secondNum); //WRITE TO FILE
+                    }
+                    if (currentProblem.indexOf('*') > 0){
+                        operator = '*';
+                        posOperator = currentProblem.indexOf('*');
+                        firstNum = new Number(currentProblem.substring(0, posOperator).replaceFirst("^0+(?!$)", ""));
+                        secondNum = new Number(currentProblem.substring(posOperator + 1).replaceFirst("^0+(?!$)", ""));
+                        answer = firstNum.multiply(secondNum); //WRITE TO FILE
+                    }
+                    if (currentProblem.indexOf('^') > 0) {
+                        operator = '^';
+                        posOperator = currentProblem.indexOf('^');
+                        firstNum = new Number(currentProblem.substring(0, posOperator).replaceFirst("^0+(?!$)", ""));
+                        secondNum = new Number(currentProblem.substring(posOperator + 1).replaceFirst("^0+(?!$)", ""));
+                        answer = firstNum.exponent(secondNum); //WRITE TO FILE
+                    }
+                    output.write(firstNum.toString() + " " + operator + " " + secondNum.toString() + " = " + answer.toString() + "\n");
+                }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + infile.getPath());
-        }
+            output.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException | NumberException e) {
+                throw new RuntimeException(e);
+            }
+
     }
 }
