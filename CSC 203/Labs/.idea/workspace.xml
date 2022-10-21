@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b30bbe5e-69f6-4431-9309-e59ffc20ff59" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Big Num Arithemtic Project 2/BigNumArithmetic/src/BigNumArithmetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Big Num Arithemtic Project 2/BigNumArithmetic/src/BigNumArithmetic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Big Num Arithemtic Project 2/BigNumArithmetic/src/Number.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Big Num Arithemtic Project 2/BigNumArithmetic/src/Number.java" afterDir="false" />
-    </list>
+    <list default="true" id="b30bbe5e-69f6-4431-9309-e59ffc20ff59" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,22 +36,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "WebServerToolWindowFactoryState": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
-    "WebServerToolWindowPanel.toolwindow.show.date": "false",
-    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
-    "WebServerToolWindowPanel.toolwindow.show.size": "false",
-    "last_opened_file_path": "/Users/parthverma/CalPolyCSC/Cal-Poly-CSC/CSC 203/Labs",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/parthverma/CalPolyCSC/Cal-Poly-CSC/CSC 203/Labs&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Lab02: Static and Instance Methods/part2" />
@@ -126,6 +115,14 @@
       <workItem from="1665646051873" duration="755000" />
       <workItem from="1665777628821" duration="209000" />
       <workItem from="1666140839738" duration="2731000" />
+      <workItem from="1666392820062" duration="41000" />
+      <workItem from="1666392870823" duration="59000" />
+      <workItem from="1666392958239" duration="17000" />
+      <workItem from="1666392988683" duration="61000" />
+      <workItem from="1666393053548" duration="90000" />
+      <workItem from="1666393268941" duration="72000" />
+      <workItem from="1666393351380" duration="20000" />
+      <workItem from="1666393379913" duration="2377000" />
     </task>
     <servers />
   </component>
