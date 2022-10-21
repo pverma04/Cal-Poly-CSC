@@ -21,7 +21,6 @@ public class Number {
 
     public LinkedList getNumList() { return this.numList; }
 
-
     public Number add(Number n) throws NumberException {
         int carry = 0;
         int addOn;
@@ -55,8 +54,6 @@ public class Number {
         }
         return sum;
     }
-
-
 
     public Number multiply(Number n) throws NumberException {
         Number bigger = this.numList.size() >= n.getNumList().size() ? this : n;
@@ -118,7 +115,6 @@ public class Number {
         }
         return intermediateProduct;
     }
-
 
     private Number exponentBySquaring(Number baseNumber, int expN) throws NumberException {
         if (expN == 0) { //anything to the power of 0 is 1
