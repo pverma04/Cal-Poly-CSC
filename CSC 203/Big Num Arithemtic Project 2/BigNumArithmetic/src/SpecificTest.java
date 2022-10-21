@@ -4,8 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import org.junit.jupiter.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SpecificTest {
     //LinkedList class
@@ -59,10 +61,43 @@ public class SpecificTest {
         l.addToEnd(new Node(4));
         l.addToEnd(new Node(5));
         l.addToEnd(new Node(6));
-        assertEquals(7, l.size());
-        l.clear();
-        assertEquals(0, l.size());
+        Node answer = l.getTail();
+        assertEquals('6', answer.getData());
+        l.addToEnd(new Node(7));
+        answer = l.getTail();
+        assertEquals('7', answer.getData());
     }
+    @Test
+    public void testAddToFront() {
+        LinkedList l = new LinkedList();
+        l.addToEnd(new Node(0));
+        l.addToEnd(new Node(1));
+        l.addToEnd(new Node(2));
+        l.addToEnd(new Node(3));
+        l.addToEnd(new Node(4));
+        l.addToEnd(new Node(5));
+        l.addToEnd(new Node(6));
+        Node answer = l.getHead();
+        assertEquals('0', answer.getData());
+        l.addToFront(new Node(9));
+        answer = l.getHead();
+        assertEquals('9', answer.getData());
+    }
+    @Test
+    public void testToString() {
+        LinkedList l = new LinkedList();
+        l.addToEnd(new Node(0));
+        l.addToEnd(new Node(1));
+        l.addToEnd(new Node(2));
+        l.addToEnd(new Node(3));
+        l.addToEnd(new Node(4));
+        l.addToEnd(new Node(5));
+        l.addToEnd(new Node(6));
+        String answer = "0123456";
+        assertEquals(answer, l.toString());
+
+    }
+
 
     //Number class
     @Test
@@ -93,13 +128,7 @@ public class SpecificTest {
         Number answer = testNum1.multiply(testNum2);
         assertEquals("30161198228802643184", answer.toString());
     }
-//
-//    @Test
-//    public void testAddZeros() throws NumberException {
-//        Number testNum1 = new Number("638");
-//        Number answer = testNum1.addZeros(testNum1, 5, true);
-//        assertEquals("00000638", answer.toString());
-//    }
+
     @Test
     public void testExponent1() throws NumberException {
          Number testNum1 = new Number("15");

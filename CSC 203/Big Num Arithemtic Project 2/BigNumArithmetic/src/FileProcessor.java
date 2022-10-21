@@ -21,6 +21,7 @@ public class FileProcessor {
             char operator = ' ';
             int posOperator;
             String currentProblem;
+            boolean firstPrint = true;
             while (scan.hasNextLine()) {
                 // TODO: Process each line of the input file here.
                 currentProblem = scan.nextLine().replaceAll("\\s", ""); //problem with NO spaces
@@ -46,6 +47,11 @@ public class FileProcessor {
                         secondNum = new Number(currentProblem.substring(posOperator + 1).replaceFirst("^0+(?!$)", ""));
                         answer = firstNum.exponent(secondNum); //WRITE TO FILE
                     }
+                    if(!firstPrint){
+                        System.out.print("\n");
+                    }
+                    firstPrint = false;
+                    System.out.print(firstNum.toString() + " " + operator + " " + secondNum.toString() + " = " + answer.toString());
                     output.write(firstNum.toString() + " " + operator + " " + secondNum.toString() + " = " + answer.toString() + "\n");
                 }
             }

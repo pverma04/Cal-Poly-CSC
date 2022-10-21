@@ -16,7 +16,7 @@ public class BigNumArithmetic {
      *
      * @param args Command line arguments. Should have exactly one argument: a file name.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NumberException {
         try {
             if (args.length != 1) {
                 throw new IllegalArgumentException(
@@ -29,6 +29,9 @@ public class BigNumArithmetic {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+//        Number first = new Number("102");
+//        Number second = new Number("1000");
+//        System.out.println(first.multiply(second).toString());
     }
 }
 

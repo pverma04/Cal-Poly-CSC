@@ -39,17 +39,19 @@ public class LinkedList {
         }
     }
 
-    public void printList(){
+    public String toString(){
         Node p = this.head; //to traverse
+        String rv = "";
         if(p != null){
             while (p != null) { //traverse all the way to the end
-                System.out.println("" + p.getData());
+                rv+= "" + p.getData();
                 p = p.getNext();
             }
         }
         else{
-            System.out.println("Empty List");
+            return "Empty List";
         }
+        return rv;
     }
 
     public int size() {
