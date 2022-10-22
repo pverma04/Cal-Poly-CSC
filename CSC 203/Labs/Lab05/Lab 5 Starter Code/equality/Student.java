@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Objects;
 
 class Student
 {
@@ -8,11 +9,14 @@ class Student
    private final List<CourseSection> currentCourses;
 
    public Student(final String surname, final String givenName, final int age,
-      final List<CourseSection> currentCourses)
-   {
+                  final List<CourseSection> currentCourses) {
       this.surname = surname;
       this.givenName = givenName;
       this.age = age;
       this.currentCourses = currentCourses;
+   }
+   @Override
+   public boolean equals(Object o) {
+      return false;
    }
 }
