@@ -28,6 +28,6 @@ class Student
    }
    @Override
    public int hashCode() {
-      return Objects.(surname, givenName, age, currentCourses);
+      return Objects.hash(surname, givenName, age, currentCourses);
    }
 }

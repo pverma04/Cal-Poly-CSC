@@ -56,4 +56,38 @@ public class TestCases
 
       assertNotEquals(one.hashCode(), two.hashCode());
    }
+   @Test
+   public void testExercise5()
+   {
+      final CourseSection one = new CourseSection(null, "203", 35,
+              LocalTime.of(9, 40), LocalTime.of(11, 0));
+      final CourseSection two = new CourseSection("CSC", "203", 35,
+              LocalTime.of(9, 40), LocalTime.of(11, 0));
+
+      assertFalse(one.equals(two));
+      assertFalse(two.equals(one));
+      assertNotEquals(one.hashCode(), two.hashCode());
+   }
+   @Test
+   public void testExercise6() {
+      final CourseSection one = new CourseSection("CSC", null, 35,
+              LocalTime.of(9, 40), LocalTime.of(11, 0));
+      final CourseSection two = new CourseSection("CSC", "203", 35,
+              LocalTime.of(9, 40), LocalTime.of(11, 0));
+
+      assertFalse(one.equals(two));
+      assertFalse(two.equals(one));
+      assertNotEquals(one.hashCode(), two.hashCode());
+   }
+   @Test
+   public void testExercise7() {
+      final CourseSection one = new CourseSection("CSC", "203", 35,
+              LocalTime.of(9, 40), LocalTime.of(11, 0));
+      final CourseSection two = new CourseSection("CSC", "203", 35,
+              LocalTime.of(9, 40), LocalTime.of(11, 0));
+
+      assertTrue(one.equals(two));
+      assertTrue(two.equals(one));
+      assertEquals(one.hashCode(), two.hashCode());
+   }
 }
