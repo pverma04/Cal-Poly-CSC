@@ -17,6 +17,17 @@ class Student
    }
    @Override
    public boolean equals(Object o) {
-      return false;
+      if (o == null) { return false; }
+      if (!(o instanceof CourseSection)) { return false; }
+      if (o == this) { return true; }
+      else {
+         Student s = (Student) o;
+         return Objects.equals(this.surname, s.surname) && Objects.equals(this.givenName, s.givenName) &&
+                 Objects.equals(this.age, s.age) && Objects.equals(this.currentCourses, s.currentCourses);
+      }
+   }
+   @Override
+   public int hashCode() {
+      return Objects.(surname, givenName, age, currentCourses);
    }
 }

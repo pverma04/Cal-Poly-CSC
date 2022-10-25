@@ -1,4 +1,4 @@
-public class BinaryExpression implements Expression {
+public abstract class BinaryExpression implements Expression {
     private final Expression lft;
     private final Expression rht;
     private String operator;
@@ -12,17 +12,7 @@ public class BinaryExpression implements Expression {
     public String toString() { return "(" + lft + " " + operator + " " + rht + ")"; }
     @Override
     public double evaluate(Bindings bindings) {
-
-//        switch (this.operator){
-//            case "+":
-//                return lft.evaluate(bindings) + rht.evaluate(bindings);
-//            case "-":
-//                return lft.evaluate(bindings) - rht.evaluate(bindings);
-//            case "*":
-//                return lft.evaluate(bindings) * rht.evaluate(bindings);
-//            case "/":
-//                return lft.evaluate(bindings) / rht.evaluate(bindings);
-//        }
-        return 0;
+        return this._applyOperator(lft.evaluate(bindings), rht.evaluate(bindings));
     }
+    protected abstract double _applyOperator(double lft, double rht);
 }
