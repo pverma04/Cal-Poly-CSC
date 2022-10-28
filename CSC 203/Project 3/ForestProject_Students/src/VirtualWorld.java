@@ -203,7 +203,7 @@ public final class VirtualWorld extends PApplet
                 case Entity.FAIRY_KEY:
                     return world.parseFairy(properties, imageStore);
                 //return parseFairy(properties, world, imageStore);
-                case Entity.HOUSE_KEY:
+                case HouseEntity.HOUSE_KEY:
                     return world.parseHouse(properties, imageStore);
                 case Entity.TREE_KEY:
                     return world.parseTree(properties, imageStore);

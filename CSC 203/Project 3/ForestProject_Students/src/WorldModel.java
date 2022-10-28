@@ -196,12 +196,12 @@ public final class WorldModel
     }
 
     public  boolean parseHouse(String[] properties, ImageStore imageStore) {
-        if (properties.length == Entity.HOUSE_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[Entity.HOUSE_COL]),Integer.parseInt(properties[Entity.HOUSE_ROW]));
-            Entity entity = Entity.createHouse(properties[Entity.HOUSE_ID], pt,imageStore.getImageList(Entity.HOUSE_KEY));
+        if (properties.length == HouseEntity.HOUSE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[HouseEntity.HOUSE_COL]),Integer.parseInt(properties[HouseEntity.HOUSE_ROW]));
+            Entity entity = Entity.createHouse(properties[HouseEntity.HOUSE_ID], pt,imageStore.getImageList(HouseEntity.HOUSE_KEY));
             this.tryAddEntity(entity);
         }
-        return properties.length == Entity.HOUSE_NUM_PROPERTIES;
+        return properties.length == HouseEntity.HOUSE_NUM_PROPERTIES;
     }
 
     public  boolean parseSapling(String[] properties, ImageStore imageStore) {
@@ -209,9 +209,7 @@ public final class WorldModel
             Point pt = new Point(Integer.parseInt(properties[Entity.SAPLING_COL]),Integer.parseInt(properties[Entity.SAPLING_ROW]));
             String id = properties[Entity.SAPLING_ID];
             int health = Integer.parseInt(properties[Entity.SAPLING_HEALTH]);
-            Entity entity = new Entity(EntityKind.SAPLING, 
-                                id, 
-                                pt, 
+            Entity entity = new Entity(id, pt,
                                 imageStore.getImageList( Entity.SAPLING_KEY), 
                                 0, 0,
                                 Entity.SAPLING_ACTION_ANIMATION_PERIOD, 

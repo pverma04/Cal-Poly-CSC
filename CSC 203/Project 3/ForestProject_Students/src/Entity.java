@@ -11,8 +11,8 @@ import processing.core.PImage;
  * An entity that exists in the world. See EntityKind for the
  * different kinds of entities that exist.
  */
-public final class Entity {
-    private EntityKind kind;
+public class Entity { // NO LONGER FINAL
+    //private EntityKind kind; //NOT NEEDED ANYMORE
     private String id;
     private Point position;
     private List<PImage> images;
@@ -21,7 +21,7 @@ public final class Entity {
     private int resourceCount;
     private int actionPeriod;
     private int animationPeriod;
-    private int health;
+    protected int health;
     private int healthLimit;
     private final String STUMP_KEY = "stump";
     public static final String TREE_KEY = "tree";
@@ -56,20 +56,20 @@ public final class Entity {
     public static final int OBSTACLE_ROW = 3;
     public static final int OBSTACLE_ANIMATION_PERIOD = 4;
 
-    public static final String DUDE_KEY = "dude";
-    public static final int DUDE_NUM_PROPERTIES = 7;
-    public static final int DUDE_ID = 1;
-    public static final int DUDE_COL = 2;
-    public static final int DUDE_ROW = 3;
-    public static final int DUDE_LIMIT = 4;
-    public static final int DUDE_ACTION_PERIOD = 5;
-    public static final int DUDE_ANIMATION_PERIOD = 6;
+//    public static final String DUDE_KEY = "dude";
+//    public static final int DUDE_NUM_PROPERTIES = 7;
+//    public static final int DUDE_ID = 1;
+//    public static final int DUDE_COL = 2;
+//    public static final int DUDE_ROW = 3;
+//    public static final int DUDE_LIMIT = 4;
+//    public static final int DUDE_ACTION_PERIOD = 5;
+//    public static final int DUDE_ANIMATION_PERIOD = 6;
 
-    public static final String HOUSE_KEY = "house";
-    public static final int HOUSE_NUM_PROPERTIES = 4;
-    public static final int HOUSE_ID = 1;
-    public static final int HOUSE_COL = 2;
-    public static final int HOUSE_ROW = 3;
+//    public static final String HOUSE_KEY = "house";
+//    public static final int HOUSE_NUM_PROPERTIES = 4;
+//    public static final int HOUSE_ID = 1;
+//    public static final int HOUSE_COL = 2;
+//    public static final int HOUSE_ROW = 3;
 
     public static final String FAIRY_KEY = "fairy";
     public static final int FAIRY_NUM_PROPERTIES = 6;
@@ -81,7 +81,7 @@ public final class Entity {
 
 
     public Entity(
-            EntityKind kind,
+            //EntityKind kind,
             String id,
             Point position,
             List<PImage> images,
@@ -92,7 +92,7 @@ public final class Entity {
             int health,
             int healthLimit)
     {
-        this.kind = kind;
+        //this.kind = kind;
         this.id = id;
         this.position = position;
         this.images = images;
@@ -141,24 +141,57 @@ public final class Entity {
     public List<PImage> getImages() {
         return this.images;
     }
-    public EntityKind getEntityKind() { return this.kind; }
+    public Class getEntityKind() { return this.getClass(); }
 
 
 
-    public  int getAnimationPeriod() {
-        switch (this.getEntityKind()) {
-            case DUDE_FULL:
-            case DUDE_NOT_FULL:
-            case OBSTACLE:
-            case FAIRY:
-            case SAPLING:
-            case TREE:
-                return this.animationPeriod;
-            default:
-                throw new UnsupportedOperationException(
-                        String.format("getAnimationPeriod not supported for %s",
-                                this.getEntityKind()));
+    public int getAnimationPeriod() {
+        if (this instanceof DudeFullEntity){
+
         }
+        else if (this instanceof DudeNotFullEntity) {
+
+        }
+        else if (this instanceof ObstacleEntity) {
+
+        }
+        else if(this instanceof FairyEntity) {
+
+        }
+        else if (this instanceof TreeEntity) {
+            return this.animationPeriod;
+        }
+        else {
+            throw new UnsupportedOperationException(
+                    String.format("getAnimationPeriod not supported for %s",
+                            this.getClass()));
+        }
+//        switch (this.getClass()) {
+//            case DudeFullEntity.class:
+//            case DudeNotFullEntity.class:
+//            case ObstacleEntity.class:
+//            case FairyEntity.class:
+//            case SaplingEntity.class:
+//            case TreeEntity.class:
+//                return this.animationPeriod;
+//            default:
+//                throw new UnsupportedOperationException(
+//                        String.format("getAnimationPeriod not supported for %s",
+//                                this.getClass()));
+//        }
+//        switch (this.getClass()) {
+//            case DUDE_FULL:
+//            case DUDE_NOT_FULL:
+//            case OBSTACLE:
+//            case FAIRY:
+//            case SAPLING:
+//            case TREE:
+//                return this.animationPeriod;
+//            default:
+//                throw new UnsupportedOperationException(
+//                        String.format("getAnimationPeriod not supported for %s",
+//                                this.getEntityKind()));
+//        }
     }
 
     public  void nextImage() {
@@ -169,15 +202,14 @@ public final class Entity {
         int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
         Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
-        if (horiz == 0 || world.isOccupied(newPos) && world.getOccupancyCell(newPos).getEntityKind() != EntityKind.STUMP) {
+        if (horiz == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity) ) {
             int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
             newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
 
-            if (vert == 0 || world.isOccupied(newPos) &&  world.getOccupancyCell(newPos).getEntityKind() != EntityKind.STUMP) {
+            if (vert == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
                 newPos = this.getPosition();
             }
         }
-
         return newPos;
     }
     public Point nextPositionFairy(WorldModel world, Point destPos) {
@@ -271,7 +303,7 @@ public final class Entity {
             int animationPeriod,
             int resourceLimit,
             List<PImage> images) {
-        return new Entity(EntityKind.DUDE_FULL, id, position, images, resourceLimit, 0,
+        return new DudeFullEntity(id, position, images, resourceLimit, 0,
                 actionPeriod, animationPeriod, 0, 0);
     }
     public static Entity createFairy(
@@ -281,7 +313,7 @@ public final class Entity {
             int animationPeriod,
             List<PImage> images) {
 
-        return new Entity(EntityKind.FAIRY, id, position, images, 0, 0,
+        return new FairyEntity(id, position, images, 0, 0,
                 actionPeriod, animationPeriod, 0, 0);
     }
     // need resource count, though it always starts at 0
@@ -292,33 +324,33 @@ public final class Entity {
         int animationPeriod,
         int resourceLimit,
         List<PImage> images) {
-        return new Entity(EntityKind.DUDE_NOT_FULL, id, position, images, resourceLimit, 0,
+        return new DudeNotFullEntity(id, position, images, resourceLimit, 0,
                 actionPeriod, animationPeriod, 0, 0);
     }
 
     public static Entity createHouse(String id, Point position, List<PImage> images) {
-        return new Entity(EntityKind.HOUSE, id, position, images, 0, 0, 0,
+        return new HouseEntity(id, position, images, 0, 0, 0,
             0, 0, 0);
     }
 
     public static Entity createObstacle(String id, Point position, int animationPeriod, List<PImage> images) {
-        return new Entity(EntityKind.OBSTACLE, id, position, images, 0, 0, 0,
+        return new ObstacleEntity(id, position, images, 0, 0, 0,
         animationPeriod, 0, 0);
     }
 
     public static Entity createTree(String id, Point position, int actionPeriod, int animationPeriod, int health, List<PImage> images)  {
-        return new Entity(EntityKind.TREE, id, position, images, 0, 0,
+        return new TreeEntity(id, position, images, 0, 0,
                 actionPeriod, animationPeriod, health, 0);
     }
 
     public static Entity createStump(String id,Point position,List<PImage> images) {
-        return new Entity(EntityKind.STUMP, id, position, images, 0, 0,0,
+        return new StumpEntity(id, position, images, 0, 0,0,
                 0, 0, 0);
     }
 
     // health starts at 0 and builds up until ready to convert to Tree
     public static Entity createSapling(String id,Point position,List<PImage> images) {
-        return new Entity(EntityKind.SAPLING, id, position, images, 0, 0,
+        return new SaplingEntity(id, position, images, 0, 0,
                 SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, 0, SAPLING_HEALTH_LIMIT);
     }
 
@@ -335,10 +367,10 @@ public final class Entity {
 
 
     public  boolean transformPlant(WorldModel world, EventScheduler scheduler, ImageStore imageStore)  {
-        if (this.getEntityKind() == EntityKind.TREE){
+        if (this instanceof TreeEntity){
             return transformTree(world, scheduler, imageStore);
         }
-        else if (this.getEntityKind() == EntityKind.SAPLING){
+        else if (this instanceof SaplingEntity){
             return this.transformSapling(world, scheduler, imageStore);
         }
         else{
@@ -421,21 +453,21 @@ public final class Entity {
 
 
 
-    public  void executeSaplingActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-        this.health++;
-        if (!this.transformPlant(world, scheduler, imageStore)) {
-            scheduler.scheduleEvent(this, this.createActivityAction(world, imageStore),
-                    this.getActionPeriod());
-        }
-    }
+//    public void executeSaplingActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
+//        this.health++;
+//        if (!this.transformPlant(world, scheduler, imageStore)) {
+//            scheduler.scheduleEvent(this, this.createActivityAction(world, imageStore),
+//                    this.getActionPeriod());
+//        }
+//    }
 
-    public  void executeTreeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-        if (!this.transformPlant(world, scheduler, imageStore)) {
-            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
-        }
-    }
+//    public  void executeTreeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
+//        if (!this.transformPlant(world, scheduler, imageStore)) {
+//            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
+//        }
+//    }
 
-    public  void executeFairyActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
+    public void executeFairyActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
         Optional<Entity> fairyTarget =
                 world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(EntityKind.STUMP)));
         if (fairyTarget.isPresent()) {
@@ -453,26 +485,26 @@ public final class Entity {
         scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
     }
     
-    public  void executeDudeNotFullActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-        Optional<Entity> target =
-                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(EntityKind.TREE, EntityKind.SAPLING)));
+//    public void executeDudeNotFullActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
+//        Optional<Entity> target =
+//                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(EntityKind.TREE, EntityKind.SAPLING)));
+//
+//        if (!target.isPresent() || !this.moveToNotFull( world, target.get(), scheduler) || !this.transformNotFull( world, scheduler, imageStore))  {
+//            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
+//        }
+//    }
 
-        if (!target.isPresent() || !this.moveToNotFull( world, target.get(), scheduler) || !this.transformNotFull( world, scheduler, imageStore))  {
-            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
-        }
-    }
-
-    public  void executeDudeFullActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-        Optional<Entity> fullTarget =
-                world.findNearest(this.position, new ArrayList<>(Arrays.asList(EntityKind.HOUSE)));
-
-        if (fullTarget.isPresent() && this.moveToFull(world, fullTarget.get(), scheduler)) {
-            this.transformFull(world, scheduler, imageStore);
-        }
-        else {
-            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
-        }
-    }
+//    public void executeDudeFullActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
+//        Optional<Entity> fullTarget =
+//                world.findNearest(this.position, new ArrayList<>(Arrays.asList(EntityKind.HOUSE)));
+//
+//        if (fullTarget.isPresent() && this.moveToFull(world, fullTarget.get(), scheduler)) {
+//            this.transformFull(world, scheduler, imageStore);
+//        }
+//        else {
+//            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
+//        }
+//    }
 
 
     private int getNumFromRange(int max, int min) {

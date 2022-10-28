@@ -39,12 +39,12 @@ public class Action //NO LONGER FINAL
     }
 
     public void executeAction(EventScheduler scheduler) {
-        if (this.getClass().equals(ActivityAction.class)) {
+        if (this instanceof ActivityAction) {
             //case ActivityAction.class:
             ((ActivityAction) this).executeActivityAction(scheduler);
             //break;
         }
-        if (this.getClass().equals(AnimationAction.class)){
+        if (this instanceof AnimationAction){
             //case AnimationAction.class:
                 ((AnimationAction)this).executeAnimationAction(scheduler);
                 //break;
