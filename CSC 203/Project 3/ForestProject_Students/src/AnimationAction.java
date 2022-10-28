@@ -1,0 +1,15 @@
+public class AnimationAction extends Action{
+
+    public AnimationAction(Entity entity, WorldModel world, ImageStore imageStore, int repeatCount) {
+        super(entity, world, imageStore, repeatCount);
+    }
+    public void executeAnimationAction(EventScheduler scheduler) {
+        this.getEntity().nextImage();
+
+        if (this.getRepeatCount() != 1) {
+            scheduler.scheduleEvent(this.getEntity(),
+                    this.getEntity().createAnimationAction(Math.max(this.getRepeatCount() - 1, 0)),
+                    this.getEntity().getAnimationPeriod());
+        }
+    }
+}

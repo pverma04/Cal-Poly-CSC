@@ -90,4 +90,15 @@ public class TestCases
       assertTrue(two.equals(one));
       assertEquals(one.hashCode(), two.hashCode());
    }
+   @Test
+   public void testExercise8() {
+      final CourseSection one = new CourseSection("CSC", "203", 35,
+              LocalTime.of(9, 40), LocalTime.of(11, 0));
+      final CourseSection two = new CourseSection("CSC", "203", 35,
+              LocalTime.of(9, 40), LocalTime.of(11, 0));
+
+      assertTrue(one.equals(two));
+      assertTrue(two.equals(one));
+      assertEquals(one.hashCode(), two.hashCode());
+   }
 }
