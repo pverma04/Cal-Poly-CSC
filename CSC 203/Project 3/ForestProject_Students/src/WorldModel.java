@@ -141,11 +141,11 @@ public final class WorldModel
         }
     }
 
-    public  Optional<Entity> findNearest(Point pos, List<EntityKind> kinds) {
+    public  Optional<Entity> findNearest(Point pos, List<Entity> kinds) {
         List<Entity> ofType = new LinkedList<>();
-        for (EntityKind kind: kinds) {
+        for (Entity kind : kinds) {
             for (Entity entity : this.entities) {
-                if (entity.getEntityKind() == kind) {
+                if (entity.getClass().equals(kind.getClass())) {
                     ofType.add(entity);
                 }
             }
@@ -221,17 +221,17 @@ public final class WorldModel
     }
 
     public  boolean parseDude(String[] properties, ImageStore imageStore) {
-        if (properties.length == Entity.DUDE_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[Entity.DUDE_COL]),Integer.parseInt(properties[Entity.DUDE_ROW]));
-            Entity entity = Entity.createDudeNotFull(properties[Entity.DUDE_ID],
+        if (properties.length == DudeEntity.DUDE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[DudeEntity.DUDE_COL]),Integer.parseInt(properties[DudeEntity.DUDE_ROW]));
+            Entity entity = Entity.createDudeNotFull(properties[DudeEntity.DUDE_ID],
                                                 pt,
-                                                Integer.parseInt(properties[Entity.DUDE_ACTION_PERIOD]),
-                                                Integer.parseInt(properties[Entity.DUDE_ANIMATION_PERIOD]),
-            Integer.parseInt(properties[Entity.DUDE_LIMIT]),
-            imageStore.getImageList( Entity.DUDE_KEY));
+                                                Integer.parseInt(properties[DudeEntity.DUDE_ACTION_PERIOD]),
+                                                Integer.parseInt(properties[DudeEntity.DUDE_ANIMATION_PERIOD]),
+            Integer.parseInt(properties[DudeEntity.DUDE_LIMIT]),
+            imageStore.getImageList( DudeEntity.DUDE_KEY));
             this.tryAddEntity(entity);
         }
-        return properties.length == Entity.DUDE_NUM_PROPERTIES;
+        return properties.length == DudeEntity.DUDE_NUM_PROPERTIES;
     }
 
     public  boolean parseFairy(String[] properties, ImageStore imageStore) {

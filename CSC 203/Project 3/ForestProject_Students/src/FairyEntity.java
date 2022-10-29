@@ -11,7 +11,7 @@ public class FairyEntity extends Entity{
     }
     public void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
         Optional<Entity> fairyTarget =
-                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(EntityKind.STUMP)));
+                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(StumpEntity))); //not sure what to do here
         if (fairyTarget.isPresent()) {
             Point tgtPos = fairyTarget.get().getPosition();
 
