@@ -23,7 +23,6 @@ public class FairyEntity extends Entity{
                 sapling.scheduleActions(scheduler, world, imageStore);
             }
         }
-
         scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
     }
 }

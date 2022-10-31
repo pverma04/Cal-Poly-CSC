@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b30bbe5e-69f6-4431-9309-e59ffc20ff59" name="Changes" comment="" />
+    <list default="true" id="b30bbe5e-69f6-4431-9309-e59ffc20ff59" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/FairyEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/FairyEntity.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -131,6 +134,8 @@
       <workItem from="1666393379913" duration="6377000" />
       <workItem from="1666717576902" duration="4445000" />
       <workItem from="1666740409194" duration="3328000" />
+      <workItem from="1667173109606" duration="770000" />
+      <workItem from="1667254199969" duration="3736000" />
     </task>
     <servers />
   </component>
@@ -150,6 +155,21 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Lab05: Inheritance/Lab 5 Starter Code/equality/TestCases.java</url>
+          <line>82</line>
+          <properties class="TestCases" method="testExercise7">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Labs$TestCases.ic" NAME="TestCases Coverage Results" MODIFIED="1666141912918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
