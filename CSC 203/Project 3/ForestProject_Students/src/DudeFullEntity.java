@@ -10,15 +10,26 @@ public class DudeFullEntity extends DudeEntity{
     public DudeFullEntity(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, int actionPeriod, int animationPeriod, int health, int healthLimit) {
         super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
     }
+    @Override
     public void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
         Optional<Entity> fullTarget =
-                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(EntityKind.HOUSE)));
+                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(HouseEntity.class)));
 
         if (fullTarget.isPresent() && this.moveToFull(world, fullTarget.get(), scheduler)) {
             this.transformFull(world, scheduler, imageStore);
         }
         else {
-            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
+            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
         }
+    }
+    public void transform(WorldModel world,EventScheduler scheduler,ImageStore imageStore) {
+        Entity miner = new DudeNotFullEntity(this.getId(),
+                this.getPosition(), this.getImages(), this.getResourceLimit(), this.getResourceCount(),
+                this.getActionPeriod(), this.getAnimationPeriod(), this.health, this.getHealthLimit()
+        );
+        world.removeEntity(this);
+        scheduler.unscheduleAllEvents(this);
+        world.addEntity(miner);
+        miner.scheduleActions(scheduler, world, imageStore);
     }
 }

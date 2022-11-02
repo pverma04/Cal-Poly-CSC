@@ -141,11 +141,11 @@ public final class WorldModel
         }
     }
 
-    public  Optional<Entity> findNearest(Point pos, List<Entity> kinds) {
+    public  Optional<Entity> findNearest(Point pos, List<Class> kinds) {
         List<Entity> ofType = new LinkedList<>();
-        for (Entity kind : kinds) {
+        for (Class kind : kinds) {
             for (Entity entity : this.entities) {
-                if (entity.getClass().equals(kind.getClass())) {
+                if (kind.isInstance(entity)) {
                     ofType.add(entity);
                 }
             }
@@ -198,32 +198,32 @@ public final class WorldModel
     public  boolean parseHouse(String[] properties, ImageStore imageStore) {
         if (properties.length == HouseEntity.HOUSE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[HouseEntity.HOUSE_COL]),Integer.parseInt(properties[HouseEntity.HOUSE_ROW]));
-            Entity entity = Entity.createHouse(properties[HouseEntity.HOUSE_ID], pt,imageStore.getImageList(HouseEntity.HOUSE_KEY));
+            Entity entity = new HouseEntity(properties[HouseEntity.HOUSE_ID], pt, imageStore.getImageList(HouseEntity.HOUSE_KEY));
             this.tryAddEntity(entity);
         }
         return properties.length == HouseEntity.HOUSE_NUM_PROPERTIES;
     }
 
     public  boolean parseSapling(String[] properties, ImageStore imageStore) {
-        if (properties.length == Entity.SAPLING_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[Entity.SAPLING_COL]),Integer.parseInt(properties[Entity.SAPLING_ROW]));
-            String id = properties[Entity.SAPLING_ID];
-            int health = Integer.parseInt(properties[Entity.SAPLING_HEALTH]);
-            Entity entity = new Entity(id, pt,
-                                imageStore.getImageList( Entity.SAPLING_KEY), 
+        if (properties.length == SaplingEntity.SAPLING_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[SaplingEntity.SAPLING_COL]),Integer.parseInt(properties[SaplingEntity.SAPLING_ROW]));
+            String id = properties[SaplingEntity.SAPLING_ID];
+            int health = Integer.parseInt(properties[SaplingEntity.SAPLING_HEALTH]);
+            Entity entity = new SaplingEntity(id, pt,
+                                imageStore.getImageList( SaplingEntity.SAPLING_KEY),
                                 0, 0,
-                                Entity.SAPLING_ACTION_ANIMATION_PERIOD, 
-                                Entity.SAPLING_ACTION_ANIMATION_PERIOD,
-                                health, Entity.SAPLING_HEALTH_LIMIT);
+                    SaplingEntity.SAPLING_ACTION_ANIMATION_PERIOD,
+                    SaplingEntity.SAPLING_ACTION_ANIMATION_PERIOD,
+                                health, SaplingEntity.SAPLING_HEALTH_LIMIT);
             this.tryAddEntity(entity);
         }
-        return properties.length == Entity.SAPLING_NUM_PROPERTIES;
+        return properties.length == SaplingEntity.SAPLING_NUM_PROPERTIES;
     }
 
     public  boolean parseDude(String[] properties, ImageStore imageStore) {
         if (properties.length == DudeEntity.DUDE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[DudeEntity.DUDE_COL]),Integer.parseInt(properties[DudeEntity.DUDE_ROW]));
-            Entity entity = Entity.createDudeNotFull(properties[DudeEntity.DUDE_ID],
+            Entity entity = new DudeNotFullEntity(properties[DudeEntity.DUDE_ID],
                                                 pt,
                                                 Integer.parseInt(properties[DudeEntity.DUDE_ACTION_PERIOD]),
                                                 Integer.parseInt(properties[DudeEntity.DUDE_ANIMATION_PERIOD]),
@@ -235,42 +235,40 @@ public final class WorldModel
     }
 
     public  boolean parseFairy(String[] properties, ImageStore imageStore) {
-        if (properties.length == Entity.FAIRY_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[Entity.FAIRY_COL]),Integer.parseInt(properties[Entity.FAIRY_ROW]));
-            Entity entity = Entity.createFairy(properties[Entity.FAIRY_ID],pt,
-                                            Integer.parseInt(properties[Entity.FAIRY_ACTION_PERIOD]),
-                                            Integer.parseInt(properties[Entity.FAIRY_ANIMATION_PERIOD]),
-                                            imageStore.getImageList( Entity.FAIRY_KEY));
+        if (properties.length == FairyEntity.FAIRY_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[FairyEntity.FAIRY_COL]),Integer.parseInt(properties[FairyEntity.FAIRY_ROW]));
+            Entity entity = new FairyEntity(properties[FairyEntity.FAIRY_ID],pt,
+                                            Integer.parseInt(properties[FairyEntity.FAIRY_ACTION_PERIOD]),
+                                            Integer.parseInt(properties[FairyEntity.FAIRY_ANIMATION_PERIOD]),
+                                            imageStore.getImageList(FairyEntity.FAIRY_KEY));
             this.tryAddEntity(entity);
         }
-        return properties.length == Entity.FAIRY_NUM_PROPERTIES;
+        return properties.length == FairyEntity.FAIRY_NUM_PROPERTIES;
     }
 
     public  boolean parseTree(String[] properties, ImageStore imageStore)
     {
-        if (properties.length == Entity.TREE_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[Entity.TREE_COL]),Integer.parseInt(properties[Entity.TREE_ROW]));
-            Entity entity = Entity.createTree(properties[Entity.TREE_ID],
+        if (properties.length == TreeEntity.TREE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[TreeEntity.TREE_COL]),Integer.parseInt(properties[TreeEntity.TREE_ROW]));
+            Entity entity = new TreeEntity(properties[TreeEntity.TREE_ID],
                                         pt,
-                                        Integer.parseInt(properties[Entity.TREE_ACTION_PERIOD]),
-                                        Integer.parseInt(properties[Entity.TREE_ANIMATION_PERIOD]),
-                                        Integer.parseInt(properties[Entity.TREE_HEALTH]),
-                                        imageStore.getImageList( Entity.TREE_KEY));
+                                        Integer.parseInt(properties[TreeEntity.TREE_ACTION_PERIOD]),
+                                        Integer.parseInt(properties[TreeEntity.TREE_ANIMATION_PERIOD]),
+                                        Integer.parseInt(properties[TreeEntity.TREE_HEALTH]),
+                                        imageStore.getImageList( TreeEntity.TREE_KEY));
             this.tryAddEntity(entity);
         }
-        return properties.length == Entity.TREE_NUM_PROPERTIES;
+        return properties.length == TreeEntity.TREE_NUM_PROPERTIES;
     }
 
-    public  boolean parseObstacle(String[] properties, ImageStore imageStore)
-    {
-        if (properties.length == Entity.OBSTACLE_NUM_PROPERTIES) {
-            Point pt = new Point(Integer.parseInt(properties[Entity.OBSTACLE_COL]),Integer.parseInt(properties[Entity.OBSTACLE_ROW]));
-            Entity entity = Entity.createObstacle(properties[Entity.OBSTACLE_ID], 
-                                            pt,
-                                            Integer.parseInt(properties[Entity.OBSTACLE_ANIMATION_PERIOD]),
-                                            imageStore.getImageList(Entity.OBSTACLE_KEY));
+    public  boolean parseObstacle(String[] properties, ImageStore imageStore) {
+        if (properties.length == ObstacleEntity.OBSTACLE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[ObstacleEntity.OBSTACLE_COL]),Integer.parseInt(properties[ObstacleEntity.OBSTACLE_ROW]));
+            Entity entity = new ObstacleEntity(properties[ObstacleEntity.OBSTACLE_ID], pt,
+                                            Integer.parseInt(properties[ObstacleEntity.OBSTACLE_ANIMATION_PERIOD]),
+                                            imageStore.getImageList(ObstacleEntity.OBSTACLE_KEY));
             this.tryAddEntity(entity);
         }
-        return properties.length == Entity.OBSTACLE_NUM_PROPERTIES;
+        return properties.length == ObstacleEntity.OBSTACLE_NUM_PROPERTIES;
     }
 }

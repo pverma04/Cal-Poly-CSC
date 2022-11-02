@@ -1,25 +1,22 @@
 /**
  * An action that can be taken by an entity
  */
-public class Action //NO LONGER FINAL
+public abstract class Action //NO LONGER FINAL
 {
     //private ActionKind kind; //SHOULD NOT BE USED
     private Entity entity;
     private WorldModel world;
     private ImageStore imageStore;
-    private int repeatCount;
 
     public Action(
             //ActionKind kind,
             Entity entity,
             WorldModel world,
-            ImageStore imageStore,
-            int repeatCount) {
+            ImageStore imageStore) {
         //this.kind = kind;
         this.entity = entity;
         this.world = world;
         this.imageStore = imageStore;
-        this.repeatCount = repeatCount;
     }
 
 //    public ActionKind getActionKind() {
@@ -34,22 +31,8 @@ public class Action //NO LONGER FINAL
     public ImageStore getImageStore() {
         return this.imageStore;
     }
-    public int getRepeatCount() {
-        return this.repeatCount;
-    }
 
-    public void executeAction(EventScheduler scheduler) {
-        if (this instanceof ActivityAction) {
-            //case ActivityAction.class:
-            ((ActivityAction) this).executeActivityAction(scheduler);
-            //break;
-        }
-        if (this instanceof AnimationAction){
-            //case AnimationAction.class:
-                ((AnimationAction)this).executeAnimationAction(scheduler);
-                //break;
-        }
-    }
+    public abstract void executeAction(EventScheduler scheduler);
 //    private  void executeAnimationAction(EventScheduler scheduler) {
 //        this.getEntity().nextImage();
 //

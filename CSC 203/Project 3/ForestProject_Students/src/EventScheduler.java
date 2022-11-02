@@ -50,7 +50,7 @@ public final class EventScheduler
         }
     }
 
-    public void scheduleEvent(Entity entity,Action action,long afterPeriod) {
+    public void scheduleEvent(Entity entity, Action action, long afterPeriod) {
         long time = System.currentTimeMillis() + (long)(afterPeriod * this.getTimeScale());
         Event event = new Event(action, time, entity);
 

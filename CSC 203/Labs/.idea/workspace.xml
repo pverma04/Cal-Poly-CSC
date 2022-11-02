@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b30bbe5e-69f6-4431-9309-e59ffc20ff59" name="Changes" comment="" />
+    <list default="true" id="b30bbe5e-69f6-4431-9309-e59ffc20ff59" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/Action.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/ActivityAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/ActivityAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/AnimationAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/AnimationAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/DudeFullEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/DudeFullEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/DudeNotFullEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/DudeNotFullEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/EventScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/EventScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/WorldModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/WorldModel.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +70,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestCases">
+  <component name="RunManager">
     <configuration name="PartOneTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Labs" />
       <option name="PACKAGE_NAME" value="" />
@@ -99,8 +108,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestCases.testComposedComparator" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Labs" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestCases" />
+      <option name="METHOD_NAME" value="testComposedComparator" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestCases.testComposedComparator" />
         <item itemvalue="JUnit.TestCases" />
         <item itemvalue="JUnit.TestCases.testCircleGetArea" />
         <item itemvalue="JUnit.PartOneTestCases" />
@@ -132,7 +152,7 @@
       <workItem from="1666717576902" duration="4445000" />
       <workItem from="1666740409194" duration="3328000" />
       <workItem from="1667173109606" duration="770000" />
-      <workItem from="1667254199969" duration="11158000" />
+      <workItem from="1667254199969" duration="19657000" />
     </task>
     <servers />
   </component>
@@ -165,10 +185,21 @@
           </properties>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Lab06: Sorting-comparisons-lambda/Lab 6 Starter Code/comparator/TestCases.java</url>
+          <line>135</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Lab06: Sorting-comparisons-lambda/Lab 6 Starter Code/comparator/TestCases.java</url>
+          <line>117</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Labs$TestCases.ic" NAME="TestCases Coverage Results" MODIFIED="1666141912918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/AddExpression_java$TestCases.ic" NAME="TestCases Coverage Results" MODIFIED="1667323073870" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -193,22 +193,22 @@ public final class VirtualWorld extends PApplet
             switch (properties[PROPERTY_KEY]) {
                 case Background.BGND_KEY:
                     return world.parseBackground(properties, imageStore);
-                case Entity.DUDE_KEY:
+                case DudeEntity.DUDE_KEY:
                     return world.parseDude(properties, imageStore);
                 //return parseDude(properties, world, imageStore);
-                case Entity.OBSTACLE_KEY:
+                case ObstacleEntity.OBSTACLE_KEY:
                     return world.parseObstacle(properties, imageStore);
                 //return parseObstacle(properties, world, imageStore);
 
-                case Entity.FAIRY_KEY:
+                case FairyEntity.FAIRY_KEY:
                     return world.parseFairy(properties, imageStore);
                 //return parseFairy(properties, world, imageStore);
                 case HouseEntity.HOUSE_KEY:
                     return world.parseHouse(properties, imageStore);
-                case Entity.TREE_KEY:
+                case TreeEntity.TREE_KEY:
                     return world.parseTree(properties, imageStore);
                 //return parseTree(properties, world, imageStore);
-                case Entity.SAPLING_KEY:
+                case SaplingEntity.SAPLING_KEY:
                     return world.parseSapling(properties,  imageStore);
                 //return parseSapling(properties, world, imageStore);
             }
