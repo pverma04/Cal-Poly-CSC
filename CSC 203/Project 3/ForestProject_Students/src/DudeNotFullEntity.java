@@ -36,4 +36,9 @@ public class DudeNotFullEntity extends DudeEntity implements Transform{
             scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
         }
     }
+
+    @Override
+    public void executeActivityAction(EventScheduler scheduler) {
+
+    }
 }

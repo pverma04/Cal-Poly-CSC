@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 
 public class TreeEntity extends PlantEntity implements Transform{
-    public final String STUMP_KEY = "stump";
+    public static final String STUMP_KEY = "stump";
     public static final String TREE_KEY = "tree";
     public static final int TREE_NUM_PROPERTIES = 7;
     public static final int TREE_ID = 1;
@@ -22,10 +22,23 @@ public class TreeEntity extends PlantEntity implements Transform{
     public TreeEntity(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, int actionPeriod, int animationPeriod, int health, int healthLimit) {
         super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
     }
+
+    @Override
+    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
+        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), this.getActionPeriod());
+        scheduler.scheduleEvent(this, new AnimationAction(this, world, imageStore, 0), this.getAnimationPeriod());
+    }
+
+    @Override
     public  void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-        if (!this.transformPlant(world, scheduler, imageStore)) {
-            scheduler.scheduleEvent(this,this.createActivityAction(world, imageStore),this.getActionPeriod());
+        if (!this.transform(world, scheduler, imageStore)) {
+            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
         }
+    }
+
+    @Override
+    public void executeActivityAction(EventScheduler scheduler) {
+
     }
 
     @Override

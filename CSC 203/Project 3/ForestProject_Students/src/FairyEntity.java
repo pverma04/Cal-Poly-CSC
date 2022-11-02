@@ -24,13 +24,13 @@ public class FairyEntity extends Excecutable{
 
     public void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
         Optional<Entity> fairyTarget =
-                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(StumpEntity))); //not sure what to do here
+                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(StumpEntity.class))); //not sure what to do here
         if (fairyTarget.isPresent()) {
             Point tgtPos = fairyTarget.get().getPosition();
 
             if (this.moveToFairy(world, fairyTarget.get(), scheduler)) {
                 Entity sapling = new SaplingEntity("sapling_" + this.getId(), tgtPos,
-                        imageStore.getImageList(SaplingEntity.SAPLING_KEY));
+                        imageStore.getImageList(SaplingEntity.SAPLING_KEY), );
 
                 world.addEntity(sapling);
                 sapling.scheduleActions(scheduler, world, imageStore);

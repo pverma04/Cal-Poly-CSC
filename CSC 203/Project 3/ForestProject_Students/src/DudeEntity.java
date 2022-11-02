@@ -19,10 +19,6 @@ public abstract class DudeEntity extends Excecutable{
     @Override
     public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 
-    @Override
-    public void executeAction(EventScheduler scheduler) {
-        this.executeActivity(scheduler.getWorldModel(), this.getImageStore(), scheduler);
-    }
 
     @Override
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {

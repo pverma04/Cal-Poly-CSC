@@ -16,12 +16,18 @@ public class DudeFullEntity extends DudeEntity{
                 world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(HouseEntity.class)));
 
         if (fullTarget.isPresent() && this.moveToFull(world, fullTarget.get(), scheduler)) {
-            this.transformFull(world, scheduler, imageStore);
+            this.transform(world, scheduler, imageStore);
         }
         else {
             scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
         }
     }
+
+    @Override
+    public void executeActivityAction(EventScheduler scheduler) {
+
+    }
+
     public void transform(WorldModel world,EventScheduler scheduler,ImageStore imageStore) {
         Entity miner = new DudeNotFullEntity(this.getId(),
                 this.getPosition(), this.getImages(), this.getResourceLimit(), this.getResourceCount(),

@@ -8,5 +8,5 @@ public abstract class Excecutable extends Entity{
         super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
     }
     public abstract void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler);
-    public abstract void executeAction(EventScheduler scheduler);
+    public abstract void executeActivityAction(EventScheduler scheduler);
 }
