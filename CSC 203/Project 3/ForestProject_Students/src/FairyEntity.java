@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class FairyEntity extends Excecutable{
+public class FairyEntity extends FairyDudePos{
     public static final String FAIRY_KEY = "fairy";
     public static final int FAIRY_NUM_PROPERTIES = 6;
     public static final int FAIRY_ID = 1;
@@ -19,28 +19,64 @@ public class FairyEntity extends Excecutable{
 
     @Override
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-        this.executeActivity(world, imageStore, scheduler);
+        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), this.getActionPeriod());
+        scheduler.scheduleEvent(this, new AnimationAction(this, world, imageStore, 0), this.getAnimationPeriod());
     }
 
     public void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
         Optional<Entity> fairyTarget =
-                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(StumpEntity.class))); //not sure what to do here
+                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(StumpEntity.class)));
         if (fairyTarget.isPresent()) {
             Point tgtPos = fairyTarget.get().getPosition();
 
-            if (this.moveToFairy(world, fairyTarget.get(), scheduler)) {
+            if (this.moveTo(world, fairyTarget.get(), scheduler)) {
                 Entity sapling = new SaplingEntity("sapling_" + this.getId(), tgtPos,
-                        imageStore.getImageList(SaplingEntity.SAPLING_KEY), );
+                        imageStore.getImageList(SaplingEntity.SAPLING_KEY), this.resourceLimit, this.resourceCount, this.actionPeriod,
+                this.animationPeriod, this.health, this.healthLimit);
 
                 world.addEntity(sapling);
-                sapling.scheduleActions(scheduler, world, imageStore);
+                ((ActionEntity)sapling).scheduleActions(scheduler, world, imageStore);
             }
         }
         scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
     }
 
     @Override
-    public void executeAction(EventScheduler scheduler) {
+    public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
+        if (world.adjacent(this.getPosition(), target.getPosition())) {
+            world.removeEntity(target);
+            scheduler.unscheduleAllEvents( target);
+            return true;
+        }
+        else {
+            Point nextPos = this.nextPosition(world, target.getPosition());
 
+            if (!this.getPosition().equals(nextPos)) {
+                Optional<Entity> occupant = world.getOccupant( nextPos);
+                if (occupant.isPresent()) {
+                    scheduler.unscheduleAllEvents(occupant.get());
+                }
+
+                world.moveEntity(this, nextPos);
+            }
+            return false;
+        }
     }
+
+    @Override
+    public Point nextPosition(WorldModel world, Point destPos) {
+        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
+        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
+
+        if (horiz == 0 || world.isOccupied(newPos)) {
+            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
+            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
+
+            if (vert == 0 || world.isOccupied(newPos)) {
+                newPos = this.getPosition();
+            }
+        }
+        return newPos;
+    }
+
 }

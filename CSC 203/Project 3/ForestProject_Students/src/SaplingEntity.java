@@ -31,16 +31,9 @@ public class SaplingEntity extends PlantEntity implements Transform{
     }
 
     @Override
-    public void executeActivityAction(EventScheduler scheduler) {
-
-    }
-
-    @Override
     public boolean transform(WorldModel world,EventScheduler scheduler,ImageStore imageStore){
         if (this.health <= 0) {
-            Entity stump = new StumpEntity(this.getId(),this.getPosition(),imageStore.getImageList(TreeEntity.STUMP_KEY),
-                    this.getResourceLimit(), this.getResourceCount(), this.getActionPeriod(), this.getAnimationPeriod(),
-                    this.health, this.getHealthLimit());
+            Entity stump = new StumpEntity(this.getId(),this.getPosition(),imageStore.getImageList(TreeEntity.STUMP_KEY));
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);
 
@@ -61,7 +54,7 @@ public class SaplingEntity extends PlantEntity implements Transform{
             scheduler.unscheduleAllEvents(this);
 
             world.addEntity(tree);
-            tree.scheduleActions(scheduler, world, imageStore);
+            ((ActionEntity)tree).scheduleActions(scheduler, world, imageStore);
 
             return true;
         }

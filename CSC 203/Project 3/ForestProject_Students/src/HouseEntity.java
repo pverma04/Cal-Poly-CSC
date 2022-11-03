@@ -10,8 +10,9 @@ public class HouseEntity extends Entity{
     public static final int HOUSE_COL = 2;
     public static final int HOUSE_ROW = 3;
 
-    public HouseEntity(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, int actionPeriod, int animationPeriod, int health, int healthLimit) {
-        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
+    public HouseEntity(String id, Point position, List<PImage> images) {
+        super(id, position, images, 0);
     }
+
 
 }

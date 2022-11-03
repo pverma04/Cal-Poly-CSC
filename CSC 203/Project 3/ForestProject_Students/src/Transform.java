@@ -1,3 +1,3 @@
 public interface Transform {
-    public  boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
+    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
 }

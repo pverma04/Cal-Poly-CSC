@@ -21,7 +21,7 @@ public class DudeNotFullEntity extends DudeEntity implements Transform{
             scheduler.unscheduleAllEvents(this);
 
             world.addEntity(miner);
-            miner.scheduleActions(scheduler, world, imageStore);
+            ((ActionEntity)miner).scheduleActions(scheduler, world, imageStore);
 
             return true;
         }
@@ -29,16 +29,35 @@ public class DudeNotFullEntity extends DudeEntity implements Transform{
     }
     @Override
     public void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
+        System.out.println("execute activity not full");
         Optional<Entity> target =
                 world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Transform.class, SaplingEntity.class)));
 
-        if (!target.isPresent() || !this.moveToNotFull( world, target.get(), scheduler) || !this.transform( world, scheduler, imageStore))  {
+        if (!target.isPresent() || !this.moveTo( world, target.get(), scheduler) || !this.transform( world, scheduler, imageStore))  {
             scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
         }
     }
 
     @Override
-    public void executeActivityAction(EventScheduler scheduler) {
+    public boolean moveTo(WorldModel world,Entity target,EventScheduler scheduler){
+        if (world.adjacent(this.getPosition(), target.getPosition())) {
+            this.resourceCount += 1;
+            target.health--;
+            return true;
+        }
+        else {
+            Point nextPos = this.nextPosition(world, target.getPosition());
 
+            if (!this.getPosition().equals(nextPos)) {
+                Optional<Entity> occupant = world.getOccupant( nextPos);
+                if (occupant.isPresent()) {
+                    scheduler.unscheduleAllEvents( occupant.get());
+                }
+
+                world.moveEntity(this, nextPos);
+            }
+            return false;
+        }
     }
+
 }

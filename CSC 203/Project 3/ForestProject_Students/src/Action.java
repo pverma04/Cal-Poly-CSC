@@ -4,17 +4,15 @@
 public abstract class Action //NO LONGER FINAL
 {
     //private ActionKind kind; //SHOULD NOT BE USED
-    private Entity entity;
     private WorldModel world;
     private ImageStore imageStore;
 
     public Action(
             //ActionKind kind,
-            Entity entity,
             WorldModel world,
             ImageStore imageStore) {
         //this.kind = kind;
-        this.entity = entity;
+        //this.entity = entity;
         this.world = world;
         this.imageStore = imageStore;
     }
@@ -22,9 +20,7 @@ public abstract class Action //NO LONGER FINAL
 //    public ActionKind getActionKind() {
 //        return this.kind;
 //    }
-    public Entity getEntity() {
-        return this.entity;
-    }
+
     public WorldModel getWorldModel() {
         return this.world;
     }

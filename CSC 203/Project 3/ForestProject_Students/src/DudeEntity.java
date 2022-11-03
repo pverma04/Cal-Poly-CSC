@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public abstract class DudeEntity extends Excecutable{
+public abstract class DudeEntity extends FairyDudePos{
     public static final String DUDE_KEY = "dude";
     public static final int DUDE_NUM_PROPERTIES = 7;
     public static final int DUDE_ID = 1;
@@ -24,5 +24,20 @@ public abstract class DudeEntity extends Excecutable{
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
         scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), this.getActionPeriod());
         scheduler.scheduleEvent(this, new AnimationAction(this, world, imageStore, 0), this.getAnimationPeriod());
+    }
+    @Override
+    public Point nextPosition(WorldModel world, Point destPos){
+        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
+        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
+
+        if (horiz == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity) ) {
+            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
+            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
+
+            if (vert == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
+                newPos = this.getPosition();
+            }
+        }
+        return newPos;
     }
 }

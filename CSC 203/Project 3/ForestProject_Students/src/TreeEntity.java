@@ -37,21 +37,18 @@ public class TreeEntity extends PlantEntity implements Transform{
     }
 
     @Override
-    public void executeActivityAction(EventScheduler scheduler) {
-
-    }
-
-    @Override
     public  boolean transform(WorldModel world,EventScheduler scheduler,ImageStore imageStore) {
         if (this.health <= 0) {
-            Entity stump = new StumpEntity(this.id, this.position,
-                    imageStore.getImageList(STUMP_KEY), this.resourceLimit, this.resourceCount, this.actionPeriod,
-                    this.animationPeriod, this.health, this.healthLimit);
+            Entity stump = new StumpEntity(this.getId(), this.getPosition(),
+                    imageStore.getImageList(STUMP_KEY));
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);
             world.addEntity(stump);
             return true;
         }
         return false;
+    }
+    public int getAnimationPeriod() {
+        return this.animationPeriod;
     }
 }
