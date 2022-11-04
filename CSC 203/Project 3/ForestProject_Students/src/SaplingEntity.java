@@ -17,7 +17,7 @@ public class SaplingEntity extends PlantEntity implements Transform{
 
     @Override
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), this.getActionPeriod());
+        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), this.actionPeriod);
         scheduler.scheduleEvent(this, new AnimationAction(this, world, imageStore, 0), this.getAnimationPeriod());
     }
 
@@ -26,7 +26,7 @@ public class SaplingEntity extends PlantEntity implements Transform{
         this.health++;
         if (!this.transform(world, scheduler, imageStore)) {
             scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),
-                    this.getActionPeriod());
+                    this.actionPeriod);
         }
     }
 
@@ -41,14 +41,14 @@ public class SaplingEntity extends PlantEntity implements Transform{
 
             return true;
         }
-        else if (this.getHealth() >= this.getHealthLimit()) {
+        else if (this.getHealth() >= this.healthLimit) {
             Entity tree = new TreeEntity("tree_" + this.getId(), this.getPosition(),
                     imageStore.getImageList(TreeEntity.TREE_KEY),
-                    this.getResourceLimit(), this.getResourceCount(),
+                    this.resourceLimit, this.resourceCount,
                     this.getNumFromRange(TreeEntity.TREE_ACTION_MAX, TreeEntity.TREE_ACTION_MIN),
                     this.getNumFromRange(TreeEntity.TREE_ANIMATION_MAX, TreeEntity.TREE_ANIMATION_MIN),
                     this.getNumFromRange(TreeEntity.TREE_HEALTH_MAX, TreeEntity.TREE_HEALTH_MIN),
-                    this.getHealthLimit()
+                    this.healthLimit
             );
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);

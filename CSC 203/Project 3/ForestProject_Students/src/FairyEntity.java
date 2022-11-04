@@ -16,13 +16,6 @@ public class FairyEntity extends FairyDudePos{
     public FairyEntity(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, int actionPeriod, int animationPeriod, int health, int healthLimit) {
         super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
     }
-
-    @Override
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), this.getActionPeriod());
-        scheduler.scheduleEvent(this, new AnimationAction(this, world, imageStore, 0), this.getAnimationPeriod());
-    }
-
     public void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
         Optional<Entity> fairyTarget =
                 world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(StumpEntity.class)));
@@ -30,15 +23,14 @@ public class FairyEntity extends FairyDudePos{
             Point tgtPos = fairyTarget.get().getPosition();
 
             if (this.moveTo(world, fairyTarget.get(), scheduler)) {
-                Entity sapling = new SaplingEntity("sapling_" + this.getId(), tgtPos,
-                        imageStore.getImageList(SaplingEntity.SAPLING_KEY), this.resourceLimit, this.resourceCount, this.actionPeriod,
-                this.animationPeriod, this.health, this.healthLimit);
+                ActionEntity sapling = (ActionEntity) Entity.createSapling("sapling_" + this.getId(), tgtPos,
+                        imageStore.getImageList(SaplingEntity.SAPLING_KEY));
 
                 world.addEntity(sapling);
-                ((ActionEntity)sapling).scheduleActions(scheduler, world, imageStore);
+                sapling.scheduleActions(scheduler, world, imageStore);
             }
         }
-        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
+        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.actionPeriod);
     }
 
     @Override

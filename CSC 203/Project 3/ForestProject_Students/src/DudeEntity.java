@@ -19,12 +19,6 @@ public abstract class DudeEntity extends FairyDudePos{
     @Override
     public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 
-
-    @Override
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), this.getActionPeriod());
-        scheduler.scheduleEvent(this, new AnimationAction(this, world, imageStore, 0), this.getAnimationPeriod());
-    }
     @Override
     public Point nextPosition(WorldModel world, Point destPos){
         int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());

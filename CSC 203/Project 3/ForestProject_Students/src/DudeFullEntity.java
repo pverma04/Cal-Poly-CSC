@@ -12,7 +12,6 @@ public class DudeFullEntity extends DudeEntity{
     }
     @Override
     public void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-        System.out.println("execute activity full");
         Optional<Entity> fullTarget =
                 world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(HouseEntity.class)));
 
@@ -20,16 +19,16 @@ public class DudeFullEntity extends DudeEntity{
             this.transform(world, scheduler, imageStore);
         }
         else {
-            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
+            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.actionPeriod);
         }
     }
 
     public void transform(WorldModel world,EventScheduler scheduler,ImageStore imageStore) {
         Entity miner = Entity.createDudeFull(this.getId(),
                 this.getPosition(),
-                this.getActionPeriod(),
+                this.actionPeriod,
                 this.getAnimationPeriod(),
-                this.getResourceLimit(),
+                this.resourceLimit,
                 this.getImages());
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
@@ -41,10 +40,11 @@ public class DudeFullEntity extends DudeEntity{
             return true;
         }
         else {
+            System.out.println("moveTo full");
             Point nextPos = this.nextPosition(world, target.getPosition());
 
             if (!this.getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = world.getOccupant( nextPos);
+                Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }

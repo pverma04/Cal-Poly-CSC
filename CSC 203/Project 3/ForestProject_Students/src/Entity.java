@@ -83,10 +83,11 @@ public abstract class Entity { // NO LONGER FINAL
     public Entity(
             //EntityKind kind,
             String id, Point position, List<PImage> images, int health
+            , int animationPeriod
 //            int resourceLimit,
 //            int resourceCount,
 //            int actionPeriod,
-//            int animationPeriod,
+//
 //            int healthLimit
             )
     {
@@ -127,9 +128,9 @@ public abstract class Entity { // NO LONGER FINAL
     public int getAnimationPeriod() {
         return this.animationPeriod;
     }
-//    public int getHealth() {
-//        return this.health;
-//    }
+    public int getHealth() {
+        return this.health;
+    }
 //    public int getHealthLimit() {
 //        return this.healthLimit;
 //    }
@@ -144,299 +145,9 @@ public abstract class Entity { // NO LONGER FINAL
     }
     public Class getEntityKind() { return this.getClass(); }
 
-
-
-//        if (this instanceof DudeFullEntity){
-//
-//        }
-//        else if (this instanceof DudeNotFullEntity) {
-//
-//        }
-//        else if (this instanceof ObstacleEntity) {
-//
-//        }
-//        else if(this instanceof FairyEntity) {
-//
-//        }
-//        else if (this instanceof TreeEntity) {
-//            return this.animationPeriod;
-//        }
-//        else {
-//            throw new UnsupportedOperationException(
-//                    String.format("getAnimationPeriod not supported for %s",
-//                            this.getClass()));
-//        switch (this.getClass()) {
-//            case DudeFullEntity.class:
-//            case DudeNotFullEntity.class:
-//            case ObstacleEntity.class:
-//            case FairyEntity.class:
-//            case SaplingEntity.class:
-//            case TreeEntity.class:
-//                return this.animationPeriod;
-//            default:
-//                throw new UnsupportedOperationException(
-//                        String.format("getAnimationPeriod not supported for %s",
-//                                this.getClass()));
-//        }
-//        switch (this.getClass()) {
-//            case DUDE_FULL:
-//            case DUDE_NOT_FULL:
-//            case OBSTACLE:
-//            case FAIRY:
-//            case SAPLING:
-//            case TREE:
-//                return this.animationPeriod;
-//            default:
-//                throw new UnsupportedOperationException(
-//                        String.format("getAnimationPeriod not supported for %s",
-//                                this.getEntityKind()));
-//        }
-//        return 0;
-//    }
-
     public void nextImage() {
         imageIndex = (imageIndex + 1) % images.size();
     }
-
-//    public Point nextPositionDude(WorldModel world, Point destPos) {
-//        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
-//        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
-//
-//        if (horiz == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity) ) {
-//            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
-//            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
-//
-//            if (vert == 0 || world.isOccupied(newPos) && !(world.getOccupancyCell(newPos) instanceof StumpEntity)) {
-//                newPos = this.getPosition();
-//            }
-//        }
-//        return newPos;
-//    }
-//    public Point nextPositionFairy(WorldModel world, Point destPos) {
-//        int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
-//        Point newPos = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
-//
-//        if (horiz == 0 || world.isOccupied(newPos)) {
-//            int vert = Integer.signum(destPos.getY() - this.getPosition().getY());
-//            newPos = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
-//
-//            if (vert == 0 || world.isOccupied(newPos)) {
-//                newPos = this.getPosition();
-//            }
-//        }
-//
-//        return newPos;
-//    }
-
-
-
-    // don't technically need resource count ... full
-
-
-
-
-//    public  boolean moveToFull(WorldModel world,Entity target,EventScheduler scheduler) {
-//        if (this.adjacent(this.getPosition(), target.position)) {
-//            return true;
-//        }
-//        else {
-//            Point nextPos = this.nextPositionDude(world, target.position);
-//
-//            if (!this.getPosition().equals(nextPos)) {
-//                Optional<Entity> occupant = world.getOccupant( nextPos);
-//                if (occupant.isPresent()) {
-//                    scheduler.unscheduleAllEvents(occupant.get());
-//                }
-//                world.moveEntity(this, nextPos);
-//            }
-//            return false;
-//        }
-//    }
-
-//    public  boolean moveToFairy(WorldModel world,Entity target,EventScheduler scheduler) {
-//        if (this.adjacent(this.getPosition(), target.getPosition())) {
-//            world.removeEntity(target);
-//            scheduler.unscheduleAllEvents( target);
-//            return true;
-//        }
-//        else {
-//            Point nextPos = this.nextPositionFairy(world, target.position);
-//
-//            if (!this.getPosition().equals(nextPos)) {
-//                Optional<Entity> occupant = world.getOccupant( nextPos);
-//                if (occupant.isPresent()) {
-//                    scheduler.unscheduleAllEvents(occupant.get());
-//                }
-//
-//                world.moveEntity(this, nextPos);
-//            }
-//            return false;
-//        }
-//    }
-
-//    public boolean moveToNotFull(WorldModel world,Entity target,EventScheduler scheduler)  {
-//        if (this.adjacent(this.getPosition(), target.getPosition())) {
-//            this.resourceCount += 1;
-//            target.health--;
-//            return true;
-//        }
-//        else {
-//            Point nextPos = this.nextPositionDude(world, target.position);
-//
-//            if (!this.getPosition().equals(nextPos)) {
-//                Optional<Entity> occupant = world.getOccupant( nextPos);
-//                if (occupant.isPresent()) {
-//                    scheduler.unscheduleAllEvents( occupant.get());
-//                }
-//
-//               world.moveEntity(this, nextPos);
-//            }
-//            return false;
-//        }
-//    }
-
-
-
-
-//    public boolean transformPlant(WorldModel world, EventScheduler scheduler, ImageStore imageStore)  {
-//        if (this instanceof TreeEntity){
-//            return transformTree(world, scheduler, imageStore);
-//        }
-//        else if (this instanceof SaplingEntity){
-//            return this.transformSapling(world, scheduler, imageStore);
-//        }
-//        else{
-//            throw new UnsupportedOperationException(
-//            String.format("transformPlant not supported for %s", this));
-//        }
-//    }
-
-//    public  boolean transformSapling(WorldModel world,EventScheduler scheduler,ImageStore imageStore){
-//        if (this.health <= 0) {
-//            Entity stump = new StumpEntity(this.getId(),this.getPosition(),imageStore.getImageList( STUMP_KEY),
-//                    this.resourceLimit, this.resourceCount, this.actionPeriod, this.animationPeriod,
-//                    this.health, this.healthLimit);
-//                    world.removeEntity(this);
-//                    scheduler.unscheduleAllEvents(this);
-//
-//            world.addEntity(stump);
-//
-//            return true;
-//        }
-//        else if (this.getHealth() >= this.getHealthLimit()) {
-//            Entity tree = new TreeEntity("tree_" + this.getId(), this.getPosition(),
-//                    imageStore.getImageList(TREE_KEY),
-//                    this.resourceLimit, this.resourceCount,
-//                    this.getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN),
-//                    this.getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN),
-//                    this.getNumFromRange(TREE_HEALTH_MAX, TREE_HEALTH_MIN),
-//                    this.healthLimit
-//                    );
-//            world.removeEntity(this);
-//            scheduler.unscheduleAllEvents(this);
-//
-//            world.addEntity(tree);
-//            tree.scheduleActions(scheduler, world, imageStore);
-//
-//            return true;
-//        }
-//        return false;
-//    }
-//    public  boolean transformTree(WorldModel world,EventScheduler scheduler,ImageStore imageStore) {
-//        if (this.health <= 0) {
-//            Entity stump = new StumpEntity(this.id, this.position,
-//                    imageStore.getImageList(STUMP_KEY), this.resourceLimit, this.resourceCount, this.actionPeriod,
-//                    this.animationPeriod, this.health, this.healthLimit);
-//            world.removeEntity(this);
-//            scheduler.unscheduleAllEvents(this);
-//            world.addEntity(stump);
-//            return true;
-//        }
-//        return false;
-//    }
-//    public  boolean transformNotFull(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-//        if (this.getResourceCount() >= this.getResourceLimit()) {
-//            Entity miner = new DudeFullEntity(this.getId(),
-//                    this.getPosition(), this.getImages(), this.getResourceLimit(),
-//                    this.getResourceCount(), this.getActionPeriod(), this.getAnimationPeriod(),
-//                    this.health, this.healthLimit);
-//            world.removeEntity(this);
-//            scheduler.unscheduleAllEvents(this);
-//
-//            world.addEntity(miner);
-//            miner.scheduleActions(scheduler, world, imageStore);
-//
-//            return true;
-//        }
-//        return false;
-//    }
-
-//    public void transformFull(WorldModel world,EventScheduler scheduler,ImageStore imageStore) {
-//        Entity miner = new DudeNotFullEntity(this.getId(),
-//                this.getPosition(), this.getImages(), this.getResourceLimit(), this.getResourceCount(),
-//                this.getActionPeriod(), this.getAnimationPeriod(), this.health, this.healthLimit
-//                );
-//
-//        world.removeEntity(this);
-//        scheduler.unscheduleAllEvents(this);
-//        world.addEntity(miner);
-//        miner.scheduleActions(scheduler, world, imageStore);
-//    }
-
-
-
-//    public void executeSaplingActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-//        this.health++;
-//        if (!this.transform(world, scheduler, imageStore)) {
-//            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),
-//                    this.getActionPeriod());
-//        }
-//    }
-
-//    public void executeTreeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-//        if (!this.transform(world, scheduler, imageStore)) {
-//            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
-//        }
-//    }
-
-//    public void executeFairyActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-//        Optional<Entity> fairyTarget =
-//                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(StumpEntity.class)));
-//        if (fairyTarget.isPresent()) {
-//            Point tgtPos = fairyTarget.get().position;
-//
-//            if (this.moveToFairy(world, fairyTarget.get(), scheduler)) {
-//                Entity sapling = new SaplingEntity("sapling_" + this.id, tgtPos,
-//                imageStore.getImageList(SaplingEntity.SAPLING_KEY));
-//
-//                world.addEntity(sapling);
-//                sapling.scheduleActions(scheduler, world, imageStore);
-//            }
-//        }
-//        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
-//    }
-    
-//    public void executeDudeNotFullActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-//        Optional<Entity> target =
-//                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Transform.class, SaplingEntity.class)));
-//
-//        if (!target.isPresent() || !this.moveToNotFull( world, target.get(), scheduler) || !this.transform(world, scheduler, imageStore))  {
-//            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
-//        }
-//    }
-
-//    public void executeDudeFullActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-//        Optional<Entity> fullTarget =
-//                world.findNearest(this.position, new ArrayList<>(Arrays.asList(HouseEntity.class)));
-//
-//        if (fullTarget.isPresent() && this.moveToFull(world, fullTarget.get(), scheduler)) {
-//            this.transform(world, scheduler, imageStore);
-//        }
-//        else {
-//            scheduler.scheduleEvent(this,new ActivityAction(this, world, imageStore),this.getActionPeriod());
-//        }
-//    }
-
 
     protected int getNumFromRange(int max, int min) {
         Random rand = new Random();
@@ -446,23 +157,7 @@ public abstract class Entity { // NO LONGER FINAL
 
 
     public PImage getCurrentImage() {
-        /*
-        if (entity instanceof Background) {
-            return ((Background)entity).getImages().get(
-                    ((Background)entity).getImageIndex());
-        }
-        */
-
-        //if (entity instanceof Entity) {
-            return this.getImages().get(this.getImageIndex());
-        //}
-        /*
-        else {
-            throw new UnsupportedOperationException(
-                    String.format("getCurrentImage not supported for %s",
-                            entity));
-        }
-         */
+        return this.getImages().get(this.getImageIndex());
     }
 //    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
 //        if (this instanceof DudeFullEntity) {
@@ -517,7 +212,7 @@ public abstract class Entity { // NO LONGER FINAL
     }
 
     public static Entity createObstacle(String id, Point position, List<PImage> images) {
-        return new ObstacleEntity(id, position, images);
+        return new ObstacleEntity(id, position, images, 0);
     }
 
     public static Entity createTree(String id, Point position, int actionPeriod, int animationPeriod, int health, List<PImage> images)  {
@@ -544,5 +239,5 @@ public abstract class Entity { // NO LONGER FINAL
         return new ActivityAction((ActionEntity) this, world, imageStore);
     }
 
-    public int getHealth() { return this.health; }
+    //public int getHealth() { return this.health; }
 }

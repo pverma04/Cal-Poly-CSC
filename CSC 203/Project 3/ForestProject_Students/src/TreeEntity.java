@@ -25,14 +25,14 @@ public class TreeEntity extends PlantEntity implements Transform{
 
     @Override
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), this.getActionPeriod());
+        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), this.actionPeriod);
         scheduler.scheduleEvent(this, new AnimationAction(this, world, imageStore, 0), this.getAnimationPeriod());
     }
 
     @Override
     public  void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
         if (!this.transform(world, scheduler, imageStore)) {
-            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
+            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.actionPeriod);
         }
     }
 
@@ -48,7 +48,7 @@ public class TreeEntity extends PlantEntity implements Transform{
         }
         return false;
     }
-    public int getAnimationPeriod() {
-        return this.animationPeriod;
-    }
+//    public int getAnimationPeriod() {
+//        return this.getAnimationPeriod();
+//    }
 }

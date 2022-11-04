@@ -12,11 +12,11 @@ public class DudeNotFullEntity extends DudeEntity implements Transform{
 
     @Override
     public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        if (this.getResourceCount() >= this.getResourceLimit()) {
+        if ((this.resourceCount) >= this.resourceLimit) {
             Entity miner = new DudeFullEntity(this.getId(),
-                    this.getPosition(), this.getImages(), this.getResourceLimit(),
-                    this.getResourceCount(), this.getActionPeriod(), this.getAnimationPeriod(),
-                    this.health, this.getHealthLimit());
+                    this.getPosition(), this.getImages(), this.resourceLimit,
+                    this.resourceCount, this.actionPeriod, this.getAnimationPeriod(),
+                    this.health, this.healthLimit);
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);
 
@@ -29,27 +29,27 @@ public class DudeNotFullEntity extends DudeEntity implements Transform{
     }
     @Override
     public void executeActivity(WorldModel world,ImageStore imageStore,EventScheduler scheduler) {
-        System.out.println("execute activity not full");
         Optional<Entity> target =
-                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Transform.class, SaplingEntity.class)));
+                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(TreeEntity.class, SaplingEntity.class)));
 
         if (!target.isPresent() || !this.moveTo( world, target.get(), scheduler) || !this.transform( world, scheduler, imageStore))  {
-            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.getActionPeriod());
+            scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore),this.actionPeriod);
         }
     }
 
     @Override
-    public boolean moveTo(WorldModel world,Entity target,EventScheduler scheduler){
+    public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
         if (world.adjacent(this.getPosition(), target.getPosition())) {
             this.resourceCount += 1;
             target.health--;
             return true;
         }
         else {
+            System.out.println("moveTo not full");
             Point nextPos = this.nextPosition(world, target.getPosition());
 
             if (!this.getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = world.getOccupant( nextPos);
+                Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents( occupant.get());
                 }

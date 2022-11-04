@@ -213,16 +213,16 @@ public final class VirtualWorld extends PApplet
                 //return parseSapling(properties, world, imageStore);
             }
         }
-
         return false;
     }
 
 
     public static void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore){
         for (Entity entity : world.getEntities()) {
-            if ((entity instanceof ActionEntity)){
+            if (entity instanceof ActionEntity){
                 ((ActionEntity)entity).scheduleActions(scheduler, world, imageStore);
-            } else if ((entity instanceof ObstacleEntity)) {
+            }
+            else if (entity instanceof ObstacleEntity) {
                 ((ObstacleEntity)entity).scheduleActions(scheduler, world, imageStore);
             }
         }

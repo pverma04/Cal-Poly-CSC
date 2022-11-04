@@ -263,7 +263,7 @@ public final class WorldModel
         if (properties.length == ObstacleEntity.OBSTACLE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[ObstacleEntity.OBSTACLE_COL]),Integer.parseInt(properties[ObstacleEntity.OBSTACLE_ROW]));
             Entity entity = new ObstacleEntity(properties[ObstacleEntity.OBSTACLE_ID], pt,
-                                            imageStore.getImageList(ObstacleEntity.OBSTACLE_KEY));
+                                            imageStore.getImageList(ObstacleEntity.OBSTACLE_KEY), 0);
             this.tryAddEntity(entity);
         }
         return properties.length == ObstacleEntity.OBSTACLE_NUM_PROPERTIES;

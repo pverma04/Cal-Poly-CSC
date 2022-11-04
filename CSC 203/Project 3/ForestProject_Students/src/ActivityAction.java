@@ -5,9 +5,12 @@ public class ActivityAction extends Action{
         super(world, imageStore);
         this.actionEntity = actionEntity;
     }
+//    public void executeActivityAction(EventScheduler scheduler) {
+//        this.actionEntity.executeActivity(this.getWorldModel(), this.getImageStore(), scheduler);
+//    }
     @Override
     public void executeAction(EventScheduler scheduler) {
-        System.out.println("executeActivity");
+        System.out.println("ActvityAction execute");
         this.actionEntity.executeActivity(this.getWorldModel(), this.getImageStore(), scheduler);
     }
 }

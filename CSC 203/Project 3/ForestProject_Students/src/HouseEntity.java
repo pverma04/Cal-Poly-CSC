@@ -11,7 +11,7 @@ public class HouseEntity extends Entity{
     public static final int HOUSE_ROW = 3;
 
     public HouseEntity(String id, Point position, List<PImage> images) {
-        super(id, position, images, 0);
+        super(id, position, images, 0, 0);
     }
 
 
