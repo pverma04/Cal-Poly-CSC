@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b30bbe5e-69f6-4431-9309-e59ffc20ff59" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/ActivityAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/ActivityAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/AnimationAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/AnimationAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/DudeFullEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/DudeFullEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/DudeNotFullEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/DudeNotFullEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/EventScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/EventScheduler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/WorldModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 3/ForestProject_Students/src/WorldModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Labs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Labs.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,32 +40,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/parthverma/CalPolyCSC/Cal-Poly-CSC/CSC 203/Labs&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
+    "WebServerToolWindowPanel.toolwindow.show.date": "false",
+    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
+    "WebServerToolWindowPanel.toolwindow.show.size": "false",
+    "last_opened_file_path": "/Users/parthverma/CalPolyCSC/Cal-Poly-CSC/CSC 203/Labs",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Lab02: Static and Instance Methods/part2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Lab 07: Depth First Search" />
+      <recent name="$PROJECT_DIR$/Lab 07: Depth First Search/Lab 7 Starter Code" />
       <recent name="$PROJECT_DIR$/Lab02: Static and Instance Methods" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.PathingMain">
+    <configuration name="PathingMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PathingMain" />
+      <module name="Labs" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PartOneTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Labs" />
       <option name="PACKAGE_NAME" value="" />
@@ -89,25 +98,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestCases2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Labs" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestCases2" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestCases.testCircleGetArea" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Labs" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="testCircleGetArea" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TestCases.testComposedComparator" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Labs" />
       <option name="PACKAGE_NAME" value="" />
@@ -118,13 +108,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="processing-experimental.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/Lab 07: Depth First Search/Lab 7 Starter Code/processing-experimental.jar" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PathingMain" />
+        <item itemvalue="JAR Application.processing-experimental.jar" />
+        <item itemvalue="JUnit.PartOneTestCases" />
         <item itemvalue="JUnit.TestCases.testComposedComparator" />
         <item itemvalue="JUnit.TestCases" />
-        <item itemvalue="JUnit.TestCases.testCircleGetArea" />
-        <item itemvalue="JUnit.PartOneTestCases" />
-        <item itemvalue="JUnit.TestCases2" />
       </list>
     </recent_temporary>
   </component>
@@ -153,6 +147,9 @@
       <workItem from="1666740409194" duration="3328000" />
       <workItem from="1667173109606" duration="770000" />
       <workItem from="1667254199969" duration="19657000" />
+      <workItem from="1667872920096" duration="225000" />
+      <workItem from="1667873158571" duration="1536000" />
+      <workItem from="1667877862872" duration="8098000" />
     </task>
     <servers />
   </component>
@@ -172,6 +169,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+      <path value="$PROJECT_DIR$/Lab00" />
+    </ignored-roots>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
