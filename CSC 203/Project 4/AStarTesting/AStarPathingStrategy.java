@@ -10,50 +10,117 @@ class AStarPathingStrategy implements PathingStrategy {
                                    Predicate<Point> canPassThrough,
                                    BiPredicate<Point, Point> withinReach,
                                    Function<Point, Stream<Point>> potentialNeighbors) {
-
+        HashMap<Point, Node> openMap = new HashMap<>();
+        HashMap<Point, Node> closedMap = new HashMap<>();
+        PriorityQueue<Node> checkingFValue = new PriorityQueue<>(
+                Comparator.comparingInt(Node::getF)); //only to get the smallest g value
         Node currentNode = new Node(null, start, end);
-        List<Node> openList = new ArrayList<>();
-        List<Node> closedList = new ArrayList<>();
+        openMap.put(start, currentNode);
+        checkingFValue.add(currentNode);
         Node currentNeighbor = null;
-        boolean contained = false;
-        Node a = null; //will be set to the node already contained
-        while (!currentNode.getP().equals(end)) {
-            openList.add(currentNode); //step 2
-            List<Point> neighbors = potentialNeighbors.apply(start).filter(canPassThrough).collect(Collectors.toList());
+        while (!openMap.isEmpty()) {
+            List<Point> neighbors = potentialNeighbors.apply(currentNode.getP()).filter(canPassThrough).collect(Collectors.toList());
             for (int i = 0; i < neighbors.size(); i++) {
-                currentNeighbor = new Node(currentNode, neighbors.get(i), end); //3b handled here
-                for (int j = 0; j < openList.size(); i++) {
-                    if (currentNeighbor.equals(openList.get(j).getP())) { //if any Node in openList has the same point
-                        contained = true;
-                        a = openList.get(j);
-                        break;
+                if (!closedMap.containsKey(neighbors.get(i))){
+                    currentNeighbor = new Node(currentNode, neighbors.get(i), end);
+                    if (!openMap.containsKey(neighbors.get(i))) {
+                        openMap.put(neighbors.get(i), currentNeighbor);
                     }
-                }
-                if (!contained) { openList.add(currentNeighbor); } //3a
-                else {
-                    if (currentNeighbor.getG() < a.getG()) { //3c
-                        openList.remove(a);
-                        openList.add(currentNeighbor);
+                    else { //already in openMap
+                        if (openMap.get(neighbors.get(i)).getG() > currentNeighbor.getG()) {
+                            openMap.replace(neighbors.get(i), currentNeighbor);
+                        }
                     }
+                    checkingFValue.add(currentNeighbor);
                 }
             }
-            closedList.add(currentNode); //4
-            openList.remove(currentNode);
-            Collections.sort(openList, new Comparator<Node>(){
-                public int compare(Node o1, Node o2){
-                    if(o1.getF() == o2.getF()){ return 0; }
-                    return o1.getF() < o2.getF() ? -1 : 1;
-                }
-            });
-            currentNode = openList.get(0); //5
-        } //6 repeat
-        List<Point> pathPoints = new LinkedList<>();
+            checkingFValue.remove(currentNode);
+            closedMap.put(currentNode.getP(), currentNode);
+            openMap.remove(currentNode.getP());
+            currentNode = checkingFValue.peek();
+        }
+        List<Point> pointsPath = new ArrayList<>();
         Node p = currentNode;
         while (p.getPrev() != null) {
-            pathPoints.add(0, p.getP());
+            pointsPath.add(0, p.getP());
             p = p.getPrev();
         }
-        return pathPoints;
+        return pointsPath;
+    }
+}
+
+    //Node currentNode = new Node(null, start, end);
+//        //List<Node> openList = new ArrayList<>();
+//        //List<Node> closedList = new ArrayList<>();
+//
+//        HashMap<Point, Node> openMap = new HashMap<>();
+//        PriorityQueue<Node> checkingGValue = new PriorityQueue<>(Comparator.comparingInt(Node::getF)); //only to get the smallest g value
+//        HashMap<Point, Node> closedMap = new HashMap<>();
+//
+//        openMap.put(start, currentNode);
+//        checkingGValue.add(currentNode);
+//
+//        Node currentNeighbor = null;
+//        boolean contained = false;
+//        Node a = null; //will be set to the node already contained
+//        while (!openMap.isEmpty()) { //while (openMap is not empty)
+//            if (!currentNode.getP().equals(end)){
+////                openMap.put(currentNode.getP(), currentNode); //step 2
+////                checkingGValue.add(currentNode);
+//                List<Point> neighbors = potentialNeighbors.apply(currentNode.getP()).filter(canPassThrough).collect(Collectors.toList());
+//                System.out.println(neighbors.toString());
+//                for (int i = 0; i < neighbors.size(); i++) {
+//                    currentNeighbor = new Node(currentNode, neighbors.get(i), end); //3b handled here
+//                    if (openMap.containsKey(neighbors.get(i))) {
+//                        contained = true;
+//                        a = openMap.get(neighbors.get(i));
+//                    }
+//                    if (!contained) { //3a
+//                        openMap.put(currentNeighbor.getP(), currentNeighbor);
+//                        checkingGValue.add(currentNeighbor);
+//                    } else {
+//                        if (currentNeighbor.getG() < a.getG()) { //3c
+//                            openMap.remove(a.getP());
+//                            openMap.put(currentNeighbor.getP(), currentNeighbor);
+//                            checkingGValue.remove(a);
+//                            checkingGValue.add(currentNeighbor);
+//                        }
+//                    }
+//                }
+//                closedMap.put(currentNode.getP(), currentNode); //4
+//                openMap.remove(currentNode.getP());
+//                checkingGValue.remove(currentNode);
+//                currentNode = checkingGValue.peek(); //5
+//                System.out.println(currentNode.toString());
+//            }
+//        } //6 repeat
+//        List<Point> pathPoints = new LinkedList<>();
+//        Node p = currentNode;
+//        while (p.getPrev() != null) {
+//            pathPoints.add(0, p.getP());
+//            p = p.getPrev();
+//        }
+//        return pathPoints;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //        List<Node> pathNodes = new LinkedList<>();
@@ -71,5 +138,3 @@ class AStarPathingStrategy implements PathingStrategy {
 //            openList.add(currentNeighbor);
 //            pQueue.add(currentNeighbor);
 //        }
-    }
-}

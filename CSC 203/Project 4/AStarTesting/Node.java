@@ -19,18 +19,23 @@ public class Node {
         this.f = this.g + this.h;
         this.prev = prev;
     }
-    private int findH(Point goal){
+
+    public int findH(Point goal){
         int a = Math.abs(goal.y - this.p.y);
         int b = Math.abs(goal.x - this.p.x);
         return a + b;
     }
     public void setF(Node prev) { this.g = prev.g + 1; }
-    public double getF() { return this.f; }
+    public int getF() { return this.f; }
     public boolean equals(Node n) { return this.p.x == n.p.x && this.p.y == n.p.y; }
     public Point getP() { return this.p; }
     public int getG() { return this.g; }
     public int getH() { return this.h; }
     public Node getPrev() { return this.prev; }
+
+    public String toString() {
+        return this.getP().x + ", " + this.getP().y;
+    }
 
 
 }
