@@ -19,7 +19,7 @@ typedef struct linked_list{
 typedef struct hash_table{
 	int count;
 	int size;
-	hash_entry** items;
+	//hash_entry** items;
 	linked_list** collision_lists;
 } hash_table;
 
@@ -74,13 +74,6 @@ void free_list(linked_list* pList){
 	}
 }
 
-linked_list** create_collision_lists(hash_table* pTable){
-	linked_list** lists = (linked_list**) calloc(pTable->size, sizeof(linked_list));
-	for(int i = 0; i < pTable->size; i++){
-		lists[i] = NULL;
-	}
-	return lists;
-}
 
 
 void free_collision_lists(hash_table* pTable){
@@ -116,7 +109,7 @@ hash_entry* create_entry(char* cWord){
 	strcpy(entry->word, cWord);
 	return entry;
 }
-
+/*
 hash_entry* create_entry_num(char* cWord, int iOccurences){
 	hash_entry* entry = (hash_entry*) malloc(sizeof(hash_entry));
 	entry->word = (char*) malloc(strlen(cWord) + 1);
@@ -124,16 +117,17 @@ hash_entry* create_entry_num(char* cWord, int iOccurences){
 	strcpy(entry->word, cWord);
 	return entry;
 }
+*/
+
 
 hash_table* create_table(int iSize){
 	hash_table* table = (hash_table*) malloc(sizeof(hash_table));
 	table->size = iSize;
 	table->count = 0;
-	table->items = (hash_entry**) calloc(table->size, sizeof(hash_entry));
+	table->collision_lists = (linked_list**) calloc(table->size, sizeof(linked_list));
 	for (int i = 0; i < table->size; i++){
-		table->items[i] = NULL;
+		table->collision_lists[i] = NULL;
 	}
-	table->collision_lists = create_collision_lists(table);
 	return table;
 }	
 
@@ -143,12 +137,12 @@ void free_entry(hash_entry* pEntry){
 }
 
 void free_table(hash_table* pTable){ 
+	linked_list* entry_head;
     for(int i = 0; i < pTable->size; i++){
-		hash_entry* entry = pTable->items[i];
-		if (entry != NULL)
-			free_entry(entry);
+		entry_head = pTable->collision_lists[i];
+		if (entry_head != NULL)
+			free_entry(entry_head->entry);
 	}
-	free(pTable->items);
 	free_collision_lists(pTable);
 	free(pTable);
 }
@@ -171,18 +165,26 @@ void handle_collisions(hash_table* pTable, int iIndex, hash_entry* pEntry) {
 void insert_entry(hash_table* pTable, hash_entry* new_entry){
 	int index = hash(new_entry->word);
 	
-	hash_entry* current_entry = pTable->items[index];
+	linked_list* current_head = pTable->collision_lists[index];
 	
-	if(current_entry == NULL){
-		pTable->items[index] = new_entry;
+	if(current_head == NULL){
+		pTable->collision_lists[index] = allocate_list();
+		pTable->collision_lists[index]->entry = new_entry;
+		pTable->collision_lists[index]->next = NULL;
 		pTable->count++;
 	}
 	else{
-		if(strcmp(current_entry->word, new_entry->word) == 0) {
-			pTable->items[index]->occurences++;
+		if(strcmp(current_head->entry->word, new_entry->word) == 0) {
+			current_head->entry->occurences++;
 		}
 		else{
-			handle_collisions(pTable, index, new_entry);
+			linked_list* temp = current_head;
+			while(temp->next){
+				temp = temp->next;
+			}
+			linked_list* new_node = allocate_list();
+			new_node->entry = new_entry;
+			new_node->next = NULL;
 			return;
 		}
 	}
@@ -190,17 +192,17 @@ void insert_entry(hash_table* pTable, hash_entry* new_entry){
 
 hash_entry* search_table(hash_table* pTable, char* cWord){
 	int index = hash(cWord);
-	hash_entry* item_at_index = pTable->items[index];
 	linked_list* head_at_index = pTable->collision_lists[index];
-	if(item_at_index != NULL) {
-		if(strcmp(item_at_index->word, cWord) == 0)
-			return item_at_index;
+	if(head_at_index != NULL) {
+		if(strcmp(head_at_index->entry->word, cWord) == 0)
+			return head_at_index->entry;
 		if(head_at_index == NULL)
 			return NULL;
-		while(head_at_index->next != NULL){
-			head_at_index = head_at_index->next;
-			if(strcmp(head_at_index->entry->word, cWord) == 0)
-				return head_at_index->entry;
+		linked_list* temp = head_at_index;
+		while(temp->next){
+			temp = temp->next;
+			if(strcmp(temp->entry->word, cWord) == 0)
+				return temp->entry;
 		}
 	}
 	return NULL;
@@ -210,13 +212,11 @@ void print_table(hash_table* table){
 	printf("\nHash Table: \n");
 	linked_list* head;
 	for (int i = 0; i < table->size; i++) {
-		if(table->items[i]){
-			printf("Index:%d, Word:%s, Occurences:%d\n", i, table->items[i]->word, table->items[i]->occurences);
-		}
-		else if(table->collision_lists[i]){
+		if(table->collision_lists[i]){
 			head = table->collision_lists[i];
 			while(head->next){
 				printf("Index:%d, Word:%s, Occurences:%d\n", i, head->entry->word, head->entry->occurences);
+				head = head->next;
 			}
 		}
 	}
