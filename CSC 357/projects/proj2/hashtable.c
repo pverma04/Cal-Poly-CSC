@@ -97,7 +97,7 @@ unsigned int hash(char* cWord){
 		count += cWord[i];
 	}
 
-	return count;
+	return count % 13;
 }
 /*
 TODO: combine these two - make a search
@@ -196,8 +196,6 @@ hash_entry* search_table(hash_table* pTable, char* cWord){
 	if(head_at_index != NULL) {
 		if(strcmp(head_at_index->entry->word, cWord) == 0)
 			return head_at_index->entry;
-		if(head_at_index == NULL)
-			return NULL;
 		linked_list* temp = head_at_index;
 		while(temp->next){
 			temp = temp->next;
@@ -214,9 +212,10 @@ void print_table(hash_table* table){
 	for (int i = 0; i < table->size; i++) {
 		if(table->collision_lists[i]){
 			head = table->collision_lists[i];
+			printf("Index:%d, Word:%s, Occurences:%d\n", i, head->entry->word, head->entry->occurences);
 			while(head->next){
-				printf("Index:%d, Word:%s, Occurences:%d\n", i, head->entry->word, head->entry->occurences);
 				head = head->next;
+				printf("Index:%d, Word:%s, Occurences:%d\n", i, head->entry->word, head->entry->occurences);
 			}
 		}
 	}
