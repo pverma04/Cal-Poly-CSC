@@ -36,22 +36,23 @@ linked_list* allocate_list(){
 	return list;
 }
 
-linked_list* list_add(linked_list* pList, hash_entry* pEntry){
-	if(pList == NULL){
-		linked_list* head = allocate_list();
+linked_list* list_add(hash_table* pTable, int iIndex, hash_entry* pEntry){
+	linked_list* head = pTable->collision_lists[iIndex];
+	if(head == NULL){
+		head = allocate_list();
 		head->entry = pEntry;
 		head->next = NULL;
-		pList = head;
-		return pList;
+		pTable->collision_lists[iIndex] = head;
+		return head;
 	}
-	else if(pList->next == NULL){
+	else if(head->next == NULL){
 		linked_list* new_node = allocate_list();
 		new_node->entry = pEntry;
 		new_node->next = NULL;
-		pList->next = new_node;
-		return pList;
+		head->next = new_node;
+		return head;
 	}
-	linked_list* temp_list = pList;
+	linked_list* temp_list = head;
 	while (temp_list->next){
 		temp_list = temp_list->next;
 	}
@@ -59,7 +60,7 @@ linked_list* list_add(linked_list* pList, hash_entry* pEntry){
 	new_node->entry = pEntry;
 	new_node->next = NULL;
 	temp_list->next = new_node;
-	return pList;
+	return head;
 }
 
 void free_list(linked_list* pList){
@@ -157,7 +158,7 @@ void handle_collisions(hash_table* pTable, int iIndex, hash_entry* pEntry) {
 		return;
 	}
 	else{
-		pTable->collision_lists[iIndex] = list_add(head, pEntry);
+		pTable->collision_lists[iIndex] = list_add(pTable, iIndex, pEntry);
 		return;
 	}
 }
@@ -179,12 +180,7 @@ void insert_entry(hash_table* pTable, hash_entry* new_entry){
 		}
 		else{
 			linked_list* temp = current_head;
-			while(temp->next){
-				temp = temp->next;
-			}
-			linked_list* new_node = allocate_list();
-			new_node->entry = new_entry;
-			new_node->next = NULL;
+			current_head = list_add(pTable, index, new_entry);
 			return;
 		}
 	}
@@ -213,7 +209,7 @@ void print_table(hash_table* table){
 		if(table->collision_lists[i]){
 			head = table->collision_lists[i];
 			printf("Index:%d, Word:%s, Occurences:%d\n", i, head->entry->word, head->entry->occurences);
-			while(head->next){
+			while(head->next != NULL){
 				head = head->next;
 				printf("Index:%d, Word:%s, Occurences:%d\n", i, head->entry->word, head->entry->occurences);
 			}
