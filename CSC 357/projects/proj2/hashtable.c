@@ -172,7 +172,6 @@ void insert_entry(hash_table* pTable, hash_entry* new_entry){
 		pTable->collision_lists[index] = allocate_list();
 		pTable->collision_lists[index]->entry = new_entry;
 		pTable->collision_lists[index]->next = NULL;
-		pTable->count++;
 	}
 	else{
 		if(strcmp(current_head->entry->word, new_entry->word) == 0) {
@@ -181,9 +180,10 @@ void insert_entry(hash_table* pTable, hash_entry* new_entry){
 		else{
 			linked_list* temp = current_head;
 			current_head = list_add(pTable, index, new_entry);
-			return;
 		}
 	}
+	pTable->count++;
+	return;
 }
 
 hash_entry* search_table(hash_table* pTable, char* cWord){
@@ -215,15 +215,29 @@ void print_table(hash_table* table){
 			}
 		}
 	}
+	printf("Table Count: %d\n", table->count);
 	printf("-------------------\n\n");
 }
 
-/*hash_entry* table_to_array(hash_table* table){
-	hash_entry entry_arr[table->count];
-	
-}*/
+hash_entry* table_to_array(hash_table* table){
+	hash_entry* entry_arr[table->count];
 
-int main(){
+	linked_list* head;
+	for (int i = 0; i < table->size; i++) {
+		if(table->collision_lists[i]){
+			head = table->collision_lists[i];
+			entry_arr[i] = head->entry;
+			while(head->next != NULL){
+				head = head->next;
+				i++;
+				entry_arr[i] = head->entry;
+			}
+		}
+	}
+	return entry_arr;
+}
+
+int main(int argc, char* argv[]){
 	
 	char word[100]; //no more than 100 characters in the word
 	hash_table* table = create_table(1000);
@@ -247,15 +261,30 @@ int main(){
 	insert_entry(table, create_entry("cba"));
 	printf("%u\n", hash("cba"));
 	print_table(table);
-
-	/*if (argc == 2){
+	
+	if (argc == 2){
 		FILE* f = fopen(argv[1], "r");
 		while (fscanf(f, "%s", word) != EOF){
-            create_entry(word);
-			new_entry = create_entry(word);
-			insert_entry(table, new_entry);
+			insert_entry(table, create_entry(word));
 		}
-	}*/
+		hash_entry* array[] = table_to_array(table);
+		hash_entry* temp;
+		for (int i = 0; i < table->count; i++) {
+			
+			// iterates the array elements from index 1
+			for (int j = i + 1; j < table->count; j++) {
+				
+				// comparing the array elements, to set array
+				// elements in descending order
+				if (array[i]->occurences < array[j]->occurences) {
+					temp = array[i];
+					array[i] = array[j];
+					array[j] = temp;
+				}
+			}
+		}
+	}
+	
 
 	return 0;	
 }
