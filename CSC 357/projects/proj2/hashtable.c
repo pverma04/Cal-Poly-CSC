@@ -267,7 +267,8 @@ int main(int argc, char* argv[]){
 		while (fscanf(f, "%s", word) != EOF){
 			insert_entry(table, create_entry(word));
 		}
-		hash_entry* array[] = table_to_array(table);
+		hash_entry* array = allocate_list();
+		array = table_to_array(table);
 		hash_entry* temp;
 		for (int i = 0; i < table->count; i++) {
 			
