@@ -20,7 +20,8 @@
 			"utility": "c",
 			"vector": "c",
 			"__locale": "c",
-			"iterator": "c"
+			"iterator": "c",
+			"__node_handle": "c"
 		}
 	}
 }
