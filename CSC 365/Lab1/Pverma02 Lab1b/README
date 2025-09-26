@@ -1,0 +1,22 @@
+Hi! Please run this program, and it will go on until you enter Q for quit. 
+There are a variety of commands that can be used:
+S[tudent]: <lastname>
+S[tudent]: <lastname> B[us]
+T[eacher]: <lastname>
+G[rade]: <Number>
+B[us]: <Number>
+G[rade]: <Number> H[igh] or G[rade]: <Number> L[ow]
+A[verage]: <Number>
+C: <number> S[tudent]/T[eacher] <name>
+I[nfo]:
+I: C <classnum>
+G[rade]: <num> T[eacher]
+A[nalyze]G: <num>
+A[nalyze]T: <teacher name>
+A[nalyze]B: <bus route>
+Q[uit]
+
+Each command will print the specified output after fetching the data requested.
+Invalid requests will state that it is invalid, and let you re enter.
+
+Thank you!

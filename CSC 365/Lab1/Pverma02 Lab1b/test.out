@@ -1,0 +1,122 @@
+Please enter a command. Q[uit] to exit: S: COOKUS
+XUAN COOKUS, Grade: 3, Classroom: 107, Teacher: ROCIO FAFARD
+Please enter a command. Q[uit] to exit: S: PLANKTON
+No students found by this last name: PLANKTON
+Please enter a command. Q[uit] to exit: S: WOOLERY B
+NOLAN WOOLERY, Bus Route: 51
+Please enter a command. Q[uit] to exit: S: COOKUS A
+Invalid request
+Please enter a command. Q[uit] to exit: S: IUWQOI B
+No students found by this last name: IUWQOI
+Please enter a command. Q[uit] to exit: T: HAMER
+Students with teacher: HAMER
+TODD LIBRANDI, Grade: 2, Classroom: 108
+BOBBIE HAVIR, Grade: 2, Classroom: 108
+DIEDRA SARAO, Grade: 2, Classroom: 108
+MIKE VANCOTT, Grade: 2, Classroom: 108
+TERESE WICINSKY, Grade: 2, Classroom: 108
+BUSTER KOZOLA, Grade: 2, Classroom: 108
+LEIGHANN MULLINGS, Grade: 2, Classroom: 108
+BILLY BUSSMANN, Grade: 2, Classroom: 108
+DICK BERBES, Grade: 2, Classroom: 108
+RANDELL MULGREW, Grade: 2, Classroom: 108
+LANE TOWLEY, Grade: 2, Classroom: 108
+Please enter a command. Q[uit] to exit: T: ABC
+Students with teacher: ABC
+No students found that have this teacher
+Please enter a command. Q[uit] to exit: B: 53
+Students taking bus 53: 
+CARTER CORKER, Classroom: 105, Teacher: JED HANTZ
+DEEDRA WORBINGTON, Classroom: 112, Teacher: PERLA CHIONCHIO
+MANIE CIGANEK, Classroom: 107, Teacher: ROCIO FAFARD
+KENDRA SPANICEK, Classroom: 112, Teacher: PERLA CHIONCHIO
+FLOY CLECKLER, Classroom: 109, Teacher: JAE GAMBREL
+TERESE WICINSKY, Classroom: 108, Teacher: GAVIN HAMER
+LELA LINHART, Classroom: 107, Teacher: ROCIO FAFARD
+KRYSTAL DELUNA, Classroom: 112, Teacher: PERLA CHIONCHIO
+ZANDRA COMO, Classroom: 112, Teacher: PERLA CHIONCHIO
+Please enter a command. Q[uit] to exit: B: 2347 
+Students taking bus 2347: 
+No students found taking this bus
+Please enter a command. Q[uit] to exit: G: 4
+Students in grade 4: 
+CARTER CORKER, Classroom: 105, Teacher: JED HANTZ
+DEVIN IMMERMAN, Classroom: 105, Teacher: JED HANTZ
+ALONZO RAPOSE, Classroom: 105, Teacher: JED HANTZ
+DEEDRA WORBINGTON, Classroom: 112, Teacher: PERLA CHIONCHIO
+ERVIN OGAS, Classroom: 105, Teacher: JED HANTZ
+KENDRA SPANICEK, Classroom: 112, Teacher: PERLA CHIONCHIO
+CODI GUICE, Classroom: 112, Teacher: PERLA CHIONCHIO
+HUNG GLOR, Classroom: 112, Teacher: PERLA CHIONCHIO
+NOAH GUM, Classroom: 112, Teacher: PERLA CHIONCHIO
+ELDON MASSART, Classroom: 105, Teacher: JED HANTZ
+ROLLAND NOVICK, Classroom: 112, Teacher: PERLA CHIONCHIO
+CARLEE DURAND, Classroom: 101, Teacher: REUBEN COOL
+TAMESHA BEX, Classroom: 105, Teacher: JED HANTZ
+KRYSTAL DELUNA, Classroom: 112, Teacher: PERLA CHIONCHIO
+ZANDRA COMO, Classroom: 112, Teacher: PERLA CHIONCHIO
+Please enter a command. Q[uit] to exit: G: 10
+Students in grade 10: 
+No students found in this grade
+Please enter a command. Q[uit] to exit: G: 10 ewf
+Command not specified
+Please enter a command. Q[uit] to exit: G: 10 H
+No students found in grade: 10 
+Please enter a command. Q[uit] to exit: G: 10 KD
+Command not specified
+Please enter a command. Q[uit] to exit: G: 3 H
+Student with the highest GPA in grade 3:
+SHARRI SWEDLUND, GPA: 3.24, Bus: 55, Teacher: ROCIO FAFARD
+Please enter a command. Q[uit] to exit: G: 2 L
+Student with the lowest GPA in grade 2:
+BUSTER KOZOLA, GPA: 2.76, Bus: 55, Teacher: GAVIN HAMER
+Please enter a command. Q[uit] to exit: G: 2 J
+Command not specified
+Please enter a command. Q[uit] to exit: A: 19
+No students found in this grade
+Please enter a command. Q[uit] to exit: A: 3
+The average GPA of students in grade 3: 3.05
+Please enter a command. Q[uit] to exit: I:
+Grade 0: 0 Students
+Grade 1: 2 Students
+Grade 2: 13 Students
+Grade 3: 9 Students
+Grade 4: 15 Students
+Grade 5: 0 Students
+Grade 6: 21 Students
+Please enter a command. Q[uit] to exit: I: C
+Students in classroom 101: 1
+Students in classroom 102: 5
+Students in classroom 103: 2
+Students in classroom 104: 2
+Students in classroom 105: 6
+Students in classroom 106: 2
+Students in classroom 107: 7
+Students in classroom 108: 11
+Students in classroom 109: 5
+Students in classroom 110: 2
+Students in classroom 111: 9
+Students in classroom 112: 8
+Please enter a command. Q[uit] to exit: AG: 3
+GPA Analytics for Grade 3: 
+Average GPA: 3.05
+Highest GPA: 2.79
+Highest GPA: 3.24
+Please enter a command. Q[uit] to exit: AG: 10
+No students found in this grade
+Please enter a command. Q[uit] to exit: AT: HAMER
+GPA Analytics for Teacher HAMER: 
+Average GPA: 2.95
+Highest GPA: 2.76
+Highest GPA: 3.22
+Please enter a command. Q[uit] to exit: AT: ABC
+This teacher was not found
+Please enter a command. Q[uit] to exit: AB: 51
+GPA Analytics for Bus 51: 
+Average GPA: 3.02
+Highest GPA: 2.91
+Highest GPA: 3.12
+Please enter a command. Q[uit] to exit: AB: 6910
+No students found in this bus
+Please enter a command. Q[uit] to exit: Q
+Exiting program now. Thank you!

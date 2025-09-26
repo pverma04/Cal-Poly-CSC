@@ -1,0 +1,5 @@
+char s[] = "Hellow World!\n";
+char *p;
+for(p = s; p != '\0'; p++){
+	putchar(*p);
+}

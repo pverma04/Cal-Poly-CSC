@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Run Inn Reservation System",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "console": "integratedTerminal",
+        "mainClass": "InnReservationSystem", // Replace with the actual main class name
+        "args": ["1"], // Argument for selecting the feature in the main menu
+        "classPaths": ["lib/mysql-connector-java-8.0.16.jar"], // Ensure your MySQL JAR is in this path
+        "env": {
+          "HP_JDBC_URL": "jdbc:mysql://db.labthreesixfive.com/pverma02?autoReconnect=true&useSSL=false",
+          "HP_JDBC_USER": "pverma02",
+          "HP_JDBC_PW": "365-fall24-028418604"
+        }
+      }
+    ]
+  }
+  

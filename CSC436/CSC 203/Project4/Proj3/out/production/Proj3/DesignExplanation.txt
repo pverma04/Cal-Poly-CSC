@@ -1,0 +1,10 @@
+Factory Design:
+Instead of creating instances of classes individually, you can implement a "factory" class, which produces these
+instances for you. The factory class has one method which takes in one argument (String type). Depending on what the
+String type is, a new pathing strategy is created and passed to the class that called it. The class can get the pathing
+strategy by calling the static method of the factory class with a string argument ("Dijkstra", "Astar", etc.).
+The class is now associated with the produced pathing strategy.
+
+For example:
+
+PathingStrategy pathStrat = PathingFactory.getStrategy("Dijkstra");

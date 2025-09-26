@@ -1,0 +1,236 @@
+/ CSC 365
+// Lab 1-a test suite
+
+// TC-1
+// Tests Requirements R3, R4
+// short form command name, existing student
+// expected output: XUAN COOKUS, Grade: 3, Classroom: 107, Teacher: ROCIO FAFARD
+S: COOKUS
+
+// TC-2
+// Tests Requirements R3, R4
+// short form command name, non-existing student
+// expected output: No students found by this last name: PLANKTON
+S: PLANKTON
+
+// TC-3
+// Tests Requirements R3, R5
+// short form command name with Bus option, existing student
+// expected output: NOLAN WOOLERY, Bus Route: 51
+S: WOOLERY B
+
+// TC-4
+// Tests Requirements R3, R5
+// short form command name with flase Bus option, existing student
+// expected output: Invalid request
+S: COOKUS A
+
+// TC-5
+// Tests Requirements R3, R5
+// short form command name with Bus option, nonexisting student
+// expected output: No students found by this last name: IUWQOI
+S: IWUEHWE B
+
+// TC-6
+// Tests Requirements R3, R6
+// teacher's last name, find all students
+// expected output: 
+    Students with teacher: HAMER
+    TODD LIBRANDI, Grade: 2, Classroom: 108
+    BOBBIE HAVIR, Grade: 2, Classroom: 108
+    DIEDRA SARAO, Grade: 2, Classroom: 108
+    MIKE VANCOTT, Grade: 2, Classroom: 108
+    TERESE WICINSKY, Grade: 2, Classroom: 108
+    BUSTER KOZOLA, Grade: 2, Classroom: 108
+    LEIGHANN MULLINGS, Grade: 2, Classroom: 108
+    BILLY BUSSMANN, Grade: 2, Classroom: 108
+    DICK BERBES, Grade: 2, Classroom: 108
+    RANDELL MULGREW, Grade: 2, Classroom: 108
+    LANE TOWLEY, Grade: 2, Classroom: 108
+T: HAMER
+
+// TC-7
+// Tests Requirements R3, R6
+// nonexistent teacher's last name, find all students
+// expected output: 
+    Students with teacher: ABC
+    No students found that have this teacher
+T: ABC
+
+// TC-8
+// Tests Requirements R3, R8
+// students by bus number, find all students on bus route
+// expected output: 
+    Students taking bus 53: 
+    CARTER CORKER, Classroom: 105, Teacher: JED HANTZ
+    DEEDRA WORBINGTON, Classroom: 112, Teacher: PERLA CHIONCHIO
+    MANIE CIGANEK, Classroom: 107, Teacher: ROCIO FAFARD
+    KENDRA SPANICEK, Classroom: 112, Teacher: PERLA CHIONCHIO
+    FLOY CLECKLER, Classroom: 109, Teacher: JAE GAMBREL
+    TERESE WICINSKY, Classroom: 108, Teacher: GAVIN HAMER
+    LELA LINHART, Classroom: 107, Teacher: ROCIO FAFARD
+    KRYSTAL DELUNA, Classroom: 112, Teacher: PERLA CHIONCHIO
+    ZANDRA COMO, Classroom: 112, Teacher: PERLA CHIONCHIO
+B: 53
+
+// TC-9
+// Tests Requirements R3, R8
+// students by nonexistent bus number, find all students on bus route
+// expected output: No students found taking this bus
+B: 7987
+
+// TC-10
+// Tests Requirements R3, R7
+// find all students in a grade
+// expected output: 
+    Students in grade 4: 
+    CARTER CORKER, Classroom: 105, Teacher: JED HANTZ
+    DEVIN IMMERMAN, Classroom: 105, Teacher: JED HANTZ
+    ALONZO RAPOSE, Classroom: 105, Teacher: JED HANTZ
+    DEEDRA WORBINGTON, Classroom: 112, Teacher: PERLA CHIONCHIO
+    ERVIN OGAS, Classroom: 105, Teacher: JED HANTZ
+    KENDRA SPANICEK, Classroom: 112, Teacher: PERLA CHIONCHIO
+    CODI GUICE, Classroom: 112, Teacher: PERLA CHIONCHIO
+    HUNG GLOR, Classroom: 112, Teacher: PERLA CHIONCHIO
+    NOAH GUM, Classroom: 112, Teacher: PERLA CHIONCHIO
+    ELDON MASSART, Classroom: 105, Teacher: JED HANTZ
+    ROLLAND NOVICK, Classroom: 112, Teacher: PERLA CHIONCHIO
+    CARLEE DURAND, Classroom: 101, Teacher: REUBEN COOL
+    TAMESHA BEX, Classroom: 105, Teacher: JED HANTZ
+    KRYSTAL DELUNA, Classroom: 112, Teacher: PERLA CHIONCHIO
+    ZANDRA COMO, Classroom: 112, Teacher: PERLA CHIONCHIO
+G: 4
+
+// TC-11
+// Tests Requirements R3, R7
+// find all students in a nonexistent grade
+// expected output: No students found in grade: 10
+G: 10 (with H, L) any other invalid command added on: Ex: G: 10 H, G: 10 L, G: 10 J (output: Command not specified)
+
+// TC-12
+// Tests Requirements R3, R9
+// find student with the highest GPA in a grade
+// expected output: 
+    Student with the highest GPA in grade 3:
+    SHARRI SWEDLUND, GPA: 3.24, Bus: 55, Teacher: ROCIO FAFARD
+G: 3 H
+
+// TC-13
+// Tests Requirements R3, R9
+// find student with the lowest GPA in a grade
+// expected output: 
+    Student with the lowest GPA in grade 2:
+    BUSTER KOZOLA, GPA: 2.76, Bus: 55, Teacher: GAVIN HAMER
+G: 2 L
+
+// TC-14
+// Tests Requirements R3, R9
+// find student with the highest/lowest (with wrong command) GPA in a grade
+// expected output: Command not specified
+G: 2 J
+
+// TC-15
+// Tests Requirements R3, R10
+// calculate average GPA for a grade
+// expected output: The average GPA of students in grade 3: 3.05
+A: 3
+
+// TC-16
+// Tests Requirements R3, R10
+// calculate average GPA for a nonexistent grade
+// expected output: No students found in this grade
+A: 19
+
+// TC-17
+// Tests Requirements R3, R11
+// display student count by grade
+// expected output: 
+    Grade 0: 0 Students
+    Grade 1: 2 Students
+    Grade 2: 13 Students
+    Grade 3: 9 Students
+    Grade 4: 15 Students
+    Grade 5: 0 Students
+    Grade 6: 21 Students
+I:
+
+
+
+// TC-18
+// Tests Requirements R3, E1
+// invalid command
+// expected output: "Invalid command. Please try again."
+X
+
+// TC-19
+// Tests Requirements R3, R13
+// quit command
+// expected output: Exiting program now. Thank you! (program terminates)
+Q
+
+// TC-20
+// Tests Requirements R3, R11
+// display student count by grade
+// expected output: 
+    Students in classroom 101: 1
+    Students in classroom 102: 5
+    Students in classroom 103: 2
+    Students in classroom 104: 2
+    Students in classroom 105: 6
+    Students in classroom 106: 2
+    Students in classroom 107: 7
+    Students in classroom 108: 11
+    Students in classroom 109: 5
+    Students in classroom 110: 2
+    Students in classroom 111: 9
+    Students in classroom 112: 8
+I: C
+
+// TC-21
+// Tests Requirements R3, R11
+// display student count by grade
+// expected output: 
+    GPA Analytics for Grade 3: 
+    Average GPA: 3.05
+    Highest GPA: 2.79
+    Highest GPA: 3.24
+AG: 3
+
+// TC-22
+// Tests Requirements R3, R11
+// display student count by grade
+// expected output: No students found in this grade
+AG: 10
+
+// TC-23
+// Tests Requirements R3, R11
+// display student count by grade
+// expected output: 
+    GPA Analytics for Teacher HAMER: 
+    Average GPA: 2.95
+    Highest GPA: 2.76
+    Highest GPA: 3.22
+AT: HAMER
+
+// TC-24
+// Tests Requirements R3, R11
+// display student count by grade
+// expected output: This teacher was not found
+AT: ABC
+
+
+// TC-25
+// Tests Requirements R3, R11
+// display student count by grade
+// expected output: 
+    GPA Analytics for Bus 51: 
+    Average GPA: 3.02
+    Highest GPA: 2.91
+    Highest GPA: 3.12
+AB: 51
+
+// TC-26
+// Tests Requirements R3, R11
+// display student count by grade
+// expected output: No students found in this bus
+AB: 6910

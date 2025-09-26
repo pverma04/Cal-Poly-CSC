@@ -1,0 +1,20 @@
+Parth Verma
+• Initial decisions: programming language, development environment;
+    - Chose to use python, as I have not in a while. COded in VSCode as standard
+
+• Notes on your chosen internal architecture: what data structures you used, for what purposes;
+    - Made a class for students, each student is an object
+    - Used a library to store students by last name keys. 
+    - Each last name holds a value of a list of all student objects with that last name attribute
+
+• Task log. For each task to be completed, list the name of the task, the student(s) performing it, approximate total person-hours it took to complete. You do not have to document every method or function.
+    - I did everything, it took me about two days in total.
+
+• Notes on testing. When, who, how long, how many bugs found, how long it took to fix them.
+    - My main issue was with the Average command and the typecasting
+      to properly calculate, and round the value to two digits
+    - This took me about 20 minutes to sort out, with some trial and error, and online searches
+
+• Final notes (anything else you want to share with me about your implementation)
+    - Nothing in particular.
+    - I hope it works well and you like it! Thank you professor.

@@ -1,0 +1,165 @@
+/ CSC 365
+// Lab 1-a test suite
+
+// TC-1
+// Tests Requirements R3, R4
+// short form command name, existing student
+// expected output: XUAN COOKUS, Grade: 3, Classroom: 107, Teacher: ROCIO FAFARD
+S: COOKUS
+
+// TC-2
+// Tests Requirements R3, R4
+// short form command name, non-existing student
+// expected output: Student last name: 'PLANKTON' not found
+S: PLANKTON
+
+// TC-3
+// Tests Requirements R3, R5
+// short form command name with Bus option, existing student
+// expected output: NOLAN WOOLERY, Bus Route: 51
+S: WOOLERY B
+
+// TC-4
+// Tests Requirements R3, R5
+// short form command name with flase Bus option, existing student
+// expected output: Invalid request
+S: COOKUS A
+
+// TC-5
+// Tests Requirements R3, R5
+// short form command name with Bus option, nonexisting student
+// expected output: Student last name: 'IWUEHWE' not found
+S: IWUEHWE B
+
+// TC-6
+// Tests Requirements R3, R6
+// teacher's last name, find all students
+// expected output: 
+    Students that have HAMER as their teacher: 
+    TODD LIBRANDI
+    BOBBIE HAVIR
+    DIEDRA SARAO
+    MIKE VANCOTT
+    TERESE WICINSKY
+    BUSTER KOZOLA
+    LEIGHANN MULLINGS
+    BILLY BUSSMANN
+    DICK BERBES
+    RANDELL MULGREW
+    LANE TOWLEY
+T: HAMER
+
+// TC-7
+// Tests Requirements R3, R6
+// nonexistent teacher's last name, find all students
+// expected output: No students found that have this teacher
+T: ABC
+
+// TC-8
+// Tests Requirements R3, R8
+// students by bus number, find all students on bus route
+// expected output: 
+    Students taking bus 53: 
+    CARTER CORKER
+    DEEDRA WORBINGTON
+    MANIE CIGANEK
+    KENDRA SPANICEK
+    FLOY CLECKLER
+    TERESE WICINSKY
+    LELA LINHART
+    KRYSTAL DELUNA
+    ZANDRA COMO
+B: 53
+
+// TC-9
+// Tests Requirements R3, R8
+// students by nonexistent bus number, find all students on bus route
+// expected output: No students found that take this bus
+B: 7987
+
+// TC-10
+// Tests Requirements R3, R7
+// find all students in a grade
+// expected output: 
+    Students in grade 4: 
+    CARTER CORKER
+    DEVIN IMMERMAN
+    ALONZO RAPOSE
+    DEEDRA WORBINGTON
+    ERVIN OGAS
+    KENDRA SPANICEK
+    CODI GUICE
+    HUNG GLOR
+    NOAH GUM
+    ELDON MASSART
+    ROLLAND NOVICK
+    CARLEE DURAND
+    TAMESHA BEX
+    KRYSTAL DELUNA
+    ZANDRA COMO
+G: 4
+
+// TC-11
+// Tests Requirements R3, R7
+// find all students in a nonexistent grade
+// expected output: No students found in this grade
+G: 10 (with H, L, or any other invalid command added on as well Ex: G: 10 H, G: 10 L, G: 10 J)
+
+// TC-12
+// Tests Requirements R3, R9
+// find student with the highest GPA in a grade
+// expected output: 
+    Student with the highest GPA in grade 3:
+    SHARRI SWEDLUND, GPA: 3.24, Teacher: ROCIO FAFARD, Bus: 55
+G: 3 H
+
+// TC-13
+// Tests Requirements R3, R9
+// find student with the lowest GPA in a grade
+// expected output: 
+    Student with the lowest GPA in grade 2:
+    BUSTER KOZOLA, GPA: 2.76, Teacher: GAVIN HAMER, Bus: 55
+G: 2 L
+
+// TC-14
+// Tests Requirements R3, R9
+// find student with the highest/lowest (with wrong command) GPA in a grade
+// expected output: High or Low not specified
+G: 2 J
+
+// TC-15
+// Tests Requirements R3, R10
+// calculate average GPA for a grade
+// expected output: The average GPA of students in grade 3: 3.05
+A: 3
+
+// TC-16
+// Tests Requirements R3, R10
+// calculate average GPA for a nonexistent grade
+// expected output: No students found in this grade
+A: 19
+
+// TC-17
+// Tests Requirements R3, R11
+// display student count by grade
+// expected output: 
+    Grade 0: 0 Students
+    Grade 1: 2 Students
+    Grade 2: 13 Students
+    Grade 3: 9 Students
+    Grade 4: 15 Students
+    Grade 5: 0 Students
+    Grade 6: 21 Students
+I
+
+// TC-18
+// Tests Requirements R3, E1
+// invalid command
+// expected output: "Invalid command. Please try again."
+X
+
+// TC-19
+// Tests Requirements R3, R13
+// quit command
+// expected output: Exiting program now. Thank you! (program terminates)
+Q

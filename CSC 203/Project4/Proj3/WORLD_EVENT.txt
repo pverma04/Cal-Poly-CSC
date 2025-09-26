@@ -1,0 +1,10 @@
+1. To trigger the event, click on any side of the main entity (Aang, the orange guy, of the Tree class)
+2. Aang will shoot airballs on the side you click on (left, right, up, or down)
+3. If the airballs hit an enemy entity, the enemy entity will turn into a fireball (DudeFull class) and jump into
+the nearest firepit (Obstacle class).
+4. When you hit a dragon (DudeNotFull class) or Prince Zuko (Fairy class), a new dragon spawns from a randomized
+corner of the world. Every 4 enemies you kill, a new Prince Zuko spawns from a randomized corner of the world as well.
+5. Drew Kim - provided code base from Project 3, implemented AStar, Strategy Design Pattern, edited DudeFull,
+DudeNotFull, and Fairy classes.
+Parth Verma - implemented Dijkstra, implemented Factory Design Pattern, edited Tree class, cursor key functionality
+Both - changed pictures, modified game design

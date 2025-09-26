@@ -1,0 +1,81 @@
+Please enter a command. Q[uit] to exit: S: COOKUS
+XUAN COOKUS, Grade: 3, Classroom: 107, Teacher: ROCIO FAFARD
+Please enter a command. Q[uit] to exit: S: PLANKTON
+Student last name: 'PLANKTON' not found
+Please enter a command. Q[uit] to exit: S: WOOLERY B
+NOLAN WOOLERY, Bus Route: 51
+Please enter a command. Q[uit] to exit: S: COOKUS A
+Invalid request
+Please enter a command. Q[uit] to exit: S: IWUEHWE B
+Student last name: 'IWUEHWE' not found
+Please enter a command. Q[uit] to exit: T: HAMER
+Students that have HAMER as their teacher: 
+TODD LIBRANDI
+BOBBIE HAVIR
+DIEDRA SARAO
+MIKE VANCOTT
+TERESE WICINSKY
+BUSTER KOZOLA
+LEIGHANN MULLINGS
+BILLY BUSSMANN
+DICK BERBES
+RANDELL MULGREW
+LANE TOWLEY
+Please enter a command. Q[uit] to exit: T: ABC
+No students found that have this teacher
+Please enter a command. Q[uit] to exit: B: 53
+Students taking bus 53: 
+CARTER CORKER
+DEEDRA WORBINGTON
+MANIE CIGANEK
+KENDRA SPANICEK
+FLOY CLECKLER
+TERESE WICINSKY
+LELA LINHART
+KRYSTAL DELUNA
+ZANDRA COMO
+Please enter a command. Q[uit] to exit: B: 7987
+No students found that take this bus
+Please enter a command. Q[uit] to exit: G: 4
+Students in grade 4: 
+CARTER CORKER
+DEVIN IMMERMAN
+ALONZO RAPOSE
+DEEDRA WORBINGTON
+ERVIN OGAS
+KENDRA SPANICEK
+CODI GUICE
+HUNG GLOR
+NOAH GUM
+ELDON MASSART
+ROLLAND NOVICK
+CARLEE DURAND
+TAMESHA BEX
+KRYSTAL DELUNA
+ZANDRA COMO
+Please enter a command. Q[uit] to exit: G: 10 
+No students found in this grade
+Please enter a command. Q[uit] to exit: G: 3 H
+Student with the highest GPA in grade 3:
+SHARRI SWEDLUND, GPA: 3.24, Teacher: ROCIO FAFARD, Bus: 55
+Please enter a command. Q[uit] to exit: G: 2 L
+Student with the lowest GPA in grade 2:
+BUSTER KOZOLA, GPA: 2.76, Teacher: GAVIN HAMER, Bus: 55
+Please enter a command. Q[uit] to exit: G: 2 J
+High or Low not specified
+Please enter a command. Q[uit] to exit: A: 3
+The average GPA of students in grade 3: 3.05
+Please enter a command. Q[uit] to exit: A: 19
+No students found in this grade
+Please enter a command. Q[uit] to exit: I
+Grade 0: 0 Students
+Grade 1: 2 Students
+Grade 2: 13 Students
+Grade 3: 9 Students
+Grade 4: 15 Students
+Grade 5: 0 Students
+Grade 6: 21 Students
+Please enter a command. Q[uit] to exit: X
+Invalid command: please try again
+Please enter a command. Q[uit] to exit: Q
+Exiting program now. Thank you!

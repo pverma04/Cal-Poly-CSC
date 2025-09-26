@@ -1,0 +1,34 @@
+ Your team name/number, list of team members; Myself, Parth Verma
+• Initial decisions: programming language, environment;
+    - I wanted to just build off my previous code. This required changing some functions to print 
+    - in the helper function, as I could access teachers and print in an effective manner 
+    - if I collected all students in a list, and then searched for each one's teacher
+    - in the main function while printing information
+• Notes on selected internal architecture: what data structures to use, for what purposes;
+    - Used a teacher class for teachers, stored in dictionary by classroom for key, object for value
+• Task log. For each task to be completed, list the name of the task, the student(s) perform-
+ing it, start time, end time, total person-hours it took to complete. Choose the granularity
+wisely. You do not have to document every method or function.
+    - I made all of them. I finished updating my previous code to use two txt files within 2 hours. 
+    - Then to add The analytics it took about another hour. 
+    - Testing (writing cases, and testing itself) took a total of 30 min
+• Notes on testing. When, who, how long, how many bugs found, how long it took to fix
+them.
+    - Biggest issue was getting info by classroom, as I had to make a dictionary (key room, value object)
+    - I had trouble getting the dictionary sorted by key
+• Final notes (anything else you want to share with me about your implementation)
+For Part b writeup, also add the following information, where appropriate:
+    - Nothing in partiuclar. This was a fun lab!
+• Decisions you made on how to modify your Part a code to accommodate new input data.
+Which parts of the code were affected?
+    - My helper methods were affected, in which I needed to print stduent and teacher in the same line
+    - This required making the helped method access and print all information right there
+    - as opposed to returning a list of objects
+• Syntax and semantics of any additions to the query language, complete with examples.
+Additionally, please include simple description of the new commands in the README file.
+    - C: <number> S/T gives a list of Students in the classroom, or teachers in the classroom
+    - G: <num> T gives teachers teaching this grade
+    - I: C <num> gives enorllment numbers per classroom
+    - A: G/B/T <grade num/bus route/teacher> gives average, high, and low gpa for whichever command selected
+    
+
