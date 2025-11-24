@@ -23,8 +23,14 @@ class CoinListViewModel : ViewModel() {
         private set
 
     fun loadCoins() {
-        //show loading
-        uiState = uiState.copy(isLoading = true, errorMessage = null)
+        // remember the current list in case the refresh fails
+        val previousCoins = uiState.coins
+
+        // show loading, keep old coins visible
+        uiState = uiState.copy(
+            isLoading = true,
+            errorMessage = null
+        )
 
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
@@ -32,10 +38,11 @@ class CoinListViewModel : ViewModel() {
             }
 
             uiState = if (result.isEmpty()) {
+                // keep previous data, just show error
                 uiState.copy(
                     isLoading = false,
-                    coins = emptyList(),
-                    errorMessage = "Failed to load data"
+                    coins = previousCoins,
+                    errorMessage = "Failed to load data (network or rate limit)"
                 )
             } else {
                 uiState.copy(
