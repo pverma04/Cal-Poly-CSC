@@ -17,6 +17,7 @@ import com.zybooks.cryptotracker.model.Coin
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TextButton
 import androidx.compose.foundation.clickable
+import coil.compose.AsyncImage
 @OptIn(ExperimentalMaterial3Api::class)
 
 
@@ -95,11 +96,24 @@ fun CoinRow(
             .fillMaxWidth()
             .clickable { onClick() }
             .padding(horizontal = 16.dp, vertical = 10.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column {
-            Text(text = coin.name, fontWeight = FontWeight.Bold)
-            Text(text = coin.symbol, style = MaterialTheme.typography.labelMedium)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+
+            //coin icons
+            AsyncImage(
+                model = coin.imageUrl,
+                contentDescription = coin.name,
+                modifier = Modifier
+                    .size(32.dp)
+                    .padding(end = 12.dp)
+            )
+
+            Column {
+                Text(text = coin.name, fontWeight = FontWeight.Bold)
+                Text(text = coin.symbol, style = MaterialTheme.typography.labelMedium)
+            }
         }
         Column(horizontalAlignment = Alignment.End) {
             Text(
