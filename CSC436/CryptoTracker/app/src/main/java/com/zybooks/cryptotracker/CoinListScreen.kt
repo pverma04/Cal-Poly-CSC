@@ -16,9 +16,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zybooks.cryptotracker.model.Coin
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TextButton
+import androidx.compose.foundation.clickable
 @OptIn(ExperimentalMaterial3Api::class)
+
+
 @Composable
-fun CoinListScreen(vm: CoinListViewModel = viewModel()) {
+fun CoinListScreen(
+    vm: CoinListViewModel = viewModel(),
+    onCoinClick: (Coin) -> Unit
+) {
     val uiState = vm.uiState
 
     LaunchedEffect(Unit) {
@@ -64,7 +70,10 @@ fun CoinListScreen(vm: CoinListViewModel = viewModel()) {
                         modifier = Modifier.fillMaxSize()
                     ) {
                         items(uiState.coins) { coin ->
-                            CoinRow(coin)
+                            CoinRow(
+                                coin = coin,
+                                onClick = { onCoinClick(coin) }
+                            )
                         }
                     }
                 }
@@ -74,13 +83,17 @@ fun CoinListScreen(vm: CoinListViewModel = viewModel()) {
 }
 
 @Composable
-fun CoinRow(coin: Coin) {
+fun CoinRow(
+    coin: Coin,
+    onClick: () -> Unit
+) {
     val changeColor =
         if (coin.priceChange24h >= 0) Color(0xFF2E7D32) else Color(0xFFC62828)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onClick() }
             .padding(horizontal = 16.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

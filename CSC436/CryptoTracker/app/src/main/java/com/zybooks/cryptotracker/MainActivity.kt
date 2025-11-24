@@ -3,14 +3,8 @@ package com.zybooks.cryptotracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.*
+import com.zybooks.cryptotracker.model.Coin
 import com.zybooks.cryptotracker.ui.theme.CryptoTrackerTheme
 
 
@@ -19,24 +13,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CryptoTrackerTheme {
-                CoinListScreen()
+                var selectedCoin by remember { mutableStateOf<Coin?>(null) }
+
+                if (selectedCoin == null) {
+                    CoinListScreen(
+                        onCoinClick = { coin ->
+                            selectedCoin = coin
+                        }
+                    )
+                } else {
+                    CoinDetailScreen(
+                        coin = selectedCoin!!,
+                        onBack = { selectedCoin = null }
+                    )
+                }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CryptoTrackerTheme {
-        Greeting("Android")
     }
 }
