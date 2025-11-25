@@ -57,6 +57,10 @@ object CryptoApi {
             } else {
                 obj.getDouble("price_change_percentage_24h")
             }
+            val high24h = if (obj.isNull("high_24h")) null else obj.getDouble("high_24h")
+            val low24h = if (obj.isNull("low_24h")) null else obj.getDouble("low_24h")
+            val marketCap = if (obj.isNull("market_cap")) null else obj.getDouble("market_cap")
+            val totalVolume = if (obj.isNull("total_volume")) null else obj.getDouble("total_volume")
 
             coins.add(
                 Coin(
@@ -65,7 +69,11 @@ object CryptoApi {
                     name = name,
                     imageUrl = image,
                     currentPrice = price,
-                    priceChange24h = change
+                    priceChange24h = change,
+                    high24h = high24h,
+                    low24h = low24h,
+                    marketCap = marketCap,
+                    totalVolume = totalVolume
                 )
             )
         }

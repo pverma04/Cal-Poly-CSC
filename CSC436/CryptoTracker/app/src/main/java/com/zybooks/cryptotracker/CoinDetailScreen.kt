@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.zybooks.cryptotracker.model.Coin
+import java.text.NumberFormat
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 
@@ -41,9 +43,44 @@ fun CoinDetailScreen(
         ) {
             Text(text = coin.name, fontWeight = FontWeight.Bold)
             Text(text = "Symbol: ${coin.symbol}")
-            Text(text = "Current price: $${String.format("%.2f", coin.currentPrice)}")
-            Text(text = "24h change: ${String.format("%.2f", coin.priceChange24h)} %")
             Text(text = "ID: ${coin.id}")
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Current price: ${formatUsd(coin.currentPrice)}",
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = "24h change: ${String.format("%.2f", coin.priceChange24h)} %"
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(text = "24h high: ${formatUsdNullable(coin.high24h)}")
+            Text(text = "24h low: ${formatUsdNullable(coin.low24h)}")
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(text = "Market cap: ${formatBigNumber(coin.marketCap)}")
+            Text(text = "Total volume: ${formatBigNumber(coin.totalVolume)}")
         }
     }
+}
+
+private fun formatUsd(value: Double): String {
+    val nf = NumberFormat.getCurrencyInstance(Locale.US)
+    nf.maximumFractionDigits = 2
+    return nf.format(value)
+}
+
+private fun formatUsdNullable(value: Double?): String {
+    return value?.let { formatUsd(it) } ?: "N/A"
+}
+
+private fun formatBigNumber(value: Double?): String {
+    if (value == null) return "N/A"
+    val nf = NumberFormat.getNumberInstance(Locale.US)
+    nf.maximumFractionDigits = 0
+    return nf.format(value)
 }
