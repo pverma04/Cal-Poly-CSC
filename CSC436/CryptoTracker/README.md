@@ -13,6 +13,7 @@ CSC436/CryptoTracker/FigmaScreen1.png
 CSC436/CryptoTracker/FigmaScreen2.png
 
 
+
 _**Android & Jetpack Compose Features Used:**_
 **_Core Jetpack Compose Components:_**
 - Scaffold, TopAppBar, LazyColumn, Row, Column, Text, Divider 
