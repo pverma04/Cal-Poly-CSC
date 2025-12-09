@@ -9,46 +9,49 @@ Users can browse the top cryptocurrencies,
 tap any coin to view detailed statistics, and refresh market data on demand.
 
 NOTE: FIGMA SCREENS ARE LOCATED IN HIGHEST LEVEL FOLDER
+CSC436/CryptoTracker/FigmaScreen1.png
+CSC436/CryptoTracker/FigmaScreen2.png
+
 
 _**Android & Jetpack Compose Features Used:**_
-_Core Jetpack Compose Components:_
+**_Core Jetpack Compose Components:_**
 - Scaffold, TopAppBar, LazyColumn, Row, Column, Text, Divider 
 - Material 3 components 
 - State handling with mutableStateOf and recomposition 
 - viewModel() integration with Compose 
 - Navigation via screen state (manual screen switching)
 
-**_Architecture**_
+**_Architecture_**
 - MVVM Pattern
   - CoinListViewModel: state management & API orchestration 
   - UI screens observe ViewModel state and recompose automatically
 - data class models for clean mapping from JSON → UI
 
-**_Networking & Concurrency**_
+**_Networking & Concurrency_**
 - HttpURLConnection for REST API calls (no Retrofit required)
 - Kotlin Coroutines
   - Dispatchers.IO for background work 
   - viewModelScope.launch for structured concurrency 
 - JSON parsing with JSONArray / JSONObject
 
-**_Image Loading (3rd Party Library)**_
+**_Image Loading (3rd Party Library)_**
 - Coil (coil-compose)
   - Displays live coin images 
   - Handles caching, async loading, and scaling
 
-**_Formatting Utilities**_
+**_Formatting Utilities_**
 - Number formatting (NumberFormat) for currency 
 - Custom big-number formatter (K, M, B, T formatting)
 - Dynamic color styling (green/red) for 24h % change
 
-**_Device / SDK Requirements**_
+**_Device / SDK Requirements_**
 - Minimum SDK: 24
 - Internet Permission Required
 NOTE: ADD IN TO AndroidManifest.xml:
 <uses-permission android:name="android.permission.INTERNET" />
 - No special device hardware needed
 
-**_Features**_
+**_Features_**
 - Fetches top cryptocurrencies (sorted by market cap)
 - Displays coin name, icon, symbol, current price, and 24h change
 - Tap any coin → detailed view
@@ -63,7 +66,7 @@ NOTE: ADD IN TO AndroidManifest.xml:
 - Graceful error handling and rate-limit recovery
 - Maintains previous successful data if API call fails
 
-**_Above and Beyond**_
+**_Above and Beyond_**
 - Added professional-grade image loading using Coil, not covered in class
 - Implemented custom large-number formatting (12.4B, 5.1M, etc.)
 - Added auto-recompose architecture using Compose + ViewModel
